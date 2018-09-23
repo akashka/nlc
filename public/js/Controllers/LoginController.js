@@ -28,13 +28,24 @@ angular.module('StudentApp.LoginController', [])
                     setCookie("password", password, 1);
                     setCookie("role", response.role, 1);
                     setCookie("center", response.center, 1);
+                    setCookie("sstate", response.sstate, 1);
                     $scope.$parent.isStudent = (response.role == 'student') ? true : false;
-                    $scope.$parent.isCenter = (response.role == 'center') ? true : false;
+                    $scope.$parent.isUnit = (response.role == 'unit') ? true : false;
+                    $scope.$parent.isMaster = (response.role == 'master') ? true : false;
                     $scope.$parent.isAdmin = (response.role == 'admin') ? true : false;
-                    if ($scope.$parent.isCenter) {
+                    if ($scope.$parent.isUnit) {
                         $scope.$parent.center = response.center;
                         for (var s = 0; s < $scope.$parent.student_list.length; s++) {
                             if ($scope.$parent.student_list[s].centercode != $scope.$parent.center) {
+                                $scope.$parent.student_list.splice(s, 1);
+                                s--;
+                            }
+                        }
+                    }
+                    if ($scope.$parent.isMaster) {
+                        $scope.$parent.sstate = response.sstate;
+                        for (var s = 0; s < $scope.$parent.student_list.length; s++) {
+                            if ($scope.$parent.student_list[s].sstatname  != $scope.$parent.sstate) {
                                 $scope.$parent.student_list.splice(s, 1);
                                 s--;
                             }
@@ -174,16 +185,17 @@ angular.module('StudentApp.LoginController', [])
             var opt = $scope.$parent.center_list.filter(function (item) {
                 return (item.sstatename == $scope.student.sstatename);
             }, []);
-            $scope.student.centercode = opt[0].centercode;
             $scope.centeroptions = getUniqueValuesOfKey(opt, 'centername');
         }
 
         $scope.onCenterChange = function () {
             $scope.programmeoptions = [];
+            $scope.student.centercode = "";
             var opt = $scope.$parent.center_list.filter(function (item) {
                 return (item.sstatename == $scope.student.sstatename &&
                     item.centername == $scope.student.centername);
             }, []);
+            $scope.student.centercode = opt[0].centercode;
             $scope.programmeoptions = getUniqueValuesOfKey(opt, 'programmename');
         }
 
@@ -319,7 +331,10 @@ angular.module('StudentApp.LoginController', [])
             level: "",
             feesdetails: [],
             lastyearlevel: {},
-            ufapproved: false,
+            paymentdate: "",
+            transactionno: "",
+            paymentmode: "",
+            bankname: "",
             mfapproved: false,
             examdate: undefined,
             entrytime: "",

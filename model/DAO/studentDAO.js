@@ -33,7 +33,11 @@ var StudentSchema = new Schema({
     level: { type: String },
     feesdetails: { type: Array },
     lastyearlevel: { type: Object },
-    ufapproved: { type: Boolean, default: false},
+    paymentdate: { type: String },
+    transactionno: { type: String },
+    paymentmode: { type: String },
+    bankname: { type: String },
+    examdate: { type: String },
     mfapproved: { type: Boolean, default: false},
     examdate: { type: String },
     entrytime: { type: String },
@@ -115,7 +119,6 @@ function updateStudent(id, student, callbacks) {
     return StudentModel.findById(id, function (err, f) {
         if (!err) {
             f.paymentapproved = student.paymentapproved;
-
             f.phone = student.phone;
             f.email = student.email;
             f.name = student.name;
@@ -139,12 +142,18 @@ function updateStudent(id, student, callbacks) {
             f.level = student.level;
             f.feesdetails = student.feesdetails;
             f.lastyearlevel = student.lastyearlevel;
-            f.ufapproved = student.ufapproved;
+            f.paymentdate = student.paymentdate;
+            f.transactionno = student.transactionno;
+            f.paymentmode = student.paymentmode;
+            f.bankname = student.bankname;
+            f.examdate = student.examdate;
             f.mfapproved = student.mfapproved;
             f.examdate = student.examdate;
             f.entrytime = student.entrytime;
             f.competitiontime = student.competitiontime;
             f.venue = student.venue;
+            f.dateCreated = student.dateCreated;
+            f.dateModified = new Date();
 
             return f.save(function (err) {
                 if (!err) {
@@ -211,7 +220,7 @@ function generateHallTicket(username, callbacks) {
             text += "Roll No: " + student.admissioncardno + "\n \n";
             text += "Competition Time: " + student.competitiontime + "\n \n";
             text += "School / Center: " + ((student.centername != undefined) ? student.centername : "") + ((student.schoolname != undefined) ? student.schoolname : "") + "  /  " + ((student.centercode != undefined) ? student.centercode : "")+ "\n \n";
-            text += (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohakarnataka/' + student.photo) : '';
+            text += (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.photo) : '';
 
             QRCode.toDataURL(text, function (err, body) {
                 var qrImage = "";
@@ -222,7 +231,7 @@ function generateHallTicket(username, callbacks) {
                 stringTemplate = stringTemplate.replace('{{EntryTime}}', (student.entrytime != undefined) ? student.entrytime : "");
                 stringTemplate = stringTemplate.replace('{{CompetitionTime}}', (student.competitiontime != undefined) ? student.competitiontime : "");
                 console.log(student.photo);
-                stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohakarnataka/" + student.photo) : "");
+                stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohanlc/" + student.photo) : "");
                 stringTemplate = stringTemplate.replace('{{StudentRollNumber}}', (student.admissioncardno != undefined) ? student.admissioncardno : "");
                 stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "");
 

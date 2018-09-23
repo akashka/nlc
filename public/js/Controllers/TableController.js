@@ -29,10 +29,20 @@ angular.module('StudentApp.TableController', [])
                 $scope.$parent.student_list = response;
                 $scope.$parent.loading = false;
 
-                if ($scope.$parent.isCenter) {
-                    $scope.$parent.center = getCookie('center');;
+                if ($scope.$parent.isUnit) {
+                    $scope.$parent.center = getCookie('center');
                     for (var s = 0; s < $scope.$parent.student_list.length; s++) {
                         if ($scope.$parent.student_list[s].centercode != $scope.$parent.center) {
+                            $scope.$parent.student_list.splice(s, 1);
+                            s--;
+                        }
+                    }
+                }
+
+                if ($scope.$parent.isMaster) {
+                    $scope.$parent.sstate = getCookie('sstate');
+                    for (var s = 0; s < $scope.$parent.student_list.length; s++) {
+                        if ($scope.$parent.student_list[s].sstatename != $scope.$parent.sstate) {
                             $scope.$parent.student_list.splice(s, 1);
                             s--;
                         }
@@ -45,7 +55,9 @@ angular.module('StudentApp.TableController', [])
             });
 
             $scope.studentClick = function (status, id) {
-                if ((status == "admin" || status == "hallticket" || status == "closed" || $scope.selectMultiple == true) && $scope.isCenter) { } else {
+                if ((status == "admin" || status == "hallticket" || status == "closed" || $scope.selectMultiple == true) && $scope.isUnit) { }
+                else if ($scope.isMaster) { }
+                else {
                     $scope.$parent.loading = true;
                     $scope.$parent.editing = true;
                     studentFactory.get({ id: id }, function (response) {
@@ -77,11 +89,11 @@ angular.module('StudentApp.TableController', [])
                     }
                 }
                 if (!isFound) $scope.$parent.selected.push(f);
-                $scope.$parent.total_amount = $scope.$parent.selected.length * 550;
-                for (var t = 0; t < $scope.$parent.selected.length; t++) {
-                    if ($scope.$parent.selected[t].tshirtrequired == true)
-                        $scope.$parent.total_amount += 250;
-                }
+                $scope.$parent.total_amount = $scope.$parent.selected.length * 1000;
+                // for (var t = 0; t < $scope.$parent.selected.length; t++) {
+                //     if ($scope.$parent.selected[t].tshirtrequired == true)
+                //         $scope.$parent.total_amount += 250;
+                // }
             }
 
             $scope.deleteStudent = function (deleted_id) {
@@ -95,6 +107,15 @@ angular.module('StudentApp.TableController', [])
             $scope.approveStudent = function (stu) {
                 stu.paymentapproved = true;
                 stu.status = "hallticket";
+                studentFactory.update({ id: stu._id }, stu, function (response) {
+                    $scope.$parent.update_students();
+                }, function (response) {
+                    console.error(response);
+                });
+            }
+
+            $scope.masterApprove = function (stu) {
+                stu.mfapproved = true;
                 studentFactory.update({ id: stu._id }, stu, function (response) {
                     $scope.$parent.update_students();
                 }, function (response) {

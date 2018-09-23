@@ -38,12 +38,17 @@ router.post('/', function (req, res) {
             level: req.body.level,
             feesdetails: req.body.feesdetails,
             lastyearlevel: req.body.lastyearlevel,
-            ufapproved: req.body.ufapproved,
+            paymentdate: req.body.paymentdate,
+            transactionno: req.body.transactionno,
+            paymentmode: req.body.paymentmode,
+            bankname: req.body.bankname,
             mfapproved: req.body.mfapproved,
             examdate: req.body.examdate,
             entrytime: req.body.entrytime,
             competitiontime: req.body.competitiontime,
-            venue: req.body.venue
+            venue: req.body.venue,
+            dateCreated: req.body.dateCreated,
+            dateModified: req.body.dateModified
         }, {
                 success: function (f) {
                     res.status(201).send({ msg: 'Student created succesfully: ' + req.body.name, data: f });
@@ -130,12 +135,17 @@ router.put('/:id', function (req, res) {
             level: req.body.level,
             feesdetails: req.body.feesdetails,
             lastyearlevel: req.body.lastyearlevel,
-            ufapproved: req.body.ufapproved,
+            paymentdate: req.body.paymentdate,
+            transactionno: req.body.transactionno,
+            paymentmode: req.body.paymentmode,
+            bankname: req.body.bankname,
             mfapproved: req.body.mfapproved,
             examdate: req.body.examdate,
             entrytime: req.body.entrytime,
             competitiontime: req.body.competitiontime,
-            venue: req.body.venue
+            venue: req.body.venue,
+            dateCreated: req.body.dateCreated,
+            dateModified: req.body.dateModified
         }, {
                 success: function (f) {
                     res.status(200).send({ msg: 'Student updated succesfully: ' + JSON.stringify(f), data: f });

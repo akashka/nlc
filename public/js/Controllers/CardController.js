@@ -7,11 +7,11 @@ angular.module('StudentApp.CardController', [])
         };
 
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-        $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
         $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
         $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
         $scope.eslevels = ["1", "2", "3", "4", "5"];
         $scope.smlevels = ["1", "2", "3", "4", "5", "6"];
+        $scope.hwlevels = ["1", "2", "3", "4"];
 
         //Save student button handler
         $scope.msg = "";
@@ -60,60 +60,42 @@ angular.module('StudentApp.CardController', [])
             }
         }
 
-        $scope.age = {
-            years: -1,
-            months: -1,
-            days: -1
-        };
-        $scope.calculateAge = function () {
-            var yearNow = 118;
-            var monthNow = 8;
-            var dateNow = 30;
-            var dob = new Date($scope.$parent.student.dateofbirth);
-            var yearDob = dob.getYear();
-            var monthDob = dob.getMonth();
-            var dateDob = dob.getDate();
-            var age = {};
-            yearAge = yearNow - yearDob;
-
-            var monthAge = monthNow - monthDob;
-            if (monthNow < monthDob) {
-                yearAge--;
-                monthAge += 12;
-            }
-
-            var dateAge = dateNow - dateDob;
-            if (dateNow < dateDob) {
-                monthAge--;
-                dateAge += 31;
-                if (monthAge < 0) {
-                    monthAge = 11;
-                    yearAge--;
+        $scope.getCategoryValue = function() {
+            if($scope.$parent.student != undefined && $scope.$parent.student.dateofbirth != undefined) {
+                var dt = $scope.$parent.student.dateofbirth;
+                $scope.$parent.student.category = "";
+                if ($scope.$parent.student.programmename == 'TT') {
+                    if (dt > new Date('10/01/2011')) $scope.$parent.student.category = 'A';
+                    else $scope.$parent.student.category = 'B';
+                } else if($scope.$parent.student.programmename == 'MA'){
+                    if (dt > new Date('10/01/2010')) $scope.$parent.student.category = 'A';
+                    else if (dt > new Date('10/01/2008')) $scope.$parent.student.category = 'B';
+                    else if (dt > new Date('10/01/2006')) $scope.$parent.student.category = 'C';
+                    else $scope.$parent.student.category = 'D';
+                } else {
+                    $scope.$parent.student.category = 'A';
                 }
+                return $scope.$parent.student.category;
             }
-
-            age = {
-                years: yearAge,
-                months: monthAge,
-                days: dateAge
-            };
-            $scope.age = age;
-            return age;
+            return '';
         }
 
-        $scope.onGroupChange = function (group, program) {
-            var age = $scope.calculateAge();
-            if (group == 'TT') {
-                if (age.years >= 5 && age.years < 7) $scope.$parent.student.category = 'A';
-                else if (age.years >= 7) $scope.$parent.student.category = 'B';
-                else $scope.$parent.student.category = 'Not Eligible';
-            } else {
-                if (age.years >= 7 && age.years < 9) $scope.$parent.student.category = 'A';
-                else if (age.years >= 9 && age.years < 11) $scope.$parent.student.category = 'B';
-                else if (age.years >= 11 && age.years < 13) $scope.$parent.student.category = 'C';
-                else if (age.years >= 13) $scope.$parent.student.category = 'D';
-                else $scope.$parent.student.category = 'Not Eligible';
+        $scope.getlevelsOptions = function() {
+            if($scope.$parent.student != undefined && $scope.$parent.student.programmename != undefined) {
+                if ($scope.$parent.student.programmename == 'TT')
+                    return $scope.ttlevels;
+                else if ($scope.$parent.student.programmename == 'MA')
+                    return $scope.malevels;
+                else if ($scope.$parent.student.programmename == 'ES')
+                    return $scope.eslevels;
+                else if ($scope.$parent.student.programmename == 'SM')
+                    return $scope.smlevels;
+                else if ($scope.$parent.student.programmename == 'HW')
+                    return $scope.hwlevels;
+                else
+                    return [];
             }
+            return [];
         }
 
         $scope.uploadFile = function (myFile) {

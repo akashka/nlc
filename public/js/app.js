@@ -17,10 +17,11 @@ var app = angular.module('StudentApp', [
         $scope.loading = true;
         $scope.loggedIn = getCookie('username') != "";
         $scope.isStudent = getCookie('role') == "student";
-        $scope.isCenter = getCookie('role') == "center";
+        $scope.isUnit = getCookie('role') == "unit";
+        $scope.isMaster = getCookie('role') == "master";
         $scope.isAdmin = getCookie('role') == "admin";
-        if ($scope.isCenter) $scope.center = getCookie('center');
-        // $scope.student={};
+        if ($scope.isUnit) $scope.center = getCookie('center');
+        if (!$scope.isStudent) $scope.sstate = getCookie('sstate');
         $scope.editing = false;
 
         //Add student button handler
@@ -104,54 +105,64 @@ var app = angular.module('StudentApp', [
 
         $scope.getDownloadTable = function () {
             var down = [];
+            $scope.$parent.center = getCookie('center');
+            $scope.$parent.sstate = getCookie('sstate');
             for (var d = 0; d < $scope.student_list.length; d++) {
-                down.push({
-                    phone: ($scope.student_list[d].phone != undefined) ? $scope.student_list[d].phone : "",
-                    email: ($scope.student_list[d].email != undefined) ? $scope.student_list[d].email : "",
-                    name: ($scope.student_list[d].name != undefined) ? $scope.student_list[d].name : "",
-                    dateofbirth: ($scope.student_list[d].dateofbirth != undefined) ? $scope.student_list[d].dateofbirth : "",
-                    gender: ($scope.student_list[d].gender != undefined) ? $scope.student_list[d].gender : "",
-                    parentname: ($scope.student_list[d].parentname != undefined) ? $scope.student_list[d].parentname : "",
-                    address: ($scope.student_list[d].address != undefined) ? $scope.student_list[d].address : "",
-                    programmename: ($scope.student_list[d].programmename != undefined) ? $scope.student_list[d].programmename : "",
-                    tshirtrequired: ($scope.student_list[d].tshirtrequired != undefined) ? $scope.student_list[d].tshirtrequired : "",
-                    tshirtsize: ($scope.student_list[d].tshirtsize != undefined) ? $scope.student_list[d].tshirtsize : "",
-                    photo: ($scope.student_list[d].photo != undefined && $scope.student_list[d].photo != "") ? ("https://s3.ap-south-1.amazonaws.com/alohakarnataka/" + $scope.student_list[d].photo) : "",
-                    birthcertificate: ($scope.student_list[d].birthcertificate != undefined && $scope.student_list[d].birthcertificate != "") ? ("https://s3.ap-south-1.amazonaws.com/alohakarnataka/" + $scope.student_list[d].birthcertificate) : "",
-                    centername: (($scope.student_list[d].centername != undefined) ? $scope.student_list[d].centername : "") + ($scope.student_list[d].schoolname != undefined ? $scope.student_list[d].schoolname : ""),
-                    status: ($scope.student_list[d].status != undefined) ? $scope.student_list[d].status : "",
-                    dateCreated: ($scope.student_list[d].dateCreated != undefined) ? $scope.student_list[d].dateCreated : "",
-                    group: ($scope.student_list[d].group != undefined) ? $scope.student_list[d].group : "",
-                    category: ($scope.student_list[d].category != undefined) ? $scope.student_list[d].category : "",
-                    level: ($scope.student_list[d].level != undefined) ? $scope.student_list[d].level : "",
-                    registrationdate: ($scope.student_list[d].registrationdate != undefined) ? $scope.student_list[d].registrationdate : "",
-                    presentlevel: ($scope.student_list[d].presentlevel != undefined) ? $scope.student_list[d].presentlevel : "",
-                    presentweek: ($scope.student_list[d].presentweek != undefined) ? $scope.student_list[d].presentweek : "",
-                    section: ($scope.student_list[d].section != undefined) ? $scope.student_list[d].section : "",
-                    class: ($scope.student_list[d].class != undefined) ? $scope.student_list[d].class : "",
-                    lastyearlevel: ($scope.student_list[d].lastyearlevel != undefined) ? $scope.student_list[d].lastyearlevel : "",
-                    paymentdate: ($scope.student_list[d].paymentdate != undefined) ? $scope.student_list[d].paymentdate : "",
-                    transactionno: ($scope.student_list[d].transactionno != undefined) ? $scope.student_list[d].transactionno : "",
-                    paymentmode: ($scope.student_list[d].paymentmode != undefined) ? $scope.student_list[d].paymentmode : "",
-                    bankname: ($scope.student_list[d].bankname != undefined) ? $scope.student_list[d].bankname : "",
-                    examdate: ($scope.student_list[d].examdate != undefined) ? $scope.student_list[d].examdate : "",
-                    entrytime: ($scope.student_list[d].entrytime != undefined) ? $scope.student_list[d].entrytime : "",
-                    competitiontime: ($scope.student_list[d].competitiontime != undefined) ? $scope.student_list[d].competitiontime : "",
-                    admissioncardno: ($scope.student_list[d].admissioncardno != undefined) ? $scope.student_list[d].admissioncardno : "",
-                    paymentapproved: ($scope.student_list[d].paymentapproved != undefined) ? $scope.student_list[d].paymentapproved : ""
-                })
+                if ($scope.isAdmin || ($scope.isMaster && $scope.student_list[d].sstatename == $scope.$parent.sstate) 
+                    || ($scope.isUnit && $scope.student_list[d].centercode == $scope.$parent.center)) {
+                        down.push({
+                            phone: ($scope.student_list[d].phone != undefined) ? $scope.student_list[d].phone : "",
+                            email: ($scope.student_list[d].email != undefined) ? $scope.student_list[d].email : "",
+                            name: ($scope.student_list[d].name != undefined) ? $scope.student_list[d].name : "",
+                            dateofbirth: ($scope.student_list[d].dateofbirth != undefined) ? $scope.student_list[d].dateofbirth : "",
+                            gender: ($scope.student_list[d].gender != undefined) ? $scope.student_list[d].gender : "",
+                            parentname: ($scope.student_list[d].parentname != undefined) ? $scope.student_list[d].parentname : "",
+                            address: ($scope.student_list[d].address != undefined) ? $scope.student_list[d].address : "",
+                            tshirtsize: ($scope.student_list[d].tshirtsize != undefined) ? $scope.student_list[d].tshirtsize : "",
+                            photo: ($scope.student_list[d].photo != undefined && $scope.student_list[d].photo != "") ? ("https://s3.ap-south-1.amazonaws.com/alohanlc/" + $scope.student_list[d].photo) : "",
+                            birthcertificate: ($scope.student_list[d].birthcertificate != undefined && $scope.student_list[d].birthcertificate != "") ? ("https://s3.ap-south-1.amazonaws.com/alohanlc/" + $scope.student_list[d].birthcertificate) : "",
+                            programmename: ($scope.student_list[d].programmename != undefined) ? $scope.student_list[d].programmename : "",
+                            centername: ($scope.student_list[d].centername != undefined) ? $scope.student_list[d].centername : "",
+                            centercode: ($scope.student_list[d].centercode != undefined) ? $scope.student_list[d].centercode : "",
+                            sstatename: ($scope.student_list[d].sstatename != undefined) ? $scope.student_list[d].sstatename : "",
+                            status: ($scope.student_list[d].status != undefined) ? $scope.student_list[d].status : "",
+                            dateCreated: ($scope.student_list[d].dateCreated != undefined) ? $scope.student_list[d].dateCreated : "",
+                            group: ($scope.student_list[d].group != undefined) ? $scope.student_list[d].group : "",
+                            level: ($scope.student_list[d].level != undefined) ? $scope.student_list[d].level : "",
+                            paymentdate: ($scope.student_list[d].paymentdate != undefined) ? $scope.student_list[d].paymentdate : "",
+                            transactionno: ($scope.student_list[d].transactionno != undefined) ? $scope.student_list[d].transactionno : "",
+                            paymentmode: ($scope.student_list[d].paymentmode != undefined) ? $scope.student_list[d].paymentmode : "",
+                            bankname: ($scope.student_list[d].bankname != undefined) ? $scope.student_list[d].bankname : "",
+                            examdate: ($scope.student_list[d].examdate != undefined) ? $scope.student_list[d].examdate : "",
+                            entrytime: ($scope.student_list[d].entrytime != undefined) ? $scope.student_list[d].entrytime : "",
+                            competitiontime: ($scope.student_list[d].competitiontime != undefined) ? $scope.student_list[d].competitiontime : "",
+                            admissioncardno: ($scope.student_list[d].admissioncardno != undefined) ? $scope.student_list[d].admissioncardno : "",
+                            paymentapproved: ($scope.student_list[d].paymentapproved != undefined) ? $scope.student_list[d].paymentapproved : "",
+                            mfapproved: ($scope.student_list[d].mfapproved != undefined) ? $scope.student_list[d].mfapproved : "",
+                            venue: ($scope.student_list[d].venue != undefined) ? $scope.student_list[d].venue : "",
+                        })
+                }
             }
             return down;
         }
 
         $scope.getDownloadHeader = function () {
             var abc = ['Phone No.', 'Email ID', 'Student Name', 'Date of Birth', 'Gender', 'Parent Name', 'Address',
-                'Programme Name', 'T-shirt Required', 'T-shirt Size', 'Photo URL', 'Birth Certificate URL',
-                'Center / School Name', 'Status', 'Date Of Entry', 'Group', 'Category', 'Level', 'Registration Date',
-                'Present Level', 'Present Week', 'Section', 'Class', 'Last Year Level', 'Payment Date',
+                'T-shirt Size', 'Photo URL', 'Birth Certificate URL', 'Programme Name', 'Center Name', 'Center Code',
+                'State Name', 'Status', 'Date Of Entry', 'Group', 'Level', 'Payment Date',
                 'Transaction No', 'Payment Mode', 'Bank Name', 'Exam Date', 'Entry Time', 'Competition Time',
-                'Admission Card No', 'Payment Approved'];
+                'Admission Card No', 'Payment Approved', 'MF Approved', 'Venue'];
             return abc;
+        }
+
+        /* Set the width of the side navigation to 250px */
+        $scope.openNav = function () {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        /* Set the width of the side navigation to 0 */
+        $scope.closeNav = function () {
+            document.getElementById("mySidenav").style.width = "0";
         }
 
     }]);

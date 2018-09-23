@@ -10,375 +10,8 @@ block content
                 
             #blur.ng-hide(ng-show="editing && !loading")
             
-            //- Terms & Conditions for Center
-            form(name='admintandc', ng-show="loggedIn && !isStudent && !$parent.center_terms_agreed", ng-controller="TableController")
-                .panel.panel-default(style='margin-top:100px;')
-                    .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding:30px;')
-                        h4(style="text-decoration:underline;margin:0;margin-bottom:25px;text-align:center;")
-                            | TERMS & CONDITIONS FOR CENTERS
-                        p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                            font(color='#000000')
-                                font(size='3', style='font-size: 12pt')
-                                    u
-                                        b ELIGIBILITY:   
-                        p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                            br                     
-                        ol
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                font(color='#000000')
-                                    font(size='3', style='font-size: 12pt') The student should have completed at least 7 weeks in the current level as on 30th September 2018
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                font(color='#000000')
-                                    font(size='3', style='font-size: 12pt') The student should be presently studying in ALOHA.
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                font(color='#000000')
-                                    font(size='3', style='font-size: 12pt') The student should have paid full tution fee upto current level.
-                            li
-                                p(style='margin-bottom: 0cm; line-height: 115%')
-                                font(color='#000000')
-                                    font(size='3', style='font-size: 12pt')
-                                    span(style='font-weight: normal')
-                                        | The
-                                        | student must wear the Aloha T – Shirt for the competition
-                            li
-                                p(style='margin-bottom: 0cm; line-height: 115%')
-                                font(color='#000000')
-                                    font(size='3', style='font-size: 12pt')
-                                    span(style='font-weight: normal')
-                                        | Cost
-                                        | for each T Shirt of sizes is Rs.
-                                font(face='Rupee Foradian, serif')
-                                    font(size='3', style='font-size: 12pt')
-                                    span(style='font-weight: normal')
-                                font(color='#000000')
-                                    font(size='3', style='font-size: 12pt')
-                                    span(style='font-weight: normal')
-                                        | 250
-                                        | /-
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                font(color='#000000')
-                                    font(size='3', style='font-size: 12pt')
-                                    span(style='font-weight: normal')
-                                        | T-
-                                        | Shirt has to be ordered in advance.   
-
-                        p(align='justify', style='margin-left: 1.27cm; margin-bottom: 0cm; font-weight: normal; line-height: 115%')
-                            br
-                        p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                            font(color='#000000')
-                                font(size='3', style='font-size: 12pt')
-                                    u
-                                        b
-                                            | CLASSIFICATION OF GROUPS & LEVELS
-                        table(cellpadding='7', cellspacing='0', style="margin-top:15px;")
-                            tbody
-                                tr(valign='bottom')
-                                    td(colspan='2', height='5', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western(align='center')
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Tiny Tots Center Programme
-                                    td(rowspan='1', colspan='1', bgcolor='#ffffff', style='border: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western(align='center')
-                                            font(color='#000000')  
-                                    td(colspan='4', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western(align='center')
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                b
-                                                    | Tiny Tots School Programme
-                                tr
-                                    td(height='6', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b A
-                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 5 years and Less than or equal to 7 years
-                                    td
-                                        p
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b A1
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 5 years and Less than or equal to 7 years
-                                tr
-                                    td(height='6', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b B
-                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 7 years
-                                    td
-                                        p
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b B1
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 7 years
-                                tr
-                                    td(colspan='8', valign='bottom', bgcolor='#ffffff', style='border: none; padding: 0cm 0.19cm')
-                                        p.western
-                                            br
-                                tr(valign='bottom')
-                                    td(colspan='2', height='6', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western(align='center')
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | MA Center Programme
-                                    td(rowspan='1', colspan='1', bgcolor='#ffffff', style='border: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western(align='center')
-                                            font(color='#000000')  
-                                    td(colspan='4', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western(align='center')
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | MA
-                                                        | School Programme
-                                tr
-                                    td(height='5', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b A
-                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 7 years and Less than or equal to 9 years
-                                    td
-                                        b
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b A1
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 8 years and Less than or equal to 10 years
-                                tr
-                                    td(height='5', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b B
-                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 9 years and Less than or equal to 11 years
-                                    td
-                                        p
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b B1
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 10 years
-                                tr
-                                    td(height='5', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western
-                                        font(color='#000000')
-                                            font(face='Calibri, serif')
-                                            b C
-                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                        font(color='#000000')
-                                            font(face='Calibri, serif')
-                                            b
-                                                | Above
-                                                | 11 years and Less than or equal to 13 years
-                                    td(colspan='1', valign='bottom', bgcolor='#ffffff', style='border: none; padding: 0cm 0.19cm')
-                                        p.western
-                                        br
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                        br
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                        br
-                                tr
-                                    td(height='4', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b D
-                                    td(valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                            font(color='#000000')
-                                                font(face='Calibri, serif')
-                                                    b
-                                                        | Above
-                                                        | 13 years
-                                    td
-                                        p
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                        br
-                                    td(colspan='2', valign='bottom', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p.western
-                                        br
-                        p.western(style='margin-bottom: 0cm; line-height: 115%')
-                            br
-                        p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                            font(color='#000000')
-                                font(size='3', style='font-size: 12pt')
-                                    b Note: Age as on 30st Sept 2018 to be taken.
-                        p(align='justify', style='margin-bottom: 0cm; line-height: 100%;padding-top:15px;')
-                            font(color='#000000')
-                                font(size='3', style='font-size: 12pt') For e.g In Tiny Tots, if a student is exact 7 years or less the student will be in ‘A’ Group. If the student is 7 years and one Day old the student will be in ‘B’ Group. Same is in case of other categories. Level in which the student is going to participate will be based on the completed Level.
-                        p(style='margin-bottom: 0cm; line-height: 100%')
-                            br
-                        p(style='margin-bottom: 0cm; line-height: 100%')
-                            br
-                        p(style='margin-bottom: 0cm; line-height: 100%')
-                            font(color='#000000')
-                                font(size='3', style='font-size: 12pt')
-                                    u
-                                        b
-                                            | School Programme
-                        table(width='361', cellpadding='7', cellspacing='0', style="margin-top:15px;width:500px;float:none;")
-                            colgroup
-                                col(width='112')
-                                col(width='219')
-                            tbody
-                                tr(valign='bottom')
-                                    td(width='112', height='5', bgcolor='#ffffff', style='border-top: 1px solid #00000a; border-bottom: 1px solid #00000a; border-left: 1px solid #00000a; border-right: 1px solid #000001; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p
-                                            font(color='#000000')
-                                                font(face='Calibri, serif') Year 1 running (TT/MA)
-                                    td(width='219', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p
-                                            font(color='#000000')
-                                                font(face='Calibri, serif') Can participate only for Level 1 
-                                tr(valign='bottom')
-                                    td(width='112', height='6', bgcolor='#ffffff', style='border-top: 1px solid #00000a; border-bottom: 1px solid #00000a; border-left: 1px solid #00000a; border-right: 1px solid #000001; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p
-                                            font(color='#000000')
-                                                font(face='Calibri, serif') Year 2 Running (TT/MA)
-                                    td(width='219', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p
-                                            font(color='#000000')
-                                                font(face='Calibri, serif') Can participate for Level 2 or Level 3
-                                tr(valign='bottom')
-                                    td(width='112', height='6', bgcolor='#ffffff', style='border-top: 1px solid #00000a; border-bottom: 1px solid #00000a; border-left: 1px solid #00000a; border-right: 1px solid #000001; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p
-                                            font(color='#000000')
-                                                font(face='Calibri, serif') Year 3 Running (TT/MA)
-                                    td(width='219', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p
-                                            font(color='#000000')
-                                                font(face='Calibri, serif') Can participate for Level 4 or Level 5
-                                tr(valign='bottom')
-                                    td(width='112', height='5', bgcolor='#ffffff', style='border-top: 1px solid #00000a; border-bottom: 1px solid #00000a; border-left: 1px solid #00000a; border-right: 1px solid #000001; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.18cm; padding-right: 0.19cm')
-                                        p
-                                            font(color='#000000')
-                                                font(face='Calibri, serif') Year 4 Running (TT/MA)
-                                    td(width='219', bgcolor='#ffffff', style='border: 1px solid #00000a; padding: 0cm 0.19cm')
-                                        p
-                                            font(color='#000000')
-                                                font(face='Calibri, serif') Can participate for Level 6 or Level 7
-                        p(style='margin-bottom: 0cm; line-height: 100%')
-                            br
-                        p(style='margin-bottom: 0cm; line-height: 100%')
-                            br
-                        p(align='justify', style='margin-bottom: 0cm; line-height: 100%')
-                            font(color='#000000')
-                                font(size='3', style='font-size: 12pt; line-height:24px;')
-                                    b Note: All the student information provided by the franchisee must match the information available with Aloha India Corporate Office. If the details provided by the franchise are found to be mismatching the registrations will not be accepted and the registration money will be refunded.
-                        p.western(style='margin-bottom: 0cm; line-height: 115%')
-                            br
-                        p
-                            font(color='#000000')
-                                font(size='3')
-                                    u
-                                        b
-                                            | NORMS FOR THE COMPETITION:
-                        ul
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                    font(color='#000000')
-                                        font(size='2', style='font-size: 10pt') 
-                                            | Registration fee of Rs. 550 /- should be collected from every participant.
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                    font(color='#000000')
-                                        font(size='2', style='font-size: 10pt') 
-                                            | All original Registration froms should reach the TASK office on or before 18th Oct 2018 along with the Registration fee (DD or Cheque, Cash will not be accepted) Postal delay will not be entertained.
-                            li    
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                    font(color='#000000')
-                                        font(size='2', style='font-size: 10pt')
-                                            | Admit card and Fee Receipt can be downloaded by Students directly from the web portal after 20th October 2018
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                    font(color='#000000')
-                                        font(size='2', style='font-size: 10pt')
-                                            | Every centre should ensure that the participant gets the ordered T – Shirt.
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                    font(color='#000000')
-                                        font(size='2', style='font-size: 10pt') 
-                                            | Any appeal (complaints) should be lodged before 31st Oct 2018 only via email to our email id aloha.karnataka@gmail.com, no other mean of communication will be entertained or recognized.
-                            li
-                                p(align='justify', style='margin-bottom: 0cm; line-height: 115%')
-                                    font(color='#000000')
-                                        font(size='2', style='font-size: 10pt')
-                                            | The decision of TASK will be final in all matters relating to the event/competition.                            
-                        h5
-                            | To Download this, please click here - <a ng-href="{{center_file}}" target="_blank" style="color:blue;">Terms & Conditions</a>
-
-                div(style='text-align:center;')
-                    button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #00C84F; border-color: #00C84F; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='$parent.reverse_center_terms_agreed()') I AGREE
-            
             //- Table for Students for Center and Admin
-            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && !isStudent && $parent.center_terms_agreed", ng-init="update_students()", ng-table='tableParams', show-filter='true', style="max-height:80vh;overflow-y:scroll;float:left;display:block;")
+            table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && !isStudent", ng-init="update_students()", ng-table='tableParams', show-filter='true', style="max-height:80vh;overflow-y:auto;float:left;display:block;border-radius:10px;")
                 thead
                     tr
                         th.mdl-data-table__cell--non-numeric(ng-show="selectMultiple")
@@ -401,28 +34,32 @@ block content
                             <a href="" ng-click="order('status')"> STATUS </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('dateCreated')"> DATE OF ENTRY </a>                                                    
-                        th.mdl-data-table__cell--non-numeric(ng-show='isAdmin') 
+                        th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('programmename')"> PROGRAMME NAME </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
-                            <a href="" ng-click="order('centername')"> CENTER / SCHOOL Name </a>                                                    
+                            <a href="" ng-click="order('centername')"> CENTER NAME </a>                                                    
+                        th.mdl-data-table__cell--non-numeric 
+                            <a href="" ng-click="order('sstatename')"> STATE NAME </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('level')"> LEVEL </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
-                            <a href="" ng-click="order('group')"> GROUP </a>                                                    
-                        th.mdl-data-table__cell--non-numeric 
-                            <a href="" ng-click="order('category')"> CATEGORY </a>                            
+                            <a href="" ng-click="order('category')"> CATEGORY </a>                                                    
                         th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('paymentapproved')"> PAYMENT APPROVED </a>                            
-                        th.mdl-data-table__cell--non-numeric(ng-show='isAdmin') 
+                        th.mdl-data-table__cell--non-numeric
                             <a href="" ng-click="order('paymentdate')"> PAYMENT DATE </a>                            
-                        th.mdl-data-table__cell--non-numeric(ng-show='isAdmin') 
+                        th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('transactionno')"> TRANSACTION NO. </a>                            
-                        th.mdl-data-table__cell--non-numeric(ng-show='isAdmin') 
+                        th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('paymentmode')"> PAYMENT MODE </a>                            
-                        th.mdl-data-table__cell--non-numeric(ng-show='isAdmin') 
+                        th.mdl-data-table__cell--non-numeric 
                             <a href="" ng-click="order('bankname')"> BANK NAME </a>                            
+                        th.mdl-data-table__cell--non-numeric 
+                            <a href="" ng-click="order('mfapproved')"> MF Approved </a>                            
                         th.mdl-data-table__cell--non-numeric(ng-show='isAdmin') 
-                            <a href="" ng-click="order('dateCreated')"> Actions </a>                            
+                            | Actions 
+                        th.mdl-data-table__cell--non-numeric(ng-show='isMaster') 
+                            | Actions                            
                 tbody   
                     tr
                         td.mdl-data-table__cell--non-numeric(ng-show="selectMultiple")
@@ -445,27 +82,30 @@ block content
                             input(type="text",ng-model="search.status") 
                         td
                             input(type="text",ng-model="search.dateCreated") 
-                        td(ng-show='isAdmin')
+                        td
                             input(type="text",ng-model="search.programmename") 
                         td
                             input(type="text",ng-model="search.centername") 
                         td
-                            input(type="text",ng-model="search.level") 
+                            input(type="text",ng-model="search.sstatename") 
                         td
-                            input(type="text",ng-model="search.group") 
+                            input(type="text",ng-model="search.level") 
                         td
                             input(type="text",ng-model="search.category") 
                         td
                             input(type="text",ng-model="search.paymentapproved") 
-                        td(ng-show='isAdmin')
+                        td
                             input(type="text",ng-model="search.paymentdate") 
-                        td(ng-show='isAdmin')
+                        td
                             input(type="text",ng-model="search.transactionno") 
-                        td(ng-show='isAdmin')
+                        td
                             input(type="text",ng-model="search.paymentmode") 
-                        td(ng-show='isAdmin')
+                        td
                             input(type="text",ng-model="search.bankname") 
+                        td
+                            input(type="text",ng-model="search.mfapproved") 
                         td(ng-show='isAdmin')
+                        td(ng-show='isMaster')
 
                     tr(ng-repeat="f in student_list | orderBy:predicate:reverse | filter:search track by $index", ng-style="f.status=='payment' && {'background-color':'burlywood'} || f.status=='admin' && {'background-color':'peachpuff'}")
                         th(class="mdl-data-table__cell--non-numeric",ng-show="selectMultiple") 
@@ -481,25 +121,24 @@ block content
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.tshirtsize}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.status}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.dateCreated | date:'dd-MMM-yyyy'}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)",ng-show='isAdmin') {{f.programmename}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)")
-                            span(ng-if="f.centername != undefined")
-                                | {{f.centername}}
-                            span(ng-if="f.schoolname != undefined")
-                                | {{f.schoolname}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.programmename}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.centername}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.sstatename}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.level}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.group}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.category}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.paymentapproved}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') {{f.paymentdate | date:'dd-MMM-yyyy'}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') {{f.transactionno}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') {{f.paymentmode}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') {{f.bankname}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.paymentdate | date:'dd-MMM-yyyy'}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.transactionno}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.paymentmode}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.bankname}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.mfapproved}}
                         td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') 
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#795548;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="displayHallTicket(f.phone)") Hall Ticket
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#f44336;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="deleteStudent(f._id)",ng-confirm-click="Are you sure you want to delete this entry? The action cannot be undone.") Delete
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="approveStudent(f)",ng-confirm-click="Are you sure you want to Confirm payment for this entry?",ng-show="f.status=='admin' && !f.paymentapproved") Approve
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#607d8b;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="enterHallTicket(f._id)",ng-show="f.status=='hallticket' && f.paymentapproved && isAdmin") Exam Details
+                        td(class="mdl-data-table__cell--non-numeric",ng-show='isMaster') 
+                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="masterApprove(f)",ng-confirm-click="Are you sure you want to Approve for this student?",ng-show="!f.mfapproved") Approve
 
             //- Student Form
             div(ng-controller="FormController", ng-show='loggedIn && isStudent', style='margin-top:100px;')
@@ -510,56 +149,52 @@ block content
                         .col-md-8.col-md-offset-2
                             form(name='registration', ng-submit='save_student()', ng-show='showStudentStatus')
                                 .panel.panel-default(style='margin-top:20px;')
-                                    .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding: 15px;')
+                                    .panel-body.slate_board(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding: 30px 30px;')
                                        div(ng-if="studentStatus.status == 'open' || studentStatus.status == 'payment'")
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> Open. </b> <br> <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Please make a payment of <b> Rs.550 towards Registration and of Rs.250 if opted for T-Shirt </b> to the concerned authorities. <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 20th October 2018 </b> to print the hall ticket. <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br><br>
-                                            <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> Open. </b> <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Please make a payment of <b> Rs. 1000 (Rupees One Thousand Only) for One Programme or of Rs. 1600 (Rupees One Thousand Six hundred Only) for two Programmes towards Registration, </b> to your respective Centers. <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket. <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Incase of any doubts, please mail us at info@alohaindia.com <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Wishing your kid all the very best! <br>
+                                            <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>
 
                                        div(ng-if="studentStatus.status == 'admin' || studentStatus.status == 'hallticket'")
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> In Process. </b> <br> <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") We have successfully received your payment, and you can download the receipt below. <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 20th October 2018 </b> to print the hall ticket. <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br><br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> In Process. </b> <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") We have successfully received your payment, and you can download the receipt below. <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket. <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Incase of any doubts, please mail us at info@alohaindia.com <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Wishing your kid all the very best! <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
                                             <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Receipt</a>
 
                                        div(ng-if="studentStatus.status == 'closed'")
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha.<br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") You can download the Hall Ticket and Receipt below. Do not forget to carry printed Hall Ticket to the Exam Venue. <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br> <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Thankyou for the registration at Aloha.<br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") You can download the Hall Ticket and Receipt below. Do not forget to carry printed Hall Ticket to the Exam Venue. <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Incase of any doubts, please mail us at info@alohaindia.com <br>
+                                            h6#swal2-title.swal2-title(style="color:white;margin:10px 20px;") Wishing your kid all the very best! <br> <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>
                                             <a ng-click="downloadHallTicket()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Hall Ticket</a>
                                             <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Receipt</a>
 
             //- Card for center to be updated
-            .demo-card-wide.mdl-card.mdl-shadow--2dp(ng-controller="CardController", ng-show="$parent.editing")
-                .mdl-card__supporting-text(style="padding:5px;")
-                    div(style="width:80%;float:left;overflow-y:scroll;max-height:80vh;")
+            .demo-card-wide.mdl-card.mdl-shadow--2dp.slate_board(ng-controller="CardController", ng-show="$parent.editing")
+                .mdl-card__supporting-text(style="padding:25px;color:white;")
+                    div(style="width:82.5%;float:left;overflow-y:auto;max-height:75vh;height:75vh;")
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            input.mdl-textfield__input(type="text", ng-model='student.programmename', ng-disabled="true", ng-required="true")
-                            label.mdl-textfield__label !{t('Select Programme')}
+                            input.mdl-textfield__input(type="text", ng-model='student.sstatename', ng-disabled="true", ng-required="true")
+                            label.mdl-textfield__label !{t('Select State')}
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model='student.centername', ng-disabled="true", ng-required="true")
                             label.mdl-textfield__label !{t('Select Center')}
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
-                            input.mdl-textfield__input(type="text", ng-model='student.schoolname', ng-disabled="true", ng-required="true")
-                            label.mdl-textfield__label !{t('Select School')}
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="text", ng-model='student.programmename', ng-disabled="true", ng-required="true")
+                            label.mdl-textfield__label !{t('Select Programme')}
                         
-                        //- .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                        //-     input.mdl-textfield__input(type="email", ng-model='student.centercode', ng-disabled="true", ng-required="true")
-                        //-     label.mdl-textfield__label !{t('Center Code')}
-
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model="student.phone", ng-minlength="10", ng-disabled="true", ng-maxlength="10", ng-required="true")
                             label.mdl-textfield__label !{t('Phone Number')}
@@ -577,6 +212,10 @@ block content
                             label.mdl-textfield__label !{t('Parent Name')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", id="datepicker", ng-required="true")
+                            label.mdl-textfield__label !{t('Date Of Birth (dd/mm/yyyy)')}
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             label.mdl-textfield__label !{t('Gender')}
                             label(style="float:left;width:50%;")
                                 input.mdl-textfield__input(type="radio", ng-model="student.gender", ng-required="true", value="Male", style="float:left;width:10%;margin-top: 3px;")
@@ -585,82 +224,41 @@ block content
                                 input.mdl-textfield__input(type="radio", ng-model="student.gender", ng-required="true", value="Female", style="float:left;width:10%;margin-top: 3px;")
                                 | Female
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            textarea.mdl-textfield__input(ng-model="student.address", ng-required="true", rows="2")
-                            label.mdl-textfield__label !{t('Address')}
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", id="datepicker", ng-required="true")
-                            label.mdl-textfield__label !{t('Date Of Birth (dd/mm/yyyy)')}
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            label.mdl-textfield__label !{t('Do you want a T-Shirt?')}                                            
-                            switch(ng-model="student.tshirtrequired",on="YES",off="NO",class="green")
-
-                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.tshirtrequired")
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             span !{t('T-Shirt Size')}
                             select.mdc-select__native-control(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
                                 option(value="" disabled selected)
                                     | Select T-Shirt Size 
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
-                            input.mdl-textfield__input(type="date", ng-model="student.registrationdate", ng-required="true")
-                            label.mdl-textfield__label !{t('Date Of Student Registration at Aloha')}
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:46%;")
+                            input.mdl-textfield__input(ng-model="student.address", ng-required="true", type="text")
+                            label.mdl-textfield__label !{t('Address')}
 
-                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
-                            span !{t('Group')}
-                            select.mdc-select__native-control(ng-model='student.group', ng-options='x for x in schoolgroups', ng-change="onGroupChange(student.group, 'School')")
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            span !{t('Level Applying For')}
+                            select.mdc-select__native-control(ng-model='student.level', ng-options='x for x in getlevelsOptions()')
                                 option(value="" disabled selected)
-                                    | Select Group 
-
-                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
-                            span !{t('Group')}
-                            select.mdc-select__native-control(ng-model='student.group', ng-options='x for x in centergroups', ng-change="onGroupChange(student.group, 'Center')")
-                                option(value="" disabled selected)
-                                    | Select Group 
+                                    | Select Level Applying For 
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            input.mdl-textfield__input(type="text", ng-model="student.category", ng-disabled="true")
+                            input.mdl-textfield__input(type="text", ng-model="student.category", ng-disabled="true", ng-value="getCategoryValue()")
                             label.mdl-textfield__label !{t('Category')}
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            span !{t('Level in 2017')}
+                            select.mdc-select__native-control(ng-model='student.lastyearlevel.one', ng-options='x for x in getlevelsOptions()')
+                                option(value="" disabled selected)
+                                    | Level in 2017 
+
+                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            span !{t('Level in 2016')}
+                            select.mdc-select__native-control(ng-model='student.lastyearlevel.two', ng-options='x for x in getlevelsOptions()')
+                                option(value="" disabled selected)
+                                    | Level in 2016 
         
-                        p(ng-show="age.years != -1 && age.months != -1", style="display:-webkit-inline-box;margin-left:-27%;")
-                            | Age as on 31/Sept/2018 - {{age.years}} Yrs, {{age.months}} Month
-
-                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'MA' || student.group == 'MAS'")
-                            span !{t('Level Applying For')}
-                            select.mdc-select__native-control(ng-model='student.level', ng-options='x for x in malevels')
-                                option(value="" disabled selected)
-                                    | Select Level Applying For 
-
-                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'TT' || student.group == 'TTS'")
-                            span !{t('Level Applying For')}
-                            select.mdc-select__native-control(ng-model='student.level', ng-options='x for x in ttlevels')
-                                option(value="" disabled selected)
-                                    | Select Level Applying For 
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
-                            input.mdl-textfield__input(type="text", ng-model="student.presentlevel")
-                            label.mdl-textfield__label !{t('Present Running Level')}
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
-                            input.mdl-textfield__input(type="text", ng-model="student.presentweek")
-                            label.mdl-textfield__label !{t('Present Running Week')}
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
-                            input.mdl-textfield__input(type="text", ng-model="student.class")
-                            label.mdl-textfield__label !{t('Class Studying In')}
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
-                            input.mdl-textfield__input(type="text", ng-model="student.section")
-                            label.mdl-textfield__label !{t('Section Studying In')}
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            input.mdl-textfield__input(type="text", ng-model="student.lastyearlevel")
-                            label.mdl-textfield__label !{t('If Participated Last Year, Which Level?')}
-
-                    div(style="width:20%;float:left;overflow-y:scroll;max-height:80vh;", class="show-image")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")
-                            img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:50px;margin-left:15px;", ng-if="getFileExtension(student.photo)")
+                    div(style="width:17.5%;float:left;overflow-y:auto;max-height:75vh;height:75vh;", class="show-image")
+                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")
+                            img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:10px;margin-left:15px;", ng-if="getFileExtension(student.photo)")
                             span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.photo)") 
                                 br
                                 br
@@ -669,8 +267,8 @@ block content
                         
                         br
 
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}",target="_blank",ng-if="student.birthcertificate != undefined && student.birthcertificate != ''")
-                            img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:50px;margin-left:15px;", ng-if="getFileExtension(student.birthcertificate)")
+                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}",target="_blank",ng-if="student.birthcertificate != undefined && student.birthcertificate != ''")
+                            img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:10px;margin-left:15px;", ng-if="getFileExtension(student.birthcertificate)")
                             span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.birthcertificate)") 
                                 br
                                 br
@@ -699,25 +297,25 @@ block content
                         i.material-icons close
 
             //- Card for Payment details to be added
-            .demo-card-wide.mdl-card.mdl-shadow--2dp.paymenting(ng-show="paymenting")
+            .demo-card-wide.mdl-card.mdl-shadow--2dp.paymenting.slate_board(ng-show="paymenting")
                 .mdl-card__supporting-text
-                    div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
                         span !{t('Payment Mode')}
                         select.mdc-select__native-control(ng-model='payment.paymentmode', ng-options='x for x in paymentmodes', ng-required="true")
                             option(value="" disabled selected)
                                 | Select Payment Mode
 
-                    div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
                         span !{t('Bank')}
                         select.mdc-select__native-control(ng-model='payment.bankname', ng-options='x for x in banknames', ng-required="true")
                             option(value="" disabled selected)
                                 | Select Bank
 
-                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
                         input.mdl-textfield__input(type="text", ng-model="payment.transactionno", ng-required="true")
                         label.mdl-textfield__label !{t('Transaction Number')}
 
-                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
                         span !{t('Payment / Cheque Date')}
                         input.mdl-textfield__input(type="date", ng-model="payment.paymentdate", ng-required="true")
                         //- label.mdl-textfield__label !{t('Payment / Cheque Date')}
@@ -733,20 +331,20 @@ block content
                     button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(ng-click="cancel_payment()")
                         i.material-icons close
             //- Card for Admin to be updated
-            .demo-card-wide.mdl-card.mdl-shadow--2dp(ng-controller="CardController", ng-show="$parent.adminediting")
+            .demo-card-wide.mdl-card.mdl-shadow--2dp.slate_board(ng-controller="CardController", ng-show="$parent.adminediting")
                 .mdl-card__supporting-text(style="padding:5px;")
                     div(style="width:80%;float:left;overflow-y:scroll;max-height:80vh;")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input.mdl-textfield__input(type="text", ng-model='student.sstatename', ng-disabled="true", ng-required="true")
+                            label.mdl-textfield__label !{t('Select State')}
+
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model='student.programmename', ng-disabled="true", ng-required="true")
                             label.mdl-textfield__label !{t('Select Programme')}
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model='student.centername', ng-disabled="true", ng-required="true")
                             label.mdl-textfield__label !{t('Select Center')}
-
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
-                            input.mdl-textfield__input(type="text", ng-model='student.schoolname', ng-disabled="true", ng-required="true")
-                            label.mdl-textfield__label !{t('Select School')}
                         
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model="student.phone", ng-minlength="10", ng-disabled="true", ng-maxlength="10", ng-required="true")
@@ -852,13 +450,13 @@ block content
 
                     div(style="width:20%;float:left;overflow-y:scroll;max-height:80vh;")
                         br
-                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && student.photo != '' && getFileExtension(student.photo)")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && student.photo != '' && !getFileExtension(student.photo)") Download Photo (Format not supported to display)
+                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && student.photo != '' && getFileExtension(student.photo)")
+                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && student.photo != '' && !getFileExtension(student.photo)") Download Photo (Format not supported to display)
                         br
                         br
                         br
-                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && getFileExtension(student.birthcertificate)")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohakarnataka/{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
+                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && getFileExtension(student.birthcertificate)")
+                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Student Image')}  

@@ -11,20 +11,50 @@ mixin navbar(_t, exit)
             //- p(style="text-align:center;font-size:20px;color:white;position:absolute;padding-top:40px;padding-left:170px;text-shadow:3px 3px black;font-weight:bolder;")
             //-     | 13th Karnataka State Level Aloha Abacus & Mental Arithmetic Competition 2018
 
-            //- a(ng-show='loggedIn && selectMultiple && total_amount > 0', ng-click="pay_amount()", href='')
-            //-     | Pay ₹ {{total_amount}}
-                
-            //- a(href='#', ng-show='loggedIn && isCenter')
-            //-     #add-student(ng-click="make_payment()",ng-show="!selectMultiple")
-            //-         | !{t('Submit to TASK')}
-            //-     #add-student(ng-click="make_payment()",ng-show="selectMultiple")
-            //-         | !{t('Cancel')}
+            span(ng-click="openNav()")
+                i.fa.fa-bars(style="font-size:40px;color:white;vertical-align:bottom;margin:35px;cursor:pointer;")
 
-            //- button(class="btn btn-download", csv-header="getDownloadHeader()",ng-csv="getDownloadTable()",filename="admin-reports.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && isAdmin')
-            //-     | Export to CSV
+    div#mySidenav.sidenav
+        a.closebtn(href="javascript:void(0)",ng-click="closeNav()",style="font-size:40px;")
+            | &times;
 
-            //- a(ng-click="logout($event)", href='', ng-hide="selectMultiple")= exit
+        h5
+            | MENU
+        a(href="http://www.alohaindia.com/contact-us/",target="_blank")
+            i.fa.fa-caret-right
+            | Contact
+        a(href="#",ng-click="logout($event)")
+            i.fa.fa-caret-right
+            | Exit
 
+        h5
+            | PAYMENTS
+        a(href="#",ng-show='loggedIn && selectMultiple && total_amount > 0', ng-click="pay_amount()")
+            i.fa.fa-caret-right
+            | Pay ₹ {{total_amount}}
+        a(href='#', ng-show='loggedIn && isUnit')
+            #add-student(ng-click="make_payment()",ng-show="!selectMultiple")
+                i.fa.fa-caret-right
+                | !{t('Submit to TASK')}
+            #add-student(ng-click="make_payment()",ng-show="selectMultiple")
+                i.fa.fa-caret-right
+                | !{t('Cancel')}
+
+        h5
+            | DOWNLOADS
+        a(ng-href="{{file}}",target="_blank")
+            i.fa.fa-caret-right
+            | Terms & Conditions
+        a(ng-href="{{unit_file}}",target="_blank",ng-show='loggedIn && !isStudent')
+            i.fa.fa-caret-right
+            | UF T&C
+        a(ng-href="{{unit_file}}",target="_blank",ng-show='loggedIn && !isStudent && !isUnit')
+            i.fa.fa-caret-right
+            | MF T&C
+        a(href="#",csv-header="getDownloadHeader()",ng-csv="getDownloadTable()",filename="reports.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && !isStudent')
+            i.fa.fa-caret-right
+            | Students List
+        
 //- login
 mixin login_form
     div(ng-controller="LoginController")
@@ -154,13 +184,13 @@ mixin login_form
 
                                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                                                 span !{t('Select Your Center')}
-                                                select.mdc-select__native-control(ng-model='student.centername', ng-options='x for x in centeroptions', ng-required="true", ng-disabled="centeroptions.length < 1 || isOTPVerified", ng-change="onCenterChange()")
+                                                select.mdc-select__native-control(ng-model='student.centername', ng-options='x for x in centeroptions | orderBy:"toString()"', ng-required="true", ng-disabled="centeroptions.length < 1 || isOTPVerified", ng-change="onCenterChange()")
                                                     option(value="" disabled selected)
                                                         | Select Center
 
                                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                                                 span !{t('Select Your Program')}
-                                                select.mdc-select__native-control(ng-model='student.programmename', ng-options='x for x in programmeoptions', ng-required="true", ng-disabled="programmeoptions.length < 1 || isOTPVerified")
+                                                select.mdc-select__native-control(ng-model='student.programmename', ng-options='x for x in programmeoptions | orderBy:"toString()"', ng-required="true", ng-disabled="programmeoptions.length < 1 || isOTPVerified")
                                                     option(value="" disabled selected)
                                                         | Select Program
             
@@ -230,7 +260,7 @@ mixin login_form
 
                             div(ng-show='dataSaved')
                                 .panel.panel-default(style='margin-top:20px;')
-                                    .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding: 15px;')
+                                    .panel-body.slate_board(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding:15px 30px;')
                                         div(ng-show='savingFailed',style="text-align:center;")
                                             .swal2-icon.swal2-error
                                                 span.swal2-x-mark
@@ -243,7 +273,7 @@ mixin login_form
                                             .swal2-buttonswrapper(style='display: block;')
                                             button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
                                             button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
-                                        div(ng-show='savingSuccess',style="text-align:center;")
+                                        div(ng-show='savingSuccess',style="text-align:center;color:white;")
                                             span.checkmark
                                                 div.checkmark_circle
                                                 div.checkmark_stem
