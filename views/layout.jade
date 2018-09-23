@@ -1,0 +1,112 @@
+include mixins/mixins_index
+doctype html
+html
+    head
+        //- metas
+        title= title
+
+        //- favicons
+        link(rel="apple-touch-icon", sizes="57x57", href="https://alohakarnataka.com/apple-touch-icon-57x57.png")
+        link(rel="apple-touch-icon", sizes="60x60", href="https://alohakarnataka.com/apple-touch-icon-60x60.png")
+        link(rel="apple-touch-icon", sizes="72x72", href="https://alohakarnataka.com/apple-touch-icon-72x72.png")
+        link(rel="apple-touch-icon", sizes="76x76", href="https://alohakarnataka.com/apple-touch-icon-76x76.png")
+        link(rel="apple-touch-icon", sizes="114x114", href="https://alohakarnataka.com/apple-touch-icon-114x114.png")
+        link(rel="apple-touch-icon", sizes="120x120", href="https://alohakarnataka.com/apple-touch-icon-120x120.png")
+        link(rel="apple-touch-icon", sizes="144x144", href="https://alohakarnataka.com/apple-touch-icon-144x144.png")
+        link(rel="apple-touch-icon", sizes="152x152", href="https://alohakarnataka.com/apple-touch-icon-152x152.png")
+        link(rel="apple-touch-icon", sizes="180x180", href="https://alohakarnataka.com/apple-touch-icon-180x180.png")
+        link(rel="icon", type="image/png", href="https://alohakarnataka.com/favicon-32x32.png", sizes="32x32")
+        link(rel="icon", type="image/png", href="https://alohakarnataka.com/android-chrome-192x192.png", sizes="192x192")
+        link(rel="icon", type="image/png", href="https://alohakarnataka.com/favicon-96x96.png", sizes="96x96")
+        link(rel="icon", type="image/png", href="https://alohakarnataka.com/favicon-16x16.png", sizes="16x16")
+        link(rel="manifest", href="/manifest.json")
+        meta(name="msapplication-TileColor", content="#da532c")
+        meta(name="msapplication-TileImage", content="https://alohakarnataka.com/mstile-144x144.png")
+        meta(name="theme-color", content="#ffffff")
+
+        //- icons
+        link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.0.2/css/material-design-iconic-font.min.css')
+
+        //- fonts
+        link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Oxygen:700,400,300')
+        link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic|Courgette')
+
+        //- plugins
+        link(rel='stylesheet', href='css/vendor/loaders.min.css')
+        link(rel="stylesheet", href="css/vendor/angular-ui-switch.min.css")
+        link(rel="stylesheet", href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.teal-amber.min.css")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+
+        //- styles
+        link(rel='stylesheet', href='css/login.css')
+        link(rel='stylesheet', href='css/style.css')
+        link(rel='stylesheet', href='css/responsive.css')
+        link(rel='stylesheet', href='css/helpers.css')
+        link(rel='stylesheet', href='css/swal.css')
+        link(rel='stylesheet', href='css/select.css')
+        link(rel="stylesheet", href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css")
+
+        //- scripts
+        script(src='/js/vendor/angular.min.js')
+        script(src='/js/vendor/angular-route.min.js')
+        script(src='/js/vendor/angular-resource.min.js')
+        script(src='/js/vendor/angular-sanitize.min.js')
+        script(src='/js/vendor/i18next.min.js')
+        script(src='/js/vendor/ng-i18next.min.js')
+        script(src='/js/vendor/angular-ui-switch.min.js')
+        script(src='/js/vendor/ng-csv.min.js')
+        script(src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js")
+        script(src="https://code.jquery.com/jquery-1.12.4.js")
+        script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
+
+        //- script(type="text/javascript")
+        //-     | (function(t,e){var r=function(t){try{var r=e.head||e.getElementsByTagName("head")[0];a=e.createElement("script");a.setAttribute("type","text/javascript");a.setAttribute("src",t);r.appendChild(a);}catch(t){}};t.CollectId = "5b90bd9c17717184f1710e2a";r("https://collectcdn.com/launcher.js");})(window,document);
+
+        //- script
+        //-     | (function(h,o,t,j,a,r){
+        //-     |     h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        //-     |     h._hjSettings={hjid:1004459,hjsv:6};
+        //-     |     a=o.getElementsByTagName('head')[0];
+        //-     |     r=o.createElement('script');r.async=1;
+        //-     |     r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        //-     |     a.appendChild(r);
+        //-     | })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+
+    body(ng-app='StudentApp', ng-controller='MainController')
+        +custom_header('Aloha Karnataka', 'exit')
+        block content
+
+        //- +custom_footer(t('layout.footer.about'))
+
+        //- scripts
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js')
+        script(src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js")
+        script(src='js/cookies.js')        
+        script(src='js/app.js')
+        script(src='js/Services/CenterService.js')
+        script(src='js/Services/UserService.js')
+        script(src='js/Services/StudentService.js')
+        script(src='js/Controllers/LoginController.js')
+        script(src='js/Controllers/TableController.js')
+        script(src='js/Controllers/CardController.js')
+        script(src='js/Controllers/FormController.js')
+
+        //- script(type="text/javascript")
+        //-     | var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        //-     | (function(){
+        //-     | var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        //-     | s1.async=true;
+        //-     | s1.src='https://embed.tawk.to/5b9f8820c9abba5796779c15/default';
+        //-     | s1.charset='UTF-8';
+        //-     | s1.setAttribute('crossorigin','*');
+        //-     | s0.parentNode.insertBefore(s1,s0);
+        //-     | })();
+
+        //- script
+        //-     | (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        //-     | (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        //-     | m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        //-     | })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        //-     | ga('create', 'UA-43057134-3', 'auto');
+        //-     | ga('send', 'pageview');

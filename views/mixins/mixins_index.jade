@@ -1,0 +1,266 @@
+mixin custom_header(t, exit)
+    header
+        +navbar(t, exit)
+
+mixin navbar(_t, exit)
+    .navbar
+        .container
+            a(href='/',style="padding:10px 0;")
+                img(alt='http://www.alohakarnataka.com', src='/img/logo.png')
+
+            //- p(style="text-align:center;font-size:20px;color:white;position:absolute;padding-top:40px;padding-left:170px;text-shadow:3px 3px black;font-weight:bolder;")
+            //-     | 13th Karnataka State Level Aloha Abacus & Mental Arithmetic Competition 2018
+
+            //- a(ng-show='loggedIn && selectMultiple && total_amount > 0', ng-click="pay_amount()", href='')
+            //-     | Pay ₹ {{total_amount}}
+                
+            //- a(href='#', ng-show='loggedIn && isCenter')
+            //-     #add-student(ng-click="make_payment()",ng-show="!selectMultiple")
+            //-         | !{t('Submit to TASK')}
+            //-     #add-student(ng-click="make_payment()",ng-show="selectMultiple")
+            //-         | !{t('Cancel')}
+
+            //- button(class="btn btn-download", csv-header="getDownloadHeader()",ng-csv="getDownloadTable()",filename="admin-reports.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && isAdmin')
+            //-     | Export to CSV
+
+            //- a(ng-click="logout($event)", href='', ng-hide="selectMultiple")= exit
+
+//- login
+mixin login_form
+    div(ng-controller="LoginController")
+        form(name='tandc', ng-show='!termsAgreed && !loggedIn && !showOTPForm && !registrationForm')
+            .panel.panel-default.slate_board(style='margin-top:85px;')
+                .panel-body(style='height: 75vh;padding:15px;overflow-y: auto;')
+                    div(style='text-align:left;margin-left:30px;color: white; font-weight: bold;')
+                        h3 Terms and Conditions
+                        //- hr
+                        //- | 1. The competition will be for 70 sums.
+                        //- br
+                        //- | 2. The time allotted for the competition is 5 minutes.
+                        //- br
+                        //- | 3. The Parent / Guardian should read and understand the rules and regulation governing admission and undertake to be responsible at all times for the good conduct and behaviour of child/children.
+                        //- br
+                        //- | 4. Registration fee or Rs. 550/- should be paid to the Franchisee at the time of submission or Registration Form.
+                        //- br
+                        //- | 5. The registrations should be done online only throught our website.
+                        //- br
+                        //- | 6. All the particulars should be filled up correctly. incorrect entry will be rejected.
+                        //- br
+                        //- | 7. Last date for registration is 30th September 2018.
+                        //- br
+                        //- | 8. Registration will not be accepted even a day later.
+                        //- br
+                        //- | 9. Registration money is non-refundable or non-transferable once registration is accepted.
+                        //- br
+                        //- | 10. The student must observe the Aloha dress code. Students should wear Aloha T- Shirt.
+                        //- br
+                        //- | 11. T-shirt cost is Rs. 250/-
+                        //- br
+                        //- | 12. T- Shirts has to be ordered in advance, so that participant can wear T-Shirt and attend the event.
+                        //- br
+                        //- | 13. Any appeal (complaints) should be lodged before 20th Oct 2018 only via email to our email id aloha.karnataka@gmail.com, no other mean of communication will be entertained or recognized. Parents can print the admit card online. If any issues regarding the same, you can call either the respective Franchisor or TASK office, Phone no 8884012849 between 10:30 am &amp; 6:00 pm. However any phone complaint must be followed by an email to aloha.karnataka@gmail.com for action to be taken.
+                        //- br
+                        //- | 14. The student must report 15 minutes before the Registration time mentioned in the Admit card at the venue.
+                        //- br
+                        //- | 15. The student has to bring his/her printed ADMIT CARD, without which participant will not be allowed.
+                        //- br
+                        //- | 16. The Student must carry his/her own Abacus (Plastic or Wooden), Pencil, failing which the same has to be purchased at the venue.
+                        //- br
+                        //- | 17. The student should be medically fit to participate in the competition.
+                        //- br
+                        //- | 18. Parents are not allowed inside the competition area.
+                        //- br
+                        //- | 19. The parent/guardian undertake the absolve TASK, the learning centre and its agent from any claims arising out of injury, loss or damage caused to the child/children during the competition.
+                        //- br
+                        //- | 20. Parents are requested to advise their children to be calm and patient. Please advise them not to rush or hurry at the entry and exit points.
+                        //- br
+                        //- | 21. Parents are requested to fully co-operate with organisers all thorough. In case of difficulty, they can seek assistance from the enquiry counter.
+                        //- br
+                        //- | 22. The prize distribution ceremony will be held soon after the competitions are over at the same venue and all parents are hereby invited to attend the same.
+                        //- br
+                        //- | 23. The decision of TASK will be final in all matters relating to the event.
+                        //- br
+                        //- | 24. Student who are in School Program, will have to make there own arrangements to reach the competition Venue. Transportation will not be provided either by the school or by TASK. 
+                        //- br
+                        //- br
+                        //- br
+                        //- | Note: Login using the registered Phone Number after 20th October for Hall Tickets
+                        //- br
+                        //- | Date Of Exam - 28th October 2018
+                        //- br
+                        //- br
+                        //- | Venue Of Exam:
+                        //- br
+                        //- | Vidya Soudha Public School, <br> No. 9/1, 1st Main, Near Basaveshwara Bus Station, <br> 1st Stage Peenya, Bengaluru, <br> Karnataka 560058
+                        //- br
+                        //- br
+                        //- h5
+                        //-     | To Download this, please click here - <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>
+
+
+            div(style='text-align:center;')
+                button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #00C84F; border-color: #00C84F; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='register()') REGISTER
+                button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #2bbbad; border-color: #2bbbad; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='checkStatus()') CHECK STATUS
+                                
+        form.login#login(ng-show="showOTPForm")
+            p.title= 'Welcome'
+            i.fa.fa-times(aria-hidden="true",ng-click="logout($event)",style="margin-top:-65px;float:right;color:red;font-size:20px;")
+            img(src="/img/logo.png")
+            //- loader
+
+            .login-wrapper#login-wrapper
+                .info-message(ng-show="!otpSent")
+                    h5= 'Please enter your 10 digit mobile number. Keep your phone handy to enter the OTP received on your number.' 
+                .info-message(ng-show="otpSent")
+                    h5= 'Please enter the OTP we sent on your number.'
+
+                input#username(ng-show="!otpSent", tabindex="1", autocapitalize="off", autocorrect="off", type="number", placeholder="Phone Number", autofocus, , ng-model='username', min-length=10, max-length=10)
+                i.fa.fa-phone
+                input#number(ng-show="otpSent", tabindex="2", type="number", placeholder="OTP", ng-model='password')
+                i.fa.fa-key
+
+                a(ng-show="otpSent", href="#", ng-click='generateOTP(username)')= 'Resend OTP?' 
+                
+                .right-a
+                    a(ng-show="otpSent", href="#", ng-click='tryDifferentNumber()')= 'Try different Number!' 
+
+                p(ng-show="!otpSent", style="color:red;")
+                    | {{msg}}
+
+                button(ng-show="!otpSent", ng-click='generateOTP(username)')
+                    //- i.spinner
+                    span.state= 'submit'
+            
+                button(ng-show="otpSent", ng-click='send(username, password)')
+                    //- i.spinner
+                    span.state= 'submit'
+
+        div(ng-show='registrationForm', style='margin-top:100px;')
+            div
+                ncy-breadcrumb
+                .container
+                    .row
+                        .col-md-8.col-md-offset-2
+                            form(name='registration', ng-submit='save_student()', ng-show='!dataSaved')
+                                .panel.panel-default
+                                    .panel-body.slate_board(style='height:75vh; overflow-y:auto; background-color:white;border-radius: 10px;padding: 10px 30px; color: white;')
+                                        div
+
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                                span !{t('Select Your State')}
+                                                select.mdc-select__native-control(ng-model='student.sstatename', ng-options='x for x in sstateoptions | orderBy:"toString()"', ng-required="true", ng-change="onStateChange()", ng-disabled="isOTPVerified")
+                                                    option(value="" disabled selected)
+                                                        | Select State
+
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                                span !{t('Select Your Center')}
+                                                select.mdc-select__native-control(ng-model='student.centername', ng-options='x for x in centeroptions', ng-required="true", ng-disabled="centeroptions.length < 1 || isOTPVerified", ng-change="onCenterChange()")
+                                                    option(value="" disabled selected)
+                                                        | Select Center
+
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                                span !{t('Select Your Program')}
+                                                select.mdc-select__native-control(ng-model='student.programmename', ng-options='x for x in programmeoptions', ng-required="true", ng-disabled="programmeoptions.length < 1 || isOTPVerified")
+                                                    option(value="" disabled selected)
+                                                        | Select Program
+            
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                                input.mdl-textfield__input(type="number", ng-model="student.phone", ng-minlength="10", ng-maxlength="10", ng-required="true", ng-change="onPhoneChange(student.phone)", ng-disabled="isOTPVerified || student.programmename == ''")
+                                                label.mdl-textfield__label !{t('Phone Number')}
+
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                                input.mdl-textfield__input(type="email", ng-model="student.email", ng-required="true")
+                                                label.mdl-textfield__label !{t('Email')}
+
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                                input.mdl-textfield__input(type="text", ng-model="student.name", ng-required="true")
+                                                label.mdl-textfield__label !{t('Name Of Student')}
+
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                                input.mdl-textfield__input(type="text", ng-model="student.parentname", ng-required="true")
+                                                label.mdl-textfield__label !{t('Parent Name')}
+
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                                label.mdl-textfield__label !{t('Gender')}
+                                                label(style="float:left;width:50%;")
+                                                    input.mdl-textfield__input(type="radio", ng-model="student.gender", value="Male", style="float:left;width:10%;margin-top: 3px;")
+                                                    | Male
+                                                label(style="float:left;width:50%;")
+                                                    input.mdl-textfield__input(type="radio", ng-model="student.gender", value="Female", style="float:left;width:10%;margin-top: 3px;")
+                                                    | Female
+
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                                span !{t('Date Of Birth (dd/mm/yyyy)')}                                                
+                                                input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true", id="datepicker", class="active", min="2003-09-30", max="2013-09-30")
+
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                                span !{t('T-Shirt Size')}
+                                                select.mdc-select__native-control(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
+                                                    option(value="" disabled selected)
+                                                        | Select T-Shirt Size 
+    
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified", style="width: 40%;")
+                                                span !{t('Address')}
+                                                input.mdl-textfield__input(ng-model="student.address", type="text", ng-required="true")
+
+                                            br
+
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                                span !{t('Upload Student Image')}  
+                                                input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
+                                            
+                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                                span !{t('Upload Birth Proof')}  
+                                                input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
+
+                                            input(type="checkbox",name="termsAccepted",value="termsAccepted", style="width:5%;zoom:2;", ng-click="onTCChange()" ng-show="isOTPVerified")
+                                            p(ng-show="isOTPVerified", style="display:inline-block;")
+                                                | I accept to the <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>. <br>
+                                            
+                                            br
+
+                                            p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;",ng-show="isPhoneDuplicate")
+                                                | Sorry! Phone number already registered.
+
+                                            p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;")
+                                                | {{msg}}
+
+                                div(style='text-align:center;', ng-show="isOTPVerified")
+                                    button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #4caf50; border-color: #4caf50; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;', type='submit', ng-click='save_student()', ng-disabled="!isOTPVerified || isPhoneDuplicate") Submit
+
+                            div(ng-show='dataSaved')
+                                .panel.panel-default(style='margin-top:20px;')
+                                    .panel-body(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding: 15px;')
+                                        div(ng-show='savingFailed',style="text-align:center;")
+                                            .swal2-icon.swal2-error
+                                                span.swal2-x-mark
+                                                    span.swal2-x-mark-line-left
+                                                    span.swal2-x-mark-line-right
+                                            h2#swal2-title.swal2-title Oops! Couldnot register!
+                                            #swal2-content.swal2-content(style='display: block;')
+                                                | Please try again or contact the center office. <br><br><br>
+                                                | Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br><br>                                            
+                                            .swal2-buttonswrapper(style='display: block;')
+                                            button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
+                                            button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
+                                        div(ng-show='savingSuccess',style="text-align:center;")
+                                            span.checkmark
+                                                div.checkmark_circle
+                                                div.checkmark_stem
+                                                div.checkmark_kick
+                                            h2#swal2-title.swal2-title(style="color:#0080ff;") Hurray! You successfully registered!
+                                            #swal2-content.swal2-content(style='display: block;')
+                                                | Please make a payment of <b> Rs. 1000 (Rupees One Thousand Only) towards Registration (Rs. 1600 if opted for two programme exams) </b> to the respective centers. <br><br><br>
+                                                | Incase of any doubts, please mail us at info@alohaindia.com <br><br>
+                                                | Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket.  <br><br>
+                                                | <a ng-href="{{file}}" target="_blank" style="color:blue;">Download Terms & Conditions</a>                                                                                             
+                                            .swal2-buttonswrapper(style='display: block;')
+                                            //- button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
+                                            button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
+
+        .demo-card-wide.mdl-card.mdl-shadow--2dp(ng-show="phoneOtpVerification", style="padding:45px;background-color:silver;border-radius:10px;background-color: silver;border-radius: 10px;height: 70vh;margin-top:105px;margin-left:75px;width:85%;text-align:center;")
+            h3 {{oTPmessage}}
+            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                input.mdl-textfield__input(type="number", ng-model="otp", ng-minlength="6", ng-maxlength="6", ng-required="true", ng-change="onPwdChange(otp)", style="margin-left: 175%;")
+            a(ng-click='onPhoneChange(student.phone)', style="color: blue;font-size:16px;cursor:pointer;padding:15px;")= 'Resend OTP?' 
+            a(ng-click='changePhoneNumber()', style="color: blue;font-size:16px;cursor:pointer;padding:15px;")= 'Try different Number!' 
