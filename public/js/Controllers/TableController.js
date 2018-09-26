@@ -152,5 +152,29 @@ angular.module('StudentApp.TableController', [])
                 window.open(fileurl, '_self', '');
             }
 
+            $scope.updateCenter = function (id) {
+
+            }
+
+            $scope.updateUser = function (id) {
+
+            }
+
+            $scope.deleteUser = function (id) {
+                userFactory.delete({ id: id }, function (response) {
+                    $scope.update_students();
+                }, function (response) {
+                    console.error(response);
+                });
+            }
+
+            $scope.deleteCenter = function (id) {
+                centerFactory.delete({ id: id }, function (response) {
+                    $scope.update_students();
+                }, function (response) {
+                    console.error(response);
+                });
+            }
+
         };
     }]);

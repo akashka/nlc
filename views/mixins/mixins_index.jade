@@ -23,11 +23,14 @@ mixin navbar(_t, exit)
         a(href="http://www.alohaindia.com/contact-us/",target="_blank")
             i.fa.fa-caret-right
             | Contact
-        a(href="#",ng-click="logout($event)")
+        a(href="#",ng-click="logout($event)",ng-show="loggedIn")
+            i.fa.fa-caret-right
+            | Log Out
+        a(href="http://www.alohaindia.com")
             i.fa.fa-caret-right
             | Exit
 
-        h5
+        h5(ng-show='loggedIn && isUnit')
             | PAYMENTS
         a(href="#",ng-show='loggedIn && selectMultiple && total_amount > 0', ng-click="pay_amount()")
             i.fa.fa-caret-right
@@ -35,10 +38,28 @@ mixin navbar(_t, exit)
         a(href='#', ng-show='loggedIn && isUnit')
             #add-student(ng-click="make_payment()",ng-show="!selectMultiple")
                 i.fa.fa-caret-right
-                | !{t('Submit to TASK')}
+                | !{t('Submit to HO')}
             #add-student(ng-click="make_payment()",ng-show="selectMultiple")
                 i.fa.fa-caret-right
                 | !{t('Cancel')}
+
+        h5(ng-show="loggedIn && isAdmin")
+            | ADMIN
+        a(href="#",ng-click="studentdisplay()",ng-show="loggedIn && isAdmin")
+            i.fa.fa-caret-right
+            | Student List
+        a(href="#",ng-click="centerdisplay()",ng-show="loggedIn && isAdmin")
+            i.fa.fa-caret-right
+            | Center List
+        a(href="#",ng-click="userdisplay()",ng-show="loggedIn && isAdmin")
+            i.fa.fa-caret-right
+            | User List
+        a(href="#",ng-click="createCenter()",ng-show="loggedIn && isAdmin")
+            i.fa.fa-caret-right
+            | Add Center
+        a(href="#",ng-click="createUser()",ng-show="loggedIn && isAdmin")
+            i.fa.fa-caret-right
+            | Add User
 
         h5
             | DOWNLOADS
@@ -54,6 +75,12 @@ mixin navbar(_t, exit)
         a(href="#",csv-header="getDownloadHeader()",ng-csv="getDownloadTable()",filename="reports.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && !isStudent')
             i.fa.fa-caret-right
             | Students List
+        a(href="#",csv-header="getCentersHeader()",ng-csv="downloadCenters()",filename="centers.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && !isStudent')
+            i.fa.fa-caret-right
+            | Centers List
+        a(href="#",csv-header="getUsersHeader()",ng-csv="downloadUsers()",filename="users.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && !isStudent')
+            i.fa.fa-caret-right
+            | Users List
         
 //- login
 mixin login_form

@@ -781,3 +781,7 @@ tbody tr{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+.paymenting .mdl-card__supporting-text .mdl-textfield {
+    width: 43%;
+}
