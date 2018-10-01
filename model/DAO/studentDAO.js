@@ -9,40 +9,45 @@ var db = require('../../config/mongodb').init(),
 var isInTest = typeof global.it === 'function';
 
 var Schema = mongoose.Schema;
+
+var ProgramSchema = new Schema({
+    programmename:      { type: String, required: true },
+    group:              { type: String },
+    category:           { type: String },
+    level:              { type: String },
+    feesdetails:        { type: Array },
+    lastyearlevel:      { type: Object },
+    examdate:           { type: String },
+    entrytime:          { type: String },
+    competitiontime:    { type: String },
+    venue:              { type: String },
+    admissioncardno:    { type: String }
+});
+
 var StudentSchema = new Schema({
-    phone: { type: String, required: true, unique: true },
-    email: { type: String, required: true },
-    name: { type: String, required: true },
-    dateofbirth: { type: String, required: true },
-    gender: { type: String, required: true },
-    parentname: { type: String, required: true },
-    address: { type: String, required: true },
-    tshirtsize: { type: String },
-    photo: { type: String },
-    birthcertificate: { type: String },
-    dateCreated: { type: Date, required: true },
-    dateModified: { type: Date },
-    programmename: { type: String, required: true },
-    centername: { type: String, required: true },
-    centercode: { type: String, required: true },
-    sstatename: { type: String, required: true },
-    status: { type: String, required: true },
-    admissioncardno: { type: String },
-    group: { type: String },
-    category: { type: String },
-    level: { type: String },
-    feesdetails: { type: Array },
-    lastyearlevel: { type: Object },
-    paymentdate: { type: String },
-    transactionno: { type: String },
-    paymentmode: { type: String },
-    bankname: { type: String },
-    examdate: { type: String },
-    mfapproved: { type: Boolean, default: false},
-    examdate: { type: String },
-    entrytime: { type: String },
-    competitiontime: { type: String },
-    venue: { type: String }
+    phone:              { type: String, required: true, unique: true },
+    email:              { type: String, required: true },
+    name:               { type: String, required: true },
+    dateofbirth:        { type: String, required: true },
+    gender:             { type: String, required: true },
+    parentname:         { type: String, required: true },
+    address:            { type: String, required: true },
+    tshirtsize:         { type: String },
+    photo:              { type: String },
+    birthcertificate:   { type: String },
+    dateCreated:        { type: Date, required: true },
+    dateModified:       { type: Date },
+    centername:         { type: String, required: true },
+    centercode:         { type: String, required: true },
+    sstatename:         { type: String, required: true },
+    status:             { type: String, required: true },
+    mfapproved:         { type: Boolean, default: false},
+    paymentdate:        { type: String },
+    transactionno:      { type: String },
+    paymentmode:        { type: String },
+    bankname:           { type: String },
+    paymentapproved:    { type: Boolean, default: false },
+    programmes:         [ProgramSchema]
 });
 
 StudentSchema.pre('save', function (next) {
@@ -68,11 +73,11 @@ function createStudent(student, callbacks) {
         tshirtsize: student.tshirtsize,
         photo: student.photo,
         birthcertificate: student.birthcertificate,
-        programmename: student.programmename,
+        // programmename: student.programmename,
         centername: student.centername,
         centercode: student.centercode,
-        schoolname: student.schoolname,
         sstatename: student.sstatename,
+        programmes: student.programmes,
         status: 'open',
         dateCreated: new Date()
     });
@@ -131,27 +136,16 @@ function updateStudent(id, student, callbacks) {
             f.birthcertificate = student.birthcertificate;
             f.dateCreated = student.dateCreated;
             f.dateModified = student.dateModified;
-            f.programmename = student.programmename;
             f.centername = student.centername;
             f.centercode = student.centercode;
             f.sstatename = student.sstatename;
             f.status = student.status;
-            f.admissioncardno = student.admissioncardno;
-            f.group = student.group;
-            f.category = student.category;
-            f.level = student.level;
-            f.feesdetails = student.feesdetails;
-            f.lastyearlevel = student.lastyearlevel;
             f.paymentdate = student.paymentdate;
             f.transactionno = student.transactionno;
             f.paymentmode = student.paymentmode;
             f.bankname = student.bankname;
-            f.examdate = student.examdate;
             f.mfapproved = student.mfapproved;
-            f.examdate = student.examdate;
-            f.entrytime = student.entrytime;
-            f.competitiontime = student.competitiontime;
-            f.venue = student.venue;
+            f.programmes = student.programmes;
             f.dateCreated = student.dateCreated;
             f.dateModified = new Date();
 
@@ -245,6 +239,50 @@ function generateHallTicket(username, callbacks) {
     });
 }
 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [day, month, year].join('/');
+}
+
+// Generating Form Copy
+function downloadCopy(username, callbacks) {
+    StudentModel.find({ phone: username.username }, function (err, student) {
+        if (!err) {
+            student = student[0];
+            var programmes = "";
+            for(var i=0; i<student.programmes.length; i++) {
+                if(i != 0) programmes += ", ";
+                programmes += student.programmes[i].programmename;
+            }
+            var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/copy.html', "utf8");
+            stringTemplate = stringTemplate.replace('{{sstateName}}', (student.sstatename) ? student.sstatename : "");
+            stringTemplate = stringTemplate.replace('{{centerName}}', (student.centername) ? student.centername : "");
+            stringTemplate = stringTemplate.replace('{{programmes}}', programmes);
+            stringTemplate = stringTemplate.replace('{{phoneNo}}', (student.phone) ? student.phone : "");
+            stringTemplate = stringTemplate.replace('{{emailId}}', (student.email) ? student.email : "");
+            stringTemplate = stringTemplate.replace('{{studentName}}', (student.name) ? student.name : "");
+            stringTemplate = stringTemplate.replace('{{gender}}', (student.gender) ? student.gender : "");
+            stringTemplate = stringTemplate.replace('{{parentName}}', (student.parentname) ? student.parentname : "");
+            stringTemplate = stringTemplate.replace('{{address}}', (student.address) ? student.address : "");
+            stringTemplate = stringTemplate.replace('{{dateOfBirth}}', (student.dateofbirth) ? formatDate(student.dateofbirth) : "");
+            stringTemplate = stringTemplate.replace('{{tShirtSize}}', (student.tshirtsize) ? student.tshirtsize : "");
+            stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.photo) : '');
+            stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.birthcertificate) : '');
+
+            conversion({ html: stringTemplate }, function (err, pdf) {
+                callbacks.success(pdf);
+            }); 
+        } else {
+            callbacks.error(err);
+        }
+    });
+}
+
 module.exports.createStudent = createStudent;
 module.exports.readStudents = readStudents;
 module.exports.readStudentById = readStudentById;
@@ -252,3 +290,4 @@ module.exports.updateStudent = updateStudent;
 module.exports.deleteStudent = deleteStudent;
 module.exports.downloadReceipt = downloadReceipt;
 module.exports.generateHallTicket = generateHallTicket;
+module.exports.downloadCopy = downloadCopy;

@@ -1,6 +1,6 @@
 angular.module('StudentApp.LoginController', [])
 
-    .controller('LoginController', ['$scope', 'userFactory', '$rootScope', 'studentFactory', 'centerFactory', 'fileUpload', '$http', function ($scope, userFactory, $rootScope, studentFactory, centerFactory, fileUpload, $http) {
+    .controller('LoginController', ['$scope', 'userFactory', '$rootScope', 'studentFactory', 'centerFactory', 'fileUpload', '$http', 'fileReader', function ($scope, userFactory, $rootScope, studentFactory, centerFactory, fileUpload, $http, fileReader) {
         //Login form listener
         var working = false;
         $scope.otpSent = false;
@@ -45,7 +45,7 @@ angular.module('StudentApp.LoginController', [])
                     if ($scope.$parent.isMaster) {
                         $scope.$parent.sstate = response.sstate;
                         for (var s = 0; s < $scope.$parent.student_list.length; s++) {
-                            if ($scope.$parent.student_list[s].sstatname  != $scope.$parent.sstate) {
+                            if ($scope.$parent.student_list[s].sstatname != $scope.$parent.sstate) {
                                 $scope.$parent.student_list.splice(s, 1);
                                 s--;
                             }
@@ -216,7 +216,7 @@ angular.module('StudentApp.LoginController', [])
             if ($scope.student.address == "" || $scope.student.address == undefined) {
                 $scope.msg = "Invalid or Missing Address. Please make sure you have entered correct Address";
             }
-            else if ($scope.student.dateofbirth == "" || $scope.student.dateofbirth == undefined) {
+            else if ($scope.student.dateofbirth == "" || $scope.student.dateofbirth == undefined || Object.prototype.toString.call($scope.student.dateofbirth) != "[object Date]") {
                 $scope.msg = "Invalid or Missing Date Of Birth. Please make sure you have entered correct Date Of Birth in format dd/mm/yyyy";
             }
             else if ($scope.student.email == "" || $scope.student.email == undefined) {
@@ -233,6 +233,8 @@ angular.module('StudentApp.LoginController', [])
             }
             else if ($scope.student.phone == "" || $scope.student.phone == undefined) {
                 $scope.msg = "Invalid or Missing Phone Number. Please make sure you have entered correct Phone Number";
+            } else if ($scope.student.programmeName.length <= 0) {
+                $scope.msg = "Please select atleast One Programme";
             } else if (!$scope.termsAccepted) {
                 $scope.msg = "Please refer to our terms and conditions document and agree to it!";
             } else {
@@ -320,27 +322,41 @@ angular.module('StudentApp.LoginController', [])
             photo: "",
             birthcertificate: "",
             dateCreated: new Date(),
-            programmename: "",
+            programmes: [],
             centername: "",
             centercode: "",
             sstatename: "",
             status: 'open',
-            admissioncardno: "",
-            group: "",
-            category: "",
-            level: "",
-            feesdetails: [],
-            lastyearlevel: {},
             paymentdate: "",
             transactionno: "",
             paymentmode: "",
             bankname: "",
+            paymentapproved: false,
             mfapproved: false,
-            examdate: undefined,
-            entrytime: "",
-            competitiontime: "",
-            venue: ""
+            programmeName: []
         }
+
+        $scope.addProgram = function (pro) {
+            $scope.student.programmes.push({
+                programmename: pro,
+                admissioncardno: "",
+                group: "",
+                category: "",
+                level: "",
+                feesdetails: [],
+                lastyearlevel: {},
+                examdate: undefined,
+                entrytime: "",
+                competitiontime: "",
+                venue: ""
+            });
+        }
+
+        $scope.toggleSelection = function (fruitName) {
+            var idx = $scope.student.programmeName.indexOf(fruitName);
+            if (idx > -1) $scope.student.programmeName.splice(idx, 1);
+            else $scope.student.programmeName.push(fruitName);
+        };
 
         $scope.isPhoneDuplicate = false;
         $scope.count = 0;
@@ -369,7 +385,7 @@ angular.module('StudentApp.LoginController', [])
             }
         }
 
-        $scope.changePhoneNumber = function() {
+        $scope.changePhoneNumber = function () {
             $scope.phoneOtpVerification = false;
         }
 
@@ -377,7 +393,7 @@ angular.module('StudentApp.LoginController', [])
         $scope.oTPmessage = "We have send you a OTP on the number you entered just now. Please verify to continue!";
         $scope.onPwdChange = function (otp) {
             $scope.isOTPVerified = ($scope.match.username == $scope.student.phone && $scope.match.password == otp) ? true : false;
-            if($scope.isOTPVerified) $scope.phoneOtpVerification = false;
+            if ($scope.isOTPVerified) $scope.phoneOtpVerification = false;
             else $scope.oTPmessage = "OTP does not match!!! Please try again!";
         }
 
@@ -423,6 +439,9 @@ angular.module('StudentApp.LoginController', [])
 
         $scope.save = function () {
             $scope.$parent.loading = true;
+            for (var i = 0; i < $scope.student.programmeName.length; i++) {
+                $scope.addProgram($scope.student.programmeName[i]);
+            }
             if ($scope.student._id === undefined) {
                 //Adding Student -> POST
                 studentFactory.save($scope.student, function (response) {
@@ -430,14 +449,16 @@ angular.module('StudentApp.LoginController', [])
                     $scope.editing = false;
                     $scope.dataSaved = true;
                     $scope.savingSuccess = true;
+                    $scope.savingFailed = false;
                     $scope.update_students();
                 }, function (response) {
                     //error
                     console.log(response);
                     $scope.$parent.editing = false;
-                    $scope.dataSaved = true;
-                    $scope.savingSuccess = true;
-                    $scope.$parent.update_students();
+                    $scope.savingFailed = true;
+                    $scope.dataSaved = false;
+                    $scope.savingSuccess = false;
+                    // $scope.$parent.update_students();
                 });
 
             } else {
@@ -455,7 +476,28 @@ angular.module('StudentApp.LoginController', [])
             }
         }
 
-        $scope.$parent.file = "http://alohakarnataka.com/terms_conditions.pdf";
+        $scope.getFile = function (mod) {
+            fileReader.readAsDataUrl($scope.file, $scope)
+                .then(function (result) {
+                    if(mod == 'myFile') $scope.imageSrc = result;
+                    else $scope.imageSrc1 = result;
+                });
+        };
+
+        $scope.calculateFee = function(student) {
+            if(student.programmes.length < 2) return 1000;
+            if(student.programmes.length == 2) return 1600;
+            if(student.programmes.length == 3) return 2600;
+            if(student.programmes.length == 4) return 3200;
+            if(student.programmes.length > 4) return 5000;
+        }
+
+        $scope.downloadFormCopy = function () {
+            var fileurl = "/api/0.1/student/downloadCopy/" + $scope.student.phone;
+            window.open(fileurl, '_self', '');
+        }
+
+        $scope.$parent.file = "./terms_conditions.pdf";
         $scope.$parent.center_file = "http://alohakarnataka.com/center_terms_conditions.pdf";
 
     }])

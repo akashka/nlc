@@ -74,7 +74,18 @@ html
         //-     | })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 
     body(ng-app='StudentApp', ng-controller='MainController')
-        +custom_header('Aloha Karnataka', 'exit')
+
+        div.navbar-inverse(ng-if="!(isValidBrowser && isValidResolution)")
+            div#notification-banner.secondary
+                div#notification-container
+                    button.tog#notification-close-btn(type="button",ng-click="toggleNotification()")
+                        i.fa.fa-times.large_icon(aria-hidden="true")
+            span.cta(ng-if="!isValidBrowser")
+                | You are using an unsupported browser. Please use the latest version of Google Chrome. 
+            span.cta(ng-if="!isValidResolution")
+                | You are using an unsupported resolution. Please resize to 1024 x 640 or higher.
+
+        +custom_header('Aloha NLC', 'exit')
         block content
 
         //- +custom_footer(t('layout.footer.about'))
@@ -91,6 +102,7 @@ html
         script(src='js/Controllers/TableController.js')
         script(src='js/Controllers/CardController.js')
         script(src='js/Controllers/FormController.js')
+        script(src='js/Controllers/upload.js')
 
         //- script(type="text/javascript")
         //-     | var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();

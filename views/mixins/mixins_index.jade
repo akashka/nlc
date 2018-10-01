@@ -85,81 +85,79 @@ mixin navbar(_t, exit)
 //- login
 mixin login_form
     div(ng-controller="LoginController")
-        form(name='tandc', ng-show='!termsAgreed && !loggedIn && !showOTPForm && !registrationForm')
+        form.ng-hide(name='tandc', ng-show='!termsAgreed && !loggedIn && !showOTPForm && !registrationForm')
             .panel.panel-default.slate_board(style='margin-top:85px;')
                 .panel-body(style='height: 75vh;padding:15px;overflow-y: auto;')
-                    div(style='text-align:left;margin-left:30px;color: white; font-weight: bold;')
-                        h3 Terms and Conditions
-                        //- hr
-                        //- | 1. The competition will be for 70 sums.
-                        //- br
-                        //- | 2. The time allotted for the competition is 5 minutes.
-                        //- br
-                        //- | 3. The Parent / Guardian should read and understand the rules and regulation governing admission and undertake to be responsible at all times for the good conduct and behaviour of child/children.
-                        //- br
-                        //- | 4. Registration fee or Rs. 550/- should be paid to the Franchisee at the time of submission or Registration Form.
-                        //- br
-                        //- | 5. The registrations should be done online only throught our website.
-                        //- br
-                        //- | 6. All the particulars should be filled up correctly. incorrect entry will be rejected.
-                        //- br
-                        //- | 7. Last date for registration is 30th September 2018.
-                        //- br
-                        //- | 8. Registration will not be accepted even a day later.
-                        //- br
-                        //- | 9. Registration money is non-refundable or non-transferable once registration is accepted.
-                        //- br
-                        //- | 10. The student must observe the Aloha dress code. Students should wear Aloha T- Shirt.
-                        //- br
-                        //- | 11. T-shirt cost is Rs. 250/-
-                        //- br
-                        //- | 12. T- Shirts has to be ordered in advance, so that participant can wear T-Shirt and attend the event.
-                        //- br
-                        //- | 13. Any appeal (complaints) should be lodged before 20th Oct 2018 only via email to our email id aloha.karnataka@gmail.com, no other mean of communication will be entertained or recognized. Parents can print the admit card online. If any issues regarding the same, you can call either the respective Franchisor or TASK office, Phone no 8884012849 between 10:30 am &amp; 6:00 pm. However any phone complaint must be followed by an email to aloha.karnataka@gmail.com for action to be taken.
-                        //- br
-                        //- | 14. The student must report 15 minutes before the Registration time mentioned in the Admit card at the venue.
-                        //- br
-                        //- | 15. The student has to bring his/her printed ADMIT CARD, without which participant will not be allowed.
-                        //- br
-                        //- | 16. The Student must carry his/her own Abacus (Plastic or Wooden), Pencil, failing which the same has to be purchased at the venue.
-                        //- br
-                        //- | 17. The student should be medically fit to participate in the competition.
-                        //- br
-                        //- | 18. Parents are not allowed inside the competition area.
-                        //- br
-                        //- | 19. The parent/guardian undertake the absolve TASK, the learning centre and its agent from any claims arising out of injury, loss or damage caused to the child/children during the competition.
-                        //- br
-                        //- | 20. Parents are requested to advise their children to be calm and patient. Please advise them not to rush or hurry at the entry and exit points.
-                        //- br
-                        //- | 21. Parents are requested to fully co-operate with organisers all thorough. In case of difficulty, they can seek assistance from the enquiry counter.
-                        //- br
-                        //- | 22. The prize distribution ceremony will be held soon after the competitions are over at the same venue and all parents are hereby invited to attend the same.
-                        //- br
-                        //- | 23. The decision of TASK will be final in all matters relating to the event.
-                        //- br
-                        //- | 24. Student who are in School Program, will have to make there own arrangements to reach the competition Venue. Transportation will not be provided either by the school or by TASK. 
-                        //- br
-                        //- br
-                        //- br
-                        //- | Note: Login using the registered Phone Number after 20th October for Hall Tickets
-                        //- br
-                        //- | Date Of Exam - 28th October 2018
-                        //- br
-                        //- br
-                        //- | Venue Of Exam:
-                        //- br
-                        //- | Vidya Soudha Public School, <br> No. 9/1, 1st Main, Near Basaveshwara Bus Station, <br> 1st Stage Peenya, Bengaluru, <br> Karnataka 560058
-                        //- br
-                        //- br
-                        //- h5
-                        //-     | To Download this, please click here - <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>
-
+                    div(style='text-align:left;margin-left:60px;margin-right:30px;color: black; font-weight: bold;')
+                        h4 Terms and Conditions
+                        hr
+                        ol
+                            li(style="text-align: justify;")
+                                | All students are requested to report at the venue as per their scheduled reporting time mentioned in the Admit Card. Students coming late will not be permitted into the competition hall.
+                            li(style="text-align: justify;")
+                                | Parents need to hand over the student to the volunteer at the Reporting Area / Students. Entry Gate after ensuring that the child has water bottle.
+                            li(style="text-align: justify;")
+                                | Parents are requested to advise their child not to call out the numbers (Question &amp; Answer) in the Competition Hall. If they do so, they will be disqualified and sent out.
+                            li(style="text-align: justify;")
+                                | Parents are strictly not allowed inside the Competition Hall and the Reporting area.
+                            li(style="text-align: justify;")
+                                | Without Admit Card &amp; Aloha T Shirt, the students will not be permitted to enter the Competition Hall.
+                            li(style="text-align: justify;")
+                                | The same Admit Card No. will be written on the Question paper to identify.
+                            li(style="text-align: justify;")
+                                | Parents are requested to collect their child after the Competition at EXIT gate.
+                            li(style="text-align: justify;")
+                                | Each &amp; every participant will be given a Certificate of participation. In case of any queries after receiving the Certificate, the student may contact his/her Aloha Learning Center latest by 20<sup>th</sup> January 2019.
+                            li(style="text-align: justify;")
+                                | The child's participation in the Competition is parent's personal responsibility. In case of any dispute, the decision of ALOHA INDIA will be the final &amp; binding all.
+                            li(style="text-align: justify;")
+                                | During the Competition, if you find any lapses in the arrangement or any discomfort caused to you or to any parents, kindly send y our suggestions to info@alohaindia.com. We will ensure that suggestions given are considered for our next Competition. Suggesting or discussing with the staff on the day of the event will not serve the purpose, as it will divert the attention of the staff from their duties.
+                            li(style="text-align: justify;")
+                                | In case of any emergency, ALOHA INDIA reserves the right to cancel / rearrange / change the time &amp; venue of the Competition.
+                            li(style="text-align: justify;")
+                                | The Competition will be for 5 minutes only.
+                            li(style="text-align: justify;")
+                                | The competition is consists of 80 sums for level1 and 70 sums for remaining levels of MA &amp; TT.
+                            li(style="text-align: justify;")
+                                | Please maintain silence in the Competition Hall.
+                            li(style="text-align: justify;")
+                                | Participants must be present 15 min. before the reporting time at Entry Gate.
+                            li(style="text-align: justify;")
+                                | The papers will be distributed by the Invigilator who will be monitoring the Competition.
+                            li(style="text-align: justify;")
+                                | You must keep all the stationery needed (i.e) Pencils, Abacus, Etc, on the table. The students should have the Admit Card with them to produce any time during the Competition day or prize distribution day, whenever needed.
+                            li(style="text-align: justify;")
+                                | The Admit Card number is already written on the question paper. As soon as the question paper is distributed you must verify the Admit Card number on the paper. You should not write your name on the question paper. The question paper with your name written will be disqualified.
+                            li(style="text-align: justify;")
+                                | Write all answers clearly and legibly.
+                            li(style="text-align: justify;")
+                                | For MA / TT, if any mistake is made on the paper, strike the wrong answer and rewrite the correct answer below the wrong one. Overwriting or smudging will not carry any marks.
+                            li(style="text-align: justify;")
+                                | For English Smart, you must underline / Circle the correct answer out of 3 Option.
+                            li(style="text-align: justify;")
+                                | Answer Sheet attempted with less than 30 sums / questions will not be evaluated.
+                            li(style="text-align: justify;")
+                                | As soon as the 2 bell rings, you must stop writing and keep your hands-on lap.
+                            li(style="text-align: justify;")
+                                | You must wait in your place for the answer sheet to be collected.
+                            li(style="text-align: justify;")
+                                | Wait till the instructions are given to Exit. While on Exit, form an orderly queue and collect your belongings without fail.
+                            li(style="text-align: justify;")
+                                | For any belongings not collected, request you to contact the HELP DESK.
+                            li(style="text-align: justify;")
+                                | Mobile phones and calculators are strictly prohibited inside the Competition Hall.
+                            li(style="text-align: justify;")
+                                | Students can use any method &ndash; Finger, Abacus or Mental Theory in the competition.
+                            li(style="text-align: justify;")
+                                | For any assistance pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> .
+                        h5
+                            | To Download this, please click here - <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>
 
             div(style='text-align:center;')
                 button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #00C84F; border-color: #00C84F; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='register()') REGISTER
                 button.btn.btn-success(style='border-radius: 10px; margin:20px; color: #fff; background-color: #2bbbad; border-color: #2bbbad; cursor: pointer; box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);margin-bottom: .3125rem; font-size: 1rem; padding: 15px; font-weight: bolder; text-decoration: none; text-transform: uppercase; letter-spacing: 0; border: 0; outline: 0; transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1); will-change: box-shadow,transform;min-width:200px;', ng-click='checkStatus()') CHECK STATUS
                                 
-        form.login#login(ng-show="showOTPForm")
+        form.login#login.ng-hide(ng-show="showOTPForm")
             p.title= 'Welcome'
             i.fa.fa-times(aria-hidden="true",ng-click="logout($event)",style="margin-top:-65px;float:right;color:red;font-size:20px;")
             img(src="/img/logo.png")
@@ -192,7 +190,7 @@ mixin login_form
                     //- i.spinner
                     span.state= 'submit'
 
-        div(ng-show='registrationForm', style='margin-top:100px;')
+        div.ng-hide(ng-show='registrationForm', style='margin-top:100px;')
             div
                 ncy-breadcrumb
                 .container
@@ -200,7 +198,7 @@ mixin login_form
                         .col-md-8.col-md-offset-2
                             form(name='registration', ng-submit='save_student()', ng-show='!dataSaved')
                                 .panel.panel-default
-                                    .panel-body.slate_board(style='height:75vh; overflow-y:auto; background-color:white;border-radius: 10px;padding: 10px 30px; color: white;')
+                                    .panel-body.slate_board(style='height:75vh; overflow-y:auto; background-color:white;border-radius: 10px;padding: 10px 30px; color: black;')
                                         div
 
                                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -209,19 +207,21 @@ mixin login_form
                                                     option(value="" disabled selected)
                                                         | Select State
 
-                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="margin-top:-10px;")
                                                 span !{t('Select Your Center')}
                                                 select.mdc-select__native-control(ng-model='student.centername', ng-options='x for x in centeroptions | orderBy:"toString()"', ng-required="true", ng-disabled="centeroptions.length < 1 || isOTPVerified", ng-change="onCenterChange()")
                                                     option(value="" disabled selected)
                                                         | Select Center
 
                                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                                span !{t('Select Your Program')}
-                                                select.mdc-select__native-control(ng-model='student.programmename', ng-options='x for x in programmeoptions | orderBy:"toString()"', ng-required="true", ng-disabled="programmeoptions.length < 1 || isOTPVerified")
-                                                    option(value="" disabled selected)
-                                                        | Select Program
-            
-                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                                label.mdl-textfield__label !{t('Select Your Program(s)')}
+                                                br
+                                                br
+                                                label(style="width:25%;margin-right:25px;",ng-repeat="x in programmeoptions | orderBy:'toString()'")
+                                                    input(type="checkbox",value="{{x}}",ng-checked="student.programmeName.indexOf(x) > -1",ng-click="toggleSelection(x)")
+                                                    | {{x}}
+
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                                                 input.mdl-textfield__input(type="number", ng-model="student.phone", ng-minlength="10", ng-maxlength="10", ng-required="true", ng-change="onPhoneChange(student.phone)", ng-disabled="isOTPVerified || student.programmename == ''")
                                                 label.mdl-textfield__label !{t('Phone Number')}
 
@@ -237,13 +237,15 @@ mixin login_form
                                                 input.mdl-textfield__input(type="text", ng-model="student.parentname", ng-required="true")
                                                 label.mdl-textfield__label !{t('Parent Name')}
 
-                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
+                                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified",style="margin-top:-20px;")
                                                 label.mdl-textfield__label !{t('Gender')}
-                                                label(style="float:left;width:50%;")
-                                                    input.mdl-textfield__input(type="radio", ng-model="student.gender", value="Male", style="float:left;width:10%;margin-top: 3px;")
+                                                br
+                                                br
+                                                label(style="width:50%;margin-right:35px;")
+                                                    input(type="radio", ng-model="student.gender", value="Male", style="width:10%;margin-top: 3px;")
                                                     | Male
-                                                label(style="float:left;width:50%;")
-                                                    input.mdl-textfield__input(type="radio", ng-model="student.gender", value="Female", style="float:left;width:10%;margin-top: 3px;")
+                                                label(style="width:50%;")
+                                                    input(type="radio", ng-model="student.gender", value="Female", style="width:10%;margin-top: 3px;")
                                                     | Female
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
@@ -265,15 +267,20 @@ mixin login_form
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
                                                 span !{t('Upload Student Image')}  
                                                 input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
-                                            
+
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
                                                 span !{t('Upload Birth Proof')}  
                                                 input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
 
-                                            input(type="checkbox",name="termsAccepted",value="termsAccepted", style="width:5%;zoom:2;", ng-click="onTCChange()" ng-show="isOTPVerified")
+                                            input(type="checkbox",name="termsAccepted",value="termsAccepted", style="width:5%;zoom:1.5;", ng-click="onTCChange()" ng-show="isOTPVerified")
                                             p(ng-show="isOTPVerified", style="display:inline-block;")
                                                 | I accept to the <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>. <br>
                                             
+                                            br
+
+                                            img(ng-src="{{imageSrc}}", style="width:250px;height:auto;margin-left:10px;margin-top:-25px;")
+                                            img(ng-src="{{imageSrc1}}", style="width:250px;height:auto;margin-left:10px;margin-top:-25px;")
+
                                             br
 
                                             p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;",ng-show="isPhoneDuplicate")
@@ -287,7 +294,7 @@ mixin login_form
 
                             div(ng-show='dataSaved')
                                 .panel.panel-default(style='margin-top:20px;')
-                                    .panel-body.slate_board(style='height:70vh; overflow-y:scroll; background-color:white;border-radius: 10px;padding:15px 30px;')
+                                    .panel-body.slate_board(style='height:70vh; overflow-y:auto; background-color:white;border-radius: 10px;padding:15px 30px;')
                                         div(ng-show='savingFailed',style="text-align:center;")
                                             .swal2-icon.swal2-error
                                                 span.swal2-x-mark
@@ -300,22 +307,24 @@ mixin login_form
                                             .swal2-buttonswrapper(style='display: block;')
                                             button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
                                             button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
-                                        div(ng-show='savingSuccess',style="text-align:center;color:white;")
+                                        div(ng-show='savingSuccess',style="color:black;margin-left:50px;")
                                             span.checkmark
                                                 div.checkmark_circle
                                                 div.checkmark_stem
                                                 div.checkmark_kick
-                                            h2#swal2-title.swal2-title(style="color:#0080ff;") Hurray! You successfully registered!
+                                            h2#swal2-title.swal2-title(style="text-align:center;color:#0080ff;") Hurray! You successfully registered!
                                             #swal2-content.swal2-content(style='display: block;')
-                                                | Please make a payment of <b> Rs. 1000 (Rupees One Thousand Only) towards Registration (Rs. 1600 if opted for two programme exams) </b> to the respective centers. <br><br><br>
-                                                | Incase of any doubts, please mail us at info@alohaindia.com <br><br>
-                                                | Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket.  <br><br>
-                                                | <a ng-href="{{file}}" target="_blank" style="color:blue;">Download Terms & Conditions</a>                                                                                             
+                                                | Dear <b> {{student.name}} </b> <br> <br>
+                                                | Please make a payment of <b> Rs. {{calculateFee(student)}} towards Registration </b> to the respective centers. <br> <br>
+                                                | Incase of any doubts, pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> . <br> <br>
+                                                | Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket.  <br> <br>
+                                                | <a ng-href="{{file}}" target="_blank" style="color:blue;text-align:center;float:left;width:50%;">Download Terms & Conditions</a>
+                                                | <a style="color:blue;text-align:center;float:left;width:50%;" ng-click='downloadFormCopy()'>Download Copy of Form</a> 
                                             .swal2-buttonswrapper(style='display: block;')
                                             //- button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
                                             button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
 
-        .demo-card-wide.mdl-card.mdl-shadow--2dp(ng-show="phoneOtpVerification", style="padding:45px;background-color:silver;border-radius:10px;background-color: silver;border-radius: 10px;height: 70vh;margin-top:105px;margin-left:75px;width:85%;text-align:center;")
+        .demo-card-wide.mdl-card.mdl-shadow--2dp.ng-hide(ng-show="phoneOtpVerification", style="padding:45px;background-color:silver;border-radius:10px;background-color: silver;border-radius: 10px;height: 70vh;margin-top:105px;margin-left:75px;width:85%;text-align:center;")
             h3 {{oTPmessage}}
             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                 input.mdl-textfield__input(type="number", ng-model="otp", ng-minlength="6", ng-maxlength="6", ng-required="true", ng-change="onPwdChange(otp)", style="margin-left: 175%;")

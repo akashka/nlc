@@ -705,7 +705,7 @@ tbody tr{
 }
 
 .slate_board {
-    background: url(http://diysolarpanelsv.com/images/classroom-chalkboard-background-clipart-9.png);
+    background: url('../img/slate.png');
     border-radius: 10px;
     background-size: 100% 100%;
     background-position: right;
@@ -784,4 +784,159 @@ tbody tr{
 
 .paymenting .mdl-card__supporting-text .mdl-textfield {
     width: 43%;
+}
+
+
+:host {
+  display: block;
+  border: none;
+  margin-bottom: 0;
+}
+.navbar-brand>img {
+  display: block;
+  margin: 5px auto;
+}
+
+.navbar-brand {
+  padding: 0 15px;
+}
+
+.navbar {
+  border-radius: 0;
+  min-height: 65px;
+  margin-bottom: 0;
+}
+
+.navbar-inverse {
+  background-color: white;
+  border: none;
+  text-align:center;
+  padding: 5px;
+  z-index: 1000000;
+}
+
+.navbar-brand {
+  margin-left: 10px !important;
+}
+
+.widgets {
+  display: inline-block;
+}
+
+.sub-filters {
+  text-align: right;
+}
+
+.opc-title {
+  border-right: 3px solid #1f222d;
+  padding-right: 20px;
+}
+
+.opc-title p {
+  line-height: 2;
+  font-size: 18px;
+  color: #fff;
+  font-weight: normal;
+  margin: 14px auto;
+}
+
+.monthWidget {
+  float: right;
+  font-size: 14px;
+  margin: 30px 5px 20px;
+  position: relative;
+}
+
+.monthWidget i {
+  font-size: 17px;
+  position: absolute;
+  left: -18px;
+  top: 3px;
+}
+
+.monthWidget span {
+  margin-left: 4px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid darkgoldenrod;
+}
+
+
+#join-rewards-banner {
+    display: block;
+    width: 100%;
+    min-height: 2.11764706em;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    color: white;
+    z-index: 100;
+    top: .58823529em;
+    background-color: black;
+    font-size: 12px;
+}
+
+#join-rewards-container {
+    position: relative;
+}
+
+#join-rewards-banner #call-to-action-badge {
+    font-weight: normal;
+    vertical-align: top;
+}
+
+.badge-notification.badge-secondary {
+    line-height: 1.5;
+}
+
+#notification-banner img {
+    margin: .11764706em .70588235em .11764706em .47058824em;
+    top: -0.05882353em;
+    height: 1.05882353em;
+}
+
+#notification-banner .cta {
+    font-weight: bold;
+    font-size: larger;
+}
+
+#notification-banner .cta a {
+    color: black;
+    text-decoration: underline;
+}
+
+#notification-close-btn {
+    position: absolute;
+    top: 0px;
+    right: 1.17647059em;
+    background: transparent;
+    border: none;
+}
+
+#notification-close-btn:active #notification-banner {
+    display: none !important;
+}
+
+.secondary {
+  background: white;
+}
+
+.large_icon {
+  font-size: large;
+  margin-top: 5px;
+}
+
+.load_rates {
+    margin-top: 25px;
+    display: inline-block;
+    right: 50% !important;
+    position: relative !important;
+}
+
+.top60px {
+  top: 60px;
+  z-index: 1000;
+}
+
+a {
+    color: #0000EE;
 }

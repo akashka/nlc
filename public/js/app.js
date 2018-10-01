@@ -13,6 +13,35 @@ var app = angular.module('StudentApp', [
     'ngTable'
 ])
     .controller('MainController', ['$scope', '$http', 'studentFactory', function ($scope, $http, studentFactory) {
+
+        var isChromium = window.chrome;
+        var winNav = window.navigator;
+        var vendorName = winNav.vendor;
+        var isOpera = typeof window.opr !== "undefined";
+        var isIEedge = winNav.userAgent.indexOf("Edge") > -1;
+        var isIOSChrome = winNav.userAgent.match("CriOS");
+        if ((isChromium !== null && typeof isChromium !== "undefined" &&
+            vendorName === "Google Inc." && isOpera === false &&
+            isIEedge === false) || isIOSChrome) {
+            $scope.isValidBrowser = true;
+        } else {
+            $scope.isValidBrowser = false;
+        }
+        var windowWidth = $(window).width();
+        var windowHeight = $(window).height();
+        $scope.isValidResolution = (windowWidth < 1024 || windowHeight < 600) ? false : true;
+
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            var windowHeight = $(window).height();
+            $scope.isValidResolution = (windowWidth < 1024 || windowHeight < 600) ? false : true;
+        });
+
+        $scope.toggleNotification = function() {
+            $scope.isValidResolution = true;
+            $scope.isValidBrowser = true;            
+        }
+
         //State vars initialization
         $scope.loading = true;
         $scope.loggedIn = getCookie('username') != "";
@@ -232,13 +261,13 @@ var app = angular.module('StudentApp', [
         }
 
         $scope.$parent.newCenterModal = false;
-        $scope.createCenter = function() {
+        $scope.createCenter = function () {
             $scope.$parent.newCenterModal = true;
         }
 
-        $scope.$parent.newUserModal = false;        
-        $scope.createUser = function() {
-            $scope.$parent.newUserModal = true;        
+        $scope.$parent.newUserModal = false;
+        $scope.createUser = function () {
+            $scope.$parent.newUserModal = true;
         }
 
     }]);

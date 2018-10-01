@@ -7,6 +7,8 @@ angular.module('StudentApp.FormController', [])
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
                 element.bind('change', function () {
+                    scope.file = element[0].files[0];
+                    scope.getFile(element[0].attributes['file-model'].nodeValue);
                     scope.$apply(function () {
                         modelSetter(scope, element[0].files[0]);
                     });
@@ -63,6 +65,19 @@ angular.module('StudentApp.FormController', [])
         $scope.downloadReceipt = function () {
             var username = getCookie('username');
             var fileurl = "/api/0.1/student/download/" + username;
+            window.open(fileurl, '_self', '');
+        }
+
+        $scope.calculateFee = function(student) {
+            if(student.programmes.length < 2) return 1000;
+            if(student.programmes.length == 2) return 1600;
+            if(student.programmes.length == 3) return 2600;
+            if(student.programmes.length == 4) return 3200;
+            if(student.programmes.length > 4) return 5000;
+        }
+
+        $scope.downloadFormCopy = function (student) {
+            var fileurl = "/api/0.1/student/downloadCopy/" + student.phone;
             window.open(fileurl, '_self', '');
         }
 

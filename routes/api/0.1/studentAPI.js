@@ -27,26 +27,17 @@ router.post('/', function (req, res) {
             tshirtsize: req.body.tshirtsize,
             photo: req.body.photo,
             birthcertificate: req.body.birthcertificate,
-            programmename: req.body.programmename,
             centername: req.body.centername,
             centercode: req.body.centercode,
             sstatename: req.body.sstatename,
             status: req.body.status,
-            admissioncardno: req.body.admissioncardno,
-            group: req.body.group,
-            category: req.body.category,
-            level: req.body.level,
-            feesdetails: req.body.feesdetails,
-            lastyearlevel: req.body.lastyearlevel,
             paymentdate: req.body.paymentdate,
             transactionno: req.body.transactionno,
             paymentmode: req.body.paymentmode,
             bankname: req.body.bankname,
+            paymentapproved: req.body.paymentapproved,
+            programmes: req.body.programmes,            
             mfapproved: req.body.mfapproved,
-            examdate: req.body.examdate,
-            entrytime: req.body.entrytime,
-            competitiontime: req.body.competitiontime,
-            venue: req.body.venue,
             dateCreated: req.body.dateCreated,
             dateModified: req.body.dateModified
         }, {
@@ -124,28 +115,20 @@ router.put('/:id', function (req, res) {
             tshirtsize: req.body.tshirtsize,
             photo: req.body.photo,
             birthcertificate: req.body.birthcertificate,
-            programmename: req.body.programmename,
             centername: req.body.centername,
             centercode: req.body.centercode,
             sstatename: req.body.sstatename,
             status: req.body.status,
-            admissioncardno: req.body.admissioncardno,
-            group: req.body.group,
-            category: req.body.category,
-            level: req.body.level,
-            feesdetails: req.body.feesdetails,
-            lastyearlevel: req.body.lastyearlevel,
+            programmes: req.body.programmes,            
             paymentdate: req.body.paymentdate,
             transactionno: req.body.transactionno,
             paymentmode: req.body.paymentmode,
+            paymentapproved: req.body.paymentapproved,
             bankname: req.body.bankname,
             mfapproved: req.body.mfapproved,
-            examdate: req.body.examdate,
-            entrytime: req.body.entrytime,
-            competitiontime: req.body.competitiontime,
-            venue: req.body.venue,
             dateCreated: req.body.dateCreated,
-            dateModified: req.body.dateModified
+            dateModified: req.body.dateModified,
+            paymentapproved: req.body.paymentapproved
         }, {
                 success: function (f) {
                     res.status(200).send({ msg: 'Student updated succesfully: ' + JSON.stringify(f), data: f });
@@ -214,6 +197,30 @@ router.get('/generateHallTicket/:username', function (req, res) {
                     let filename = "hallticket";
                     filename = encodeURIComponent(filename) + '.pdf';
                     var file = fs.readFileSync('./hallticket.pdf');
+                    res.setHeader('Content-Type', 'application/pdf');
+                    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+                    pdf.stream.pipe(res);
+                },
+                error: function (err) {
+                    res.status(403).send(err);
+                }
+            });
+    });
+})
+
+// Generate Hall Ticket
+router.get('/downloadCopy/:username', function (req, res) {
+    var d = domain.create();
+    d.run(function () {
+        studentDAO.downloadCopy({
+            username: req.params.username,
+        }, {
+                success: function (pdf) {
+                    var output = fs.createWriteStream('./form_copy.pdf');
+                    pdf.stream.pipe(output);
+                    let filename = "form_copy";
+                    filename = encodeURIComponent(filename) + '.pdf';
+                    var file = fs.readFileSync('./form_copy.pdf');
                     res.setHeader('Content-Type', 'application/pdf');
                     res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
                     pdf.stream.pipe(res);
