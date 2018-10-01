@@ -6,7 +6,7 @@ var curl = require('curlrequest');
 var smsUrl = "https://smsapp.mx9.in/smpp/?username=alohaindia&password=9790944889&from=ALOHAS&to=91";
 var senderID = "LILWON";
 
-var isInTest = typeof global.it === 'function';
+var isInTest = false;
 
 var Schema = mongoose.Schema;
 var UserSchema = new Schema({

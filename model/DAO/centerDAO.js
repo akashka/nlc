@@ -6,7 +6,7 @@ var db = require('../../config/mongodb').init(),
     conversion = require("phantom-html-to-pdf")(),
     QRCode = require('qrcode');
 
-var isInTest = typeof global.it === 'function';
+var isInTest = false;
 
 var Schema = mongoose.Schema;
 var CenterSchema = new Schema({

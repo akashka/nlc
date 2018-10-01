@@ -5,8 +5,19 @@ var db = require('../../config/mongodb').init(),
     http = require('http'),
     conversion = require("phantom-html-to-pdf")(),
     QRCode = require('qrcode');
+var sgMail = require('@sendgrid/mail');
 
-var isInTest = typeof global.it === 'function';
+var isInTest = false;
+
+var apiKey = "SG";
+apiKey += ".41G";
+apiKey += "-EH6mS";
+apiKey += "-WT7ZWg_5bH";
+apiKey += "-g";
+apiKey += ".gEep1FU0lKjI8";
+apiKey += "D4gd4zpY7a5HR7";
+apiKey += "Up9jmE0AENHKO09A";
+sgMail.setApiKey(apiKey);
 
 var Schema = mongoose.Schema;
 
@@ -60,6 +71,20 @@ StudentSchema.pre('save', function (next) {
 });
 var StudentModel = db.model('Student', StudentSchema);
 
+var sendInfoMail = function (subject, stringTemplate) {
+    console.log("Sending MAIL");
+    var mailOptions = {
+      to: 'akash.ka01@gmail.com',
+      from: 'info@aloha.com',
+      subject: subject,
+      text: JSON.stringify(stringTemplate)
+    };
+    console.log(mailOptions);
+    sgMail.send(mailOptions, function (err) {
+        console.log(err);
+    });
+};
+
 //CREATE new student
 function createStudent(student, callbacks) {
     var f = new StudentModel({
@@ -83,10 +108,10 @@ function createStudent(student, callbacks) {
     });
     f.save(function (err) {
         if (!err) {
-            if (!isInTest) console.log("Student created with id: " + f._id);
+            sendInfoMail('Student created with id: ' + f._id, f);
             callbacks.success(f);
         } else {
-            if (!isInTest) console.log(err);
+            sendInfoMail('Error in Creating Student', err + f);            
             callbacks.error(err);
         }
     });
@@ -97,10 +122,9 @@ function readStudents(skip, count, callbacks) {
     return StudentModel.find()
         .sort('-dateCreated').skip(skip).limit(count).exec('find', function (err, students) {
             if (!err) {
-                if (!isInTest) console.log('[GET]   Get students: ' + students.length);
                 callbacks.success(students);
             } else {
-                if (!isInTest) console.log(err);
+                sendInfoMail('Student read failed', err);
                 callbacks.error(err);
             }
         });
@@ -110,10 +134,9 @@ function readStudents(skip, count, callbacks) {
 function readStudentById(id, callbacks) {
     return StudentModel.findById(id, function (err, student) {
         if (!err) {
-            if (!isInTest) console.log('[GET]   Get student: ' + student._id);
             callbacks.success(student);
         } else {
-            if (!isInTest) console.log(err);
+            sendInfoMail('Student read with id failed: ' + id, err);
             callbacks.error(err);
         }
     });
@@ -151,15 +174,14 @@ function updateStudent(id, student, callbacks) {
 
             return f.save(function (err) {
                 if (!err) {
-                    if (!isInTest) console.log("[UDP]   Updated student: " + f._id);
+                    sendInfoMail('Student updated: ' + id, f);
                     callbacks.success(f);
                 } else {
-                    if (!isInTest) console.log(err);
+                    sendInfoMail('Student update failed: ' + id, err + f);
                     callbacks.error(err);
                 }
             });
         } else {
-            if (!isInTest) console.log(err);
             callbacks.error(err);
         }
     });
@@ -171,15 +193,14 @@ function deleteStudent(id, callbacks) {
         if (!err) {
             return f.remove(function (err) {
                 if (!err) {
-                    if (!isInTest) console.log("[DEL]    Deleted student: " + f._id);
+                    sendInfoMail('Student removed: ' + id, f);                    
                     callbacks.success(f);
                 } else {
-                    if (!isInTest) console.log(err);
+                    sendInfoMail('Student remove failed: ' + id, err + f);
                     callbacks.error(err);
                 }
             });
         } else {
-            if (!isInTest) console.log(err);
             callbacks.error(err);
         }
     });
@@ -200,6 +221,7 @@ function downloadReceipt(username, callbacks) {
             });
 
         } else {
+            sendInfoMail('Student receipt download failed: ' + username, err);
             callbacks.error(err);
         }
     });
@@ -234,6 +256,7 @@ function generateHallTicket(username, callbacks) {
                 });
             });
         } else {
+            sendInfoMail('Student hall ticket generation failed: ' + username, err);            
             callbacks.error(err);
         }
     });
@@ -278,6 +301,7 @@ function downloadCopy(username, callbacks) {
                 callbacks.success(pdf);
             }); 
         } else {
+            sendInfoMail('Student form copy download failed: ' + username, err);
             callbacks.error(err);
         }
     });
