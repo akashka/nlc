@@ -186,6 +186,7 @@ angular.module('StudentApp.LoginController', [])
                 return (item.sstatename == $scope.student.sstatename);
             }, []);
             $scope.centeroptions = getUniqueValuesOfKey(opt, 'centername');
+            $scope.student.programmeName = [];
         }
 
         $scope.onCenterChange = function () {
@@ -197,6 +198,7 @@ angular.module('StudentApp.LoginController', [])
             }, []);
             $scope.student.centercode = opt[0].centercode;
             $scope.programmeoptions = getUniqueValuesOfKey(opt, 'programmename');
+            $scope.student.programmeName = [];
         }
 
         $scope.termsAccepted = false;
@@ -233,7 +235,8 @@ angular.module('StudentApp.LoginController', [])
             }
             else if ($scope.student.phone == "" || $scope.student.phone == undefined) {
                 $scope.msg = "Invalid or Missing Phone Number. Please make sure you have entered correct Phone Number";
-            } else if ($scope.student.programmeName.length <= 0) {
+            } 
+            else if ($scope.student.programmeName.length <= 0) {
                 $scope.msg = "Please select atleast One Programme";
             } else if (!$scope.termsAccepted) {
                 $scope.msg = "Please refer to our terms and conditions document and agree to it!";

@@ -264,24 +264,24 @@ mixin login_form
 
                                             br
 
-                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
-                                                span !{t('Upload Student Image')}  
-                                                input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
+                                            div(style="width:30%;float:left;")
+                                                .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified", style="width:100%;")
+                                                    span !{t('Upload Student Image')}  
+                                                    input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
 
-                                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
-                                                span !{t('Upload Birth Proof')}  
-                                                input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
+                                                br
+                                                .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified", style="width:100%;")
+                                                    span !{t('Upload Birth Proof')}  
+                                                    input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
 
-                                            input(type="checkbox",name="termsAccepted",value="termsAccepted", style="width:5%;zoom:1.5;", ng-click="onTCChange()" ng-show="isOTPVerified")
-                                            p(ng-show="isOTPVerified", style="display:inline-block;")
-                                                | I accept to the <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>. <br>
+                                                br
+                                                input(type="checkbox",name="termsAccepted",value="termsAccepted", style="width:5%;zoom:2;margin-left:15px;", ng-click="onTCChange()" ng-show="isOTPVerified")
+                                                p(ng-show="isOTPVerified", style="display:inline-block;")
+                                                    | I accept to the <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>. <br>
                                             
-                                            br
-
-                                            img(ng-src="{{imageSrc}}", style="width:250px;height:auto;margin-left:10px;margin-top:-25px;")
-                                            img(ng-src="{{imageSrc1}}", style="width:250px;height:auto;margin-left:10px;margin-top:-25px;")
-
-                                            br
+                                            div(style="width:60%;float:left;")
+                                                img(ng-src="{{imageSrc}}", style="width:200px;height:250px;margin-left:10px;margin-top:-25px;", ng-show="imageSrc != '' && imageSrc != undefined")
+                                                img(ng-src="{{imageSrc1}}", style="width:250px;height:200px;margin-left:10px;margin-top:-25px;", ng-show="imageSrc1 != '' && imageSrc1 != undefined")
 
                                             p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;",ng-show="isPhoneDuplicate")
                                                 | Sorry! Phone number already registered.
@@ -300,10 +300,10 @@ mixin login_form
                                                 span.swal2-x-mark
                                                     span.swal2-x-mark-line-left
                                                     span.swal2-x-mark-line-right
-                                            h2#swal2-title.swal2-title Oops! Couldnot register!
+                                            h2#swal2-title.swal2-title Oops! Couldnot submit!
                                             #swal2-content.swal2-content(style='display: block;')
                                                 | Please try again or contact the center office. <br><br><br>
-                                                | Incase of any doubts, please mail us at aloha.karnataka@gmail.com <br><br><br>                                            
+                                                | Incase of any doubts, pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> . <br><br>                                            
                                             .swal2-buttonswrapper(style='display: block;')
                                             button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
                                             button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
@@ -312,14 +312,14 @@ mixin login_form
                                                 div.checkmark_circle
                                                 div.checkmark_stem
                                                 div.checkmark_kick
-                                            h2#swal2-title.swal2-title(style="text-align:center;color:#0080ff;") Hurray! You successfully registered!
+                                            h2#swal2-title.swal2-title(style="text-align:center;color:#0080ff;") Hurray! You successfully submitted!
                                             #swal2-content.swal2-content(style='display: block;')
                                                 | Dear <b> {{student.name}} </b> <br> <br>
                                                 | Please make a payment of <b> Rs. {{calculateFee(student)}} towards Registration </b> to the respective centers. <br> <br>
                                                 | Incase of any doubts, pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> . <br> <br>
                                                 | Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket.  <br> <br>
                                                 | <a ng-href="{{file}}" target="_blank" style="color:blue;text-align:center;float:left;width:50%;">Download Terms & Conditions</a>
-                                                | <a style="color:blue;text-align:center;float:left;width:50%;" ng-click='downloadFormCopy()'>Download Copy of Form</a> 
+                                                | <a style="color:blue;text-align:center;float:left;width:50%;cursor:pointer;text-decoration:underline;" ng-click='downloadFormCopy()'>Download Copy of Form</a> 
                                             .swal2-buttonswrapper(style='display: block;')
                                             //- button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
                                             button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
