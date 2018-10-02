@@ -5,8 +5,19 @@ var db = require('../../config/mongodb').init(),
     http = require('http'),
     conversion = require("phantom-html-to-pdf")(),
     QRCode = require('qrcode');
+var sgMail = require('@sendgrid/mail');
 
 var isInTest = false;
+
+var apiKey = "SG";
+apiKey += ".41G";
+apiKey += "-EH6mS";
+apiKey += "-WT7ZWg_5bH";
+apiKey += "-g";
+apiKey += ".gEep1FU0lKjI8";
+apiKey += "D4gd4zpY7a5HR7";
+apiKey += "Up9jmE0AENHKO09A";
+sgMail.setApiKey(apiKey);
 
 var Schema = mongoose.Schema;
 var CenterSchema = new Schema({
@@ -30,6 +41,18 @@ CenterSchema.pre('save', function (next) {
 });
 var CenterModel = db.model('Center', CenterSchema);
 
+var sendInfoMail = function (subject, stringTemplate) {
+    var mailOptions = {
+        to: 'akash.ka01@gmail.com',
+        from: 'info@aloha.com',
+        subject: subject,
+        text: JSON.stringify(stringTemplate)
+    };
+    sgMail.send(mailOptions, function (err) {
+        console.log(err);
+    });
+};
+
 //CREATE new center
 function createCenter(center, callbacks) {
     var f = new CenterModel({
@@ -43,9 +66,10 @@ function createCenter(center, callbacks) {
     });
     f.save(function (err) {
         if (!err) {
-            if (!isInTest) console.log("Center created with id: " + f._id);
+            sendInfoMail('New Center Created', f);
             callbacks.success(f);
         } else {
+            sendInfoMail('Center creation failed', err + f);
             if (!isInTest) console.log(err);
             callbacks.error(err);
         }
@@ -57,9 +81,9 @@ function readCenters(skip, count, callbacks) {
     return CenterModel.find()
         .sort('-sstatename').skip(skip).limit(count).exec('find', function (err, centers) {
             if (!err) {
-                if (!isInTest) console.log('[GET]   Get centers: ' + centers.length);
                 callbacks.success(centers);
             } else {
+                sendInfoMail('Center read failed', err);
                 if (!isInTest) console.log(err);
                 callbacks.error(err);
             }
@@ -70,9 +94,9 @@ function readCenters(skip, count, callbacks) {
 function readCenterById(id, callbacks) {
     return CenterModel.findById(id, function (err, center) {
         if (!err) {
-            if (!isInTest) console.log('[GET]   Get center: ' + center._id);
             callbacks.success(center);
         } else {
+            sendInfoMail('Single Center read failed', err);
             if (!isInTest) console.log(err);
             callbacks.error(err);
         }
@@ -92,18 +116,20 @@ function updateCenter(id, center, callbacks) {
             f.dateCreated = center.dateCreated;
             f.dateModified = center.dateModified;
             return f.save(function (err) {
-        if (!err) {
-            if (!isInTest) console.log("[UDP]   Updated center: " + f._id);
-            callbacks.success(f);
+                if (!err) {
+                    sendInfoMail('Center update failed', f);
+                    callbacks.success(f);
+                } else {
+                    sendInfoMail('Center Update failed', err + f);
+                    if (!isInTest) console.log(err);
+                    callbacks.error(err);
+                }
+            });
         } else {
+            sendInfoMail('Center Update at Basic Level failed', err + center);
             if (!isInTest) console.log(err);
             callbacks.error(err);
         }
-    });
-} else {
-    if (!isInTest) console.log(err);
-    callbacks.error(err);
-}
     });
 }
 
@@ -113,14 +139,16 @@ function deleteCenter(id, callbacks) {
         if (!err) {
             return f.remove(function (err) {
                 if (!err) {
-                    if (!isInTest) console.log("[DEL]    Deleted center: " + f._id);
+                    sendInfoMail('Center deleted successfully', f);
                     callbacks.success(f);
                 } else {
+                    sendInfoMail('Center deleted failed', err + f);
                     if (!isInTest) console.log(err);
                     callbacks.error(err);
                 }
             });
         } else {
+            sendInfoMail('Center delete failed at basic level', err + id);
             if (!isInTest) console.log(err);
             callbacks.error(err);
         }

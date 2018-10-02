@@ -37,9 +37,9 @@ var app = angular.module('StudentApp', [
             $scope.isValidResolution = (windowWidth < 1024 || windowHeight < 600) ? false : true;
         });
 
-        $scope.toggleNotification = function() {
+        $scope.toggleNotification = function () {
             $scope.isValidResolution = true;
-            $scope.isValidBrowser = true;            
+            $scope.isValidBrowser = true;
         }
 
         //State vars initialization
@@ -262,11 +262,24 @@ var app = angular.module('StudentApp', [
 
         $scope.$parent.newCenterModal = false;
         $scope.createCenter = function () {
+            $scope.$parent.center = {
+                sstatename: "",
+                programmename: "",
+                centername: "",
+                centercode: ""
+            }
             $scope.$parent.newCenterModal = true;
         }
 
         $scope.$parent.newUserModal = false;
         $scope.createUser = function () {
+            $scope.$parent.user = {
+                center: "",
+                password: "999999",
+                role: "",
+                sstate: "",
+                username: ""
+            }
             $scope.$parent.newUserModal = true;
         }
 

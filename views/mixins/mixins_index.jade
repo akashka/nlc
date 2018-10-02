@@ -66,12 +66,12 @@ mixin navbar(_t, exit)
         a(ng-href="{{file}}",target="_blank")
             i.fa.fa-caret-right
             | Terms & Conditions
-        a(ng-href="{{unit_file}}",target="_blank",ng-show='loggedIn && !isStudent')
-            i.fa.fa-caret-right
-            | UF T&C
-        a(ng-href="{{unit_file}}",target="_blank",ng-show='loggedIn && !isStudent && !isUnit')
-            i.fa.fa-caret-right
-            | MF T&C
+        //- a(ng-href="{{unit_file}}",target="_blank",ng-show='loggedIn && !isStudent')
+        //-     i.fa.fa-caret-right
+        //-     | UF T&C
+        //- a(ng-href="{{unit_file}}",target="_blank",ng-show='loggedIn && !isStudent && !isUnit')
+        //-     i.fa.fa-caret-right
+        //-     | MF T&C
         a(href="#",csv-header="getDownloadHeader()",ng-csv="getDownloadTable()",filename="reports.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && !isStudent')
             i.fa.fa-caret-right
             | Students List

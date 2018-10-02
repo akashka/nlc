@@ -202,13 +202,8 @@ angular.module('StudentApp.CardController', [])
         }
 
         $scope.center_error_message = "";
-        $scope.center = {
-            programmename: "",
-            centername: "",
-            centercode: "",
-            sstatename: ""
-        }
         $scope.save_center = function () {
+            $scope.center = $scope.$parent.center;
             if ($scope.center.programmename == "" || $scope.center.programmename == undefined) {
                 $scope.center_error_message = "Invalid Programme Name";
             } else if ($scope.center.centername == "" || $scope.center.centername == undefined) {
@@ -218,24 +213,27 @@ angular.module('StudentApp.CardController', [])
             } else if ($scope.center.sstatename == "" || $scope.center.sstatename == undefined) {
                 $scope.center_error_message = "Invalid State Name";
             } else {
-                centerFactory.save($scope.center, function (response) {
-                    $scope.$parent.newCenterModal = false;
-                    $scope.$parent.update_students();
-                }, function (response) {
-                    $scope.$parent.update_students();
-                });
+                if($scope.center._id != undefined && $scope.center._id != ""){
+                    centerFactory.update({ id: $scope.center._id }, $scope.center, function (response) {
+                        $scope.$parent.newCenterModal = false;
+                        $scope.$parent.update_students();
+                    }, function (response) {
+                        $scope.$parent.update_students();
+                    });                                        
+                } else {
+                    centerFactory.save($scope.center, function (response) {
+                        $scope.$parent.newCenterModal = false;
+                        $scope.$parent.update_students();
+                    }, function (response) {
+                        $scope.$parent.update_students();
+                    });
+                }
             }
         }
 
         $scope.user_error_message = "";
-        $scope.user = {
-            center: "",
-            password: "999999",
-            role: "",
-            sstate: "",
-            username: ""
-        }
         $scope.save_user = function () {
+            $scope.user = $scope.$parent.user;
             if ($scope.user.role == "" || $scope.user.role == undefined) {
                 $scope.user_error_message = "Invalid Role";
             } else if ($scope.user.role == 'unit' && ($scope.user.center == "" || $scope.user.center == undefined)) {
@@ -245,12 +243,21 @@ angular.module('StudentApp.CardController', [])
             } else if ($scope.user.username == "" || $scope.user.username == undefined) {
                 $scope.user_error_message = "Invalid Phone Number";
             } else {
-                userFactory.save($scope.user, function (response) {
-                    $scope.$parent.newUserModal = false;
-                    $scope.$parent.update_students();
-                }, function (response) {
-                    $scope.$parent.update_students();
-                });
+                if($scope.user._id != undefined && $scope.user._id != ""){
+                    userFactory.update({ id: $scope.user._id }, $scope.user, function (response) {
+                        $scope.$parent.newUserModal = false;
+                        $scope.$parent.update_students();
+                    }, function (response) {
+                        $scope.$parent.update_students();
+                    });                                        
+                } else {
+                    userFactory.save($scope.user, function (response) {
+                        $scope.$parent.newUserModal = false;
+                        $scope.$parent.update_students();
+                    }, function (response) {
+                        $scope.$parent.update_students();
+                    });
+                }
             }
         }
 

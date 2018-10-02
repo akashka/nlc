@@ -93,7 +93,9 @@ router.put('/:id', function (req, res) {
             sstatename: req.body.sstatename,
             centername: req.body.centername,
             centercode: req.body.centercode,
-            programmename: req.body.programmename
+            programmename: req.body.programmename,
+            dateCreated: req.body.dateCreated,
+            dateModified: new Date()
         }, {
                 success: function (f) {
                     res.status(200).send({ msg: 'Center updated succesfully: ' + JSON.stringify(f), data: f });

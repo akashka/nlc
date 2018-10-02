@@ -72,14 +72,12 @@ StudentSchema.pre('save', function (next) {
 var StudentModel = db.model('Student', StudentSchema);
 
 var sendInfoMail = function (subject, stringTemplate) {
-    console.log("Sending MAIL");
     var mailOptions = {
       to: 'akash.ka01@gmail.com',
       from: 'info@aloha.com',
       subject: subject,
       text: JSON.stringify(stringTemplate)
     };
-    console.log(mailOptions);
     sgMail.send(mailOptions, function (err) {
         console.log(err);
     });

@@ -152,12 +152,33 @@ angular.module('StudentApp.TableController', [])
                 window.open(fileurl, '_self', '');
             }
 
-            $scope.updateCenter = function (id) {
-
+            $scope.updateCenter = function (center) {
+                $scope.$parent.center = center;
+                $scope.$parent.newCenterModal = true;
             }
 
-            $scope.updateUser = function (id) {
+            $scope.updateUser = function (user) {
+                $scope.$parent.user = user;
+                $scope.$parent.newUserModal = true;
+            }
 
+            $scope.showCenterDelete = function (center) {
+                var isFound = false;
+                if ($scope.$parent.student_list != undefined) {
+                    for (var i = 0; i < $scope.$parent.student_list.length; i++) {
+                        if ($scope.$parent.student_list[i].centercode == center.centercode
+                            && $scope.$parent.student_list[i].sstatename == center.sstatename) {
+                            for (var a = 0; a < $scope.$parent.student_list[i].programmes.length; a++) {
+                                if ($scope.$parent.student_list[i].programmes[a].programmename == center.programmename)
+                                    isFound == true;
+                            }
+                        }
+                    }
+                }
+                return isFound;
+            }
+
+            $scope.showUserDelete = function (user) {
             }
 
             $scope.deleteUser = function (id) {
