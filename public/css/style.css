@@ -29,7 +29,7 @@ html::before{
 
 body{
     background: url('/img/bg1.jpg') 50% fixed;
-    background-size: cover;
+    background-size: contain;
 }
 
 body header{
