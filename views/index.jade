@@ -263,30 +263,26 @@ block content
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model='student.centername', ng-disabled="true", ng-required="true")
                             label.mdl-textfield__label !{t('Select Center')}
-
-                        //- .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                        //-     input.mdl-textfield__input(type="text", ng-model='student.programmename', ng-disabled="true", ng-required="true")
-                        //-     label.mdl-textfield__label !{t('Select Programme')}
                         
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model="student.phone", ng-minlength="10", ng-disabled="true", ng-maxlength="10", ng-required="true")
                             label.mdl-textfield__label !{t('Phone Number')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            label !{t('Email')}
                             input.mdl-textfield__input(type="email", ng-model="student.email", ng-required="true")
-                            label.mdl-textfield__label !{t('Email')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            label !{t('Name Of Student')}
                             input.mdl-textfield__input(type="text", ng-model="student.name", ng-required="true")
-                            label.mdl-textfield__label !{t('Name Of Student')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            label !{t('Parent Name')}
                             input.mdl-textfield__input(type="text", ng-model="student.parentname", ng-required="true")
-                            label.mdl-textfield__label !{t('Parent Name')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            label !{t('Date Of Birth (dd/mm/yyyy)')}
                             input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", id="datepicker", ng-required="true")
-                            label.mdl-textfield__label !{t('Date Of Birth (dd/mm/yyyy)')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             label.mdl-textfield__label !{t('Gender')}
@@ -304,30 +300,43 @@ block content
                                     | Select T-Shirt Size 
 
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:46%;")
+                            label !{t('Address')}
                             input.mdl-textfield__input(ng-model="student.address", ng-required="true", type="text")
-                            label.mdl-textfield__label !{t('Address')}
 
-                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            span !{t('Level Applying For')}
-                            select.mdc-select__native-control(ng-model='student.level', ng-options='x for x in getlevelsOptions()')
-                                option(value="" disabled selected)
-                                    | Select Level Applying For 
+                        hr
+                        br
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            input.mdl-textfield__input(type="text", ng-model="student.category", ng-disabled="true", ng-value="getCategoryValue()")
-                            label.mdl-textfield__label !{t('Category')}
+                        div(ng-repeat="program in student.programmes")
 
-                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            span !{t('Level in 2017')}
-                            select.mdc-select__native-control(ng-model='student.lastyearlevel.one', ng-options='x for x in getlevelsOptions()')
-                                option(value="" disabled selected)
-                                    | Level in 2017 
+                            //- .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            label !{t('Select Programme')}
+                            input.mdl-textfield__input(type="text", ng-model='program.programmename', ng-disabled="true", ng-required="true")
 
-                        div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            span !{t('Level in 2016')}
-                            select.mdc-select__native-control(ng-model='student.lastyearlevel.two', ng-options='x for x in getlevelsOptions()')
-                                option(value="" disabled selected)
-                                    | Level in 2016 
+                            br
+
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                span !{t('Level Applying For')}
+                                select.mdc-select__native-control(ng-model='program.level', ng-options='x for x in getlevelsOptions(program.programmename)')
+                                    option(value="" disabled selected)
+                                        | Select Level Applying For 
+
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                label !{t('Category')}
+                                input.mdl-textfield__input(type="text", ng-model="program.category", ng-disabled="true", ng-value="getCategoryValue(program)")
+
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                span !{t('Level in 2017')}
+                                select.mdc-select__native-control(ng-model='program.lastyearlevel.one', ng-options='x for x in getlevelsOptions(program.programmename)')
+                                    option(value="" disabled selected)
+                                        | Level in 2017 
+
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                                span !{t('Level in 2016')}
+                                select.mdc-select__native-control(ng-model='program.lastyearlevel.two', ng-options='x for x in getlevelsOptions(program.programmename)')
+                                    option(value="" disabled selected)
+                                        | Level in 2016
+
+                            hr 
         
                     div(style="width:17.5%;float:left;overflow-y:auto;max-height:75vh;height:75vh;", class="show-image")
                         a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")

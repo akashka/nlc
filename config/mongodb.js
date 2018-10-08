@@ -10,7 +10,7 @@ function _init(){
         // return mongoose.createConnection('mongodb://admin:Abcd123$0@ds111963.mlab.com:11963/heroku_8xd7kgcn');
 
         // Live
-        return mongoose.createConnection('mongodb://admin:Abcd123$0@ds145072.mlab.com:45072/heroku_8t0b2wbr');
+        return mongoose.createConnection('mongodb://myUserAdmin:abc123@132.148.16.3:27017/nlc');
     }catch(err){
         console.log("No internet connection :(");
     }

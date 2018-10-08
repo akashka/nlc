@@ -7,8 +7,8 @@ angular.module('StudentApp.CardController', [])
         };
 
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-        $scope.malevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-        $scope.ttlevels = ["1", "2", "3", "4", "5", "6", "7", "8"];
+        $scope.malevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+        $scope.ttlevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
         $scope.eslevels = ["1", "2", "3", "4", "5"];
         $scope.smlevels = ["1", "2", "3", "4", "5", "6"];
         $scope.hwlevels = ["1", "2", "3", "4"];
@@ -80,17 +80,17 @@ angular.module('StudentApp.CardController', [])
             return '';
         }
 
-        $scope.getlevelsOptions = function () {
-            if ($scope.$parent.student != undefined && $scope.$parent.student.programmename != undefined) {
-                if ($scope.$parent.student.programmename == 'TT')
+        $scope.getlevelsOptions = function (programmename) {
+            if (programmename != undefined) {
+                if (programmename == 'TT')
                     return $scope.ttlevels;
-                else if ($scope.$parent.student.programmename == 'MA')
+                else if (programmename == 'MA')
                     return $scope.malevels;
-                else if ($scope.$parent.student.programmename == 'ES')
+                else if (programmename == 'ES')
                     return $scope.eslevels;
-                else if ($scope.$parent.student.programmename == 'SM')
+                else if (programmename == 'SM')
                     return $scope.smlevels;
-                else if ($scope.$parent.student.programmename == 'HW')
+                else if (programmename == 'HW')
                     return $scope.hwlevels;
                 else
                     return [];
