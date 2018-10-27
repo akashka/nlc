@@ -124,6 +124,8 @@ var app = angular.module('StudentApp', [
                             $scope.paymenting = false;
                             $scope.loading = false;
                             $scope.update_students();
+                            $scope.$parent.paymenting = false;
+                            $scope.$parent.loading = false;
                         }
                     }, function (response) {
                         console.error(response);

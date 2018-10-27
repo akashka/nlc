@@ -940,3 +940,12 @@ tbody tr{
 a {
     color: #0000EE;
 }
+
+.feedetails {
+    padding: 10px;
+    margin: 0;
+}
+
+.feedetails .mdl-textfield__input{
+    border: 1px solid rgba(0,0,0,.12);
+}

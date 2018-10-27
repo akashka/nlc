@@ -5,6 +5,7 @@ var express = require('express'),
     path = require('path'),
     fs = require('fs'),
     conversion = require("phantom-html-to-pdf")();
+var htmlToPdf = require('html-to-pdf');
 
 //CREATE a new student
 router.post('/', function (req, res) {
@@ -36,7 +37,7 @@ router.post('/', function (req, res) {
             paymentmode: req.body.paymentmode,
             bankname: req.body.bankname,
             paymentapproved: req.body.paymentapproved,
-            programmes: req.body.programmes,            
+            programmes: req.body.programmes,
             mfapproved: req.body.mfapproved,
             dateCreated: req.body.dateCreated,
             dateModified: req.body.dateModified
@@ -119,7 +120,7 @@ router.put('/:id', function (req, res) {
             centercode: req.body.centercode,
             sstatename: req.body.sstatename,
             status: req.body.status,
-            programmes: req.body.programmes,            
+            programmes: req.body.programmes,
             paymentdate: req.body.paymentdate,
             transactionno: req.body.transactionno,
             paymentmode: req.body.paymentmode,
@@ -215,15 +216,28 @@ router.get('/downloadCopy/:username', function (req, res) {
         studentDAO.downloadCopy({
             username: req.params.username,
         }, {
-                success: function (pdf) {
-                    var output = fs.createWriteStream('./form_copy.pdf');
-                    pdf.stream.pipe(output);
-                    let filename = "form_copy";
-                    filename = encodeURIComponent(filename) + '.pdf';
-                    var file = fs.readFileSync('./form_copy.pdf');
-                    res.setHeader('Content-Type', 'application/pdf');
-                    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
-                    pdf.stream.pipe(res);
+                success: function (html) {
+                    console.log(html);
+                    htmlToPdf.convertHTMLString(html, './form_copy.pdf',
+                        function (error, success) {
+                            if (error) {
+                                console.log('Oh noes! Errorz!');
+                                console.log(error);
+                            } else {
+                                console.log('Woot! Success!');
+                                console.log(success);
+                            }
+                        }
+                    );
+    
+                    // var output = fs.createWriteStream('./form_copy.pdf');
+                    // pdf.stream.pipe(output);
+                    // let filename = "form_copy";
+                    // filename = encodeURIComponent(filename) + '.pdf';
+                    // var file = fs.readFileSync('./form_copy.pdf');
+                    // res.setHeader('Content-Type', 'application/pdf');
+                    // res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+                    // pdf.stream.pipe(res);
                 },
                 error: function (err) {
                     res.status(403).send(err);

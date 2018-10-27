@@ -111,34 +111,34 @@ block content
                         th(class="mdl-data-table__cell--non-numeric",ng-show="selectMultiple") 
                             input(type="checkbox",ng-model="f.checked",ng-change="selectedOneMultiple(f)",ng-show="f.status=='payment' && f.photo != '' && f.photo != undefined && f.birthcertificate != '' && f.birthcertificate != undefined",style="width:21px;height:21px;")
                             input(type="checkbox",title="Please upload student photo to make payment",ng-model="f.checked",ng-show="f.status=='payment' && (f.photo == '' || f.photo == undefined || f.birthcertificate == '' || f.birthcertificate == undefined)",ng-disabled="f.photo == '' || f.photo == undefined || f.birthcertificate == '' || f.birthcertificate == undefined",style="width:21px;height:21px;")
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{$index+1}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.phone}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.email}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.name}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.dateofbirth | date:'dd-MMM-yyyy'}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.gender}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.parentname}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.tshirtsize}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.status}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.dateCreated | date:'dd-MMM-yyyy'}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{$index+1}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.phone}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.email}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.name}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.dateofbirth | date:'dd-MMM-yyyy'}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.gender}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.parentname}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.tshirtsize}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.status}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.dateCreated | date:'dd-MMM-yyyy'}}
                         //- td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.programmename}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.centername}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.sstatename}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.centername}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.sstatename}}
                         //- td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.level}}
                         //- td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.category}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.paymentapproved}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.paymentdate | date:'dd-MMM-yyyy'}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.transactionno}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.paymentmode}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.bankname}}
-                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id)") {{f.mfapproved}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.paymentapproved}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.paymentdate | date:'dd-MMM-yyyy'}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.transactionno}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.paymentmode}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.bankname}}
+                        td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.mfapproved}}
                         td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') 
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#795548;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="displayHallTicket(f.phone)") Hall Ticket
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#f44336;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="deleteStudent(f._id)",ng-confirm-click="Are you sure you want to delete this entry? The action cannot be undone.") Delete
-                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="approveStudent(f)",ng-confirm-click="Are you sure you want to Confirm payment for this entry?",ng-show="f.status=='admin' && !f.paymentapproved") Approve
+                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="approveStudent(f)",ng-confirm-click="Are you sure you want to Confirm payment for this entry?",ng-show="f.status=='admin' && !f.paymentapproved && f.mfapproved") Approve
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#607d8b;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="enterHallTicket(f._id)",ng-show="f.status=='hallticket' && f.paymentapproved && isAdmin") Exam Details
                         td(class="mdl-data-table__cell--non-numeric",ng-show='isMaster') 
-                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="masterApprove(f)",ng-confirm-click="Are you sure you want to Approve for this student?",ng-show="!f.mfapproved") Approve
+                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="masterApprove(f)",ng-confirm-click="Are you sure you want to Approve for this student?",ng-show="!f.mfapproved && f.status == 'admin'") Approve
 
             table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.ng-hide(ng-controller="TableController", ng-show="loggedIn && !isStudent && $parent.show_centers", ng-init="update_students()", ng-table='tableParams', show-filter='true', style="max-height:80vh;overflow-y:auto;float:left;display:block;border-radius:10px;")
                 thead
@@ -303,16 +303,21 @@ block content
                             label !{t('Address')}
                             input.mdl-textfield__input(ng-model="student.address", ng-required="true", type="text")
 
-                        hr
+                        hr(style="border-color: black;")
                         br
 
                         div(ng-repeat="program in student.programmes")
 
                             //- .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            label !{t('Select Programme')}
-                            input.mdl-textfield__input(type="text", ng-model='program.programmename', ng-disabled="true", ng-required="true")
+                            label(style="font-size:16px;font-weight:bold;float:left;") !{t('&nbsp; &nbsp; &nbsp; Programme Name: &nbsp;')} 
 
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails(style="margin:-15px;")
+                                select.mdc-select__native-control(ng-model='program.programmename', ng-options='x for x in getProgrammeOptions()') 
+
+                            a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="delete_programme(program)", style="background:none;color:#e30e30;border:none;padding:0;font-size:14px;box-shadow:none;margin-top:-15px;margin-right:25px;", ng-show='isUnit')
+                                | !{t('DELETE PROGRAMME')}
                             br
+                            hr
 
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                                 span !{t('Level Applying For')}
@@ -336,7 +341,69 @@ block content
                                     option(value="" disabled selected)
                                         | Level in 2016
 
-                            hr 
+                            br
+
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                span !{t('Fees Details')}
+
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                span !{t('Month')}
+                            
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                span !{t('Date')}
+
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                span !{t('Amount')}
+
+                            //- Array 0
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                span !{t('')}
+
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[0].month", ng-required="true")
+
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[0].date", ng-required="true")
+                            
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[0].amount", ng-required="true")
+
+                            //- Array 1
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                span !{t('')}
+
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[1].month", ng-required="true")
+
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[1].date", ng-required="true")
+                            
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[1].amount", ng-required="true")
+
+                            //- Array 2
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                span !{t('')}
+
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[2].month", ng-required="true")
+
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[2].date", ng-required="true")
+                            
+                            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails
+                                label !{t('')}
+                                input.mdl-textfield__input(type="text", ng-model="program.feesdetails[2].amount", ng-required="true")
+
+                            hr(style="border-color: black;")
         
                     div(style="width:17.5%;float:left;overflow-y:auto;max-height:75vh;height:75vh;", class="show-image")
                         a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")
@@ -345,7 +412,7 @@ block content
                                 br
                                 br
                                 | Download Photo (Format not supported to display)
-                        <span class="close" ng-click="deleteImage('photo')" ng-if="student.photo != undefined && student.photo != '' && isAdmin" style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                        <span class="close" ng-click="deleteImage('photo')" ng-if="student.photo != undefined && student.photo != ''" style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
                         
                         br
 
@@ -355,7 +422,7 @@ block content
                                 br
                                 br
                                 | Download Photo (Format not supported to display)
-                        <span class="close" ng-click="deleteImage('birthcertificate')" ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && isAdmin" style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                        <span class="close" ng-click="deleteImage('birthcertificate')" ng-if="student.birthcertificate != undefined && student.birthcertificate != ''" style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;margin-top: 50px;")
                             span !{t('Upload Student Image')}  
@@ -365,14 +432,19 @@ block content
                             span !{t('Upload Birth Certificate / Aadhaar Card')}  
                             input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
 
+                        br
+
+                        a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="swap_image()", style="height:25px;background:none;color:#3a9788;border:none;padding:0;font-size:14px;box-shadow:none;")
+                            | !{t('SWAP IMAGE')}
+
                 p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;")
                     {{msg}}
 
                 .mdl-card__actions.mdl-card--border
                     a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="save_student()")
                         | !{t('SAVE')}
-                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="swap_image()", style="margin-right:-50%;background:none;color:#3a9788;border:none;padding:0;font-size:14px;box-shadow:none;", ng-show='isAdmin')
-                        | !{t('SWAPE IMAGE')}
+                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="add_programme()", style="margin-right:-35%;background:none;color:#3a9788;border:none;padding:0;font-size:14px;box-shadow:none;", ng-show='isUnit')
+                        | !{t('ADD ANOTHER PROGRAMME')}
 
                 .mdl-card__menu
                     button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(ng-click="close_card()")
