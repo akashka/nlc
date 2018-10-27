@@ -54,9 +54,9 @@ angular.module('StudentApp.TableController', [])
                 console.error(response);
             });
 
-            $scope.studentClick = function (status, id) {
+            $scope.studentClick = function (status, id, mfapproved) {
                 if ((status == "admin" || status == "hallticket" || status == "closed" || $scope.selectMultiple == true) && $scope.isUnit) { }
-                else if ($scope.isMaster) { }
+                else if ($scope.isMaster && (status != "admin" || mfapproved)) { }
                 else {
                     $scope.$parent.loading = true;
                     $scope.$parent.editing = true;
@@ -89,11 +89,20 @@ angular.module('StudentApp.TableController', [])
                     }
                 }
                 if (!isFound) $scope.$parent.selected.push(f);
-                $scope.$parent.total_amount = $scope.$parent.selected.length * 1000;
-                // for (var t = 0; t < $scope.$parent.selected.length; t++) {
-                //     if ($scope.$parent.selected[t].tshirtrequired == true)
-                //         $scope.$parent.total_amount += 250;
-                // }
+                $scope.$parent.total_amount = 0;
+                
+                for(var s=0; s<$scope.$parent.selected.length; s++) {
+                    if($scope.$parent.selected[s].programmes.length <= 1)
+                        $scope.$parent.total_amount += 1000;
+                    if($scope.$parent.selected[s].programmes.length == 2)
+                        $scope.$parent.total_amount += 1600;
+                    if($scope.$parent.selected[s].programmes.length == 3)
+                        $scope.$parent.total_amount += 2600;
+                    if($scope.$parent.selected[s].programmes.length == 4)
+                        $scope.$parent.total_amount += 3200;
+                    if($scope.$parent.selected[s].programmes.length > 4)
+                        $scope.$parent.total_amount += ($scope.$parent.selected[s].programmes.length * 1000);
+                }
             }
 
             $scope.deleteStudent = function (deleted_id) {

@@ -88,10 +88,10 @@ function createStudent(student, callbacks) {
     var f = new StudentModel({
         phone: student.phone,
         email: student.email,
-        name: student.name,
+        name: student.name.toUpperCase(),
         dateofbirth: student.dateofbirth,
         gender: student.gender,
-        parentname: student.parentname,
+        parentname: student.parentname.toUpperCase(),
         address: student.address,
         tshirtsize: student.tshirtsize,
         photo: student.photo,
@@ -147,16 +147,14 @@ function updateStudent(id, student, callbacks) {
             f.paymentapproved = student.paymentapproved;
             f.phone = student.phone;
             f.email = student.email;
-            f.name = student.name;
+            f.name = student.name.toUpperCase();
             f.dateofbirth = student.dateofbirth;
             f.gender = student.gender;
-            f.parentname = student.parentname;
+            f.parentname = student.parentname.toUpperCase();
             f.address = student.address;
             f.tshirtsize = student.tshirtsize;
             f.photo = student.photo;
             f.birthcertificate = student.birthcertificate;
-            f.dateCreated = student.dateCreated;
-            f.dateModified = student.dateModified;
             f.centername = student.centername;
             f.centercode = student.centercode;
             f.sstatename = student.sstatename;
@@ -295,9 +293,9 @@ function downloadCopy(username, callbacks) {
             stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.photo) : '');
             stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.birthcertificate) : '');
 
-            conversion({ html: stringTemplate }, function (err, pdf) {
-                callbacks.success(pdf);
-            }); 
+            // conversion({ html: stringTemplate }, function (err, pdf) {
+                callbacks.success(stringTemplate);
+            // }); 
         } else {
             sendInfoMail('Student form copy download failed: ' + username, err);
             callbacks.error(err);

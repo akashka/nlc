@@ -20,13 +20,35 @@ angular.module('StudentApp.CardController', [])
             $scope.msg = "";
             if ($scope.$parent.student.address == "" || $scope.$parent.student.dateofbirth == "" || $scope.$parent.student.email == "" ||
                 $scope.$parent.student.gender == "" || $scope.$parent.student.name == "" || $scope.$parent.student.parentname == "" ||
-                $scope.$parent.student.phone == "" || $scope.$parent.student.category == "" || $scope.$parent.student.level == "" ||
-                $scope.$parent.student.address == undefined || $scope.$parent.student.dateofbirth == undefined || $scope.$parent.student.email == undefined ||
-                $scope.$parent.student.gender == undefined || $scope.$parent.student.name == undefined || $scope.$parent.student.parentname == undefined ||
-                $scope.$parent.student.phone == undefined || $scope.$parent.student.category == undefined || $scope.$parent.student.level == undefined) {
-                $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
+                $scope.$parent.student.phone == "" || $scope.$parent.student.address == undefined || $scope.$parent.student.dateofbirth == undefined || 
+                $scope.$parent.student.email == undefined || $scope.$parent.student.gender == undefined || $scope.$parent.student.name == undefined || 
+                $scope.$parent.student.parentname == undefined || $scope.$parent.student.phone == undefined) {
+                        $scope.msg = "Invalid or Missing Student Basic Details. Please make sure you have filled all the details correctly";
+            } else if($scope.$parent.student.programmes.length <= 0) {
+                $scope.msg = "No Programme selected. Please make sure you have filled all the details correctly";                
             } else {
-                $scope.uploadFile($scope.myFile);
+                var isError = false;
+                for(var s=0; s<$scope.$parent.student.programmes.length; s++) {
+                    if($scope.$parent.student.programmes[s].programmename == "" || $scope.$parent.student.programmes[s].programmename == undefined
+                        || $scope.$parent.student.programmes[s].category == "" || $scope.$parent.student.programmes[s].category == undefined
+                        || $scope.$parent.student.programmes[s].level == "" || $scope.$parent.student.programmes[s].level == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[0].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[0].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[0].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[1].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[1].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[1].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[2].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[2].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
+                        || $scope.$parent.student.programmes[s].feesdetails[2].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
+                        || $scope.$parent.student.programmes[s].lastyearlevel.one == "" || $scope.$parent.student.programmes[s].lastyearlevel.one == undefined
+                        || $scope.$parent.student.programmes[s].lastyearlevel.two == "" || $scope.$parent.student.programmes[s].lastyearlevel.two == undefined
+                    ) {isError = true;}
+                }  
+                if(isError)
+                        $scope.msg = "Invalid or Missing Programme Details. Please make sure you have filled all the details correctly";
+                else
+                    $scope.uploadFile($scope.myFile);
             }
         };
 
@@ -35,7 +57,8 @@ angular.module('StudentApp.CardController', [])
             if ($scope.count == 1) {
                 $scope.$parent.loading = true;
                 $scope.$parent.student.centername = $scope.$parent.student.centername;
-                $scope.$parent.student.status = 'payment';
+                if($scope.$parent.isUnit) $scope.$parent.student.status = 'payment';
+                else $scope.$parent.student.status = $scope.$parent.student.status;
                 if ($scope.$parent.student._id === undefined) {
                     //Adding Student -> POST
                     studentFactory.save($scope.$parent.student, function (response) {
@@ -57,25 +80,26 @@ angular.module('StudentApp.CardController', [])
                         console.error(response);
                     });
                 }
+                $scope.count = 0;
             }
         }
 
-        $scope.getCategoryValue = function () {
+        $scope.getCategoryValue = function (program) {
             if ($scope.$parent.student != undefined && $scope.$parent.student.dateofbirth != undefined) {
                 var dt = $scope.$parent.student.dateofbirth;
-                $scope.$parent.student.category = "";
-                if ($scope.$parent.student.programmename == 'TT') {
-                    if (dt > new Date('10/01/2011')) $scope.$parent.student.category = 'A';
-                    else $scope.$parent.student.category = 'B';
-                } else if ($scope.$parent.student.programmename == 'MA') {
-                    if (dt > new Date('10/01/2010')) $scope.$parent.student.category = 'A';
-                    else if (dt > new Date('10/01/2008')) $scope.$parent.student.category = 'B';
-                    else if (dt > new Date('10/01/2006')) $scope.$parent.student.category = 'C';
-                    else $scope.$parent.student.category = 'D';
+                program.category = "";
+                if (program.programmename == 'TT') {
+                    if (dt > new Date('10/01/2011')) program.category = 'A';
+                    else program.category = 'B';
+                } else if (program.programmename == 'MA') {
+                    if (dt > new Date('10/01/2010')) program.category = 'A';
+                    else if (dt > new Date('10/01/2008')) program.category = 'B';
+                    else if (dt > new Date('10/01/2006')) program.category = 'C';
+                    else program.category = 'D';
                 } else {
-                    $scope.$parent.student.category = 'A';
+                    program.category = 'A';
                 }
-                return $scope.$parent.student.category;
+                return program.category;
             }
             return '';
         }
@@ -213,13 +237,13 @@ angular.module('StudentApp.CardController', [])
             } else if ($scope.center.sstatename == "" || $scope.center.sstatename == undefined) {
                 $scope.center_error_message = "Invalid State Name";
             } else {
-                if($scope.center._id != undefined && $scope.center._id != ""){
+                if ($scope.center._id != undefined && $scope.center._id != "") {
                     centerFactory.update({ id: $scope.center._id }, $scope.center, function (response) {
                         $scope.$parent.newCenterModal = false;
                         $scope.$parent.update_students();
                     }, function (response) {
                         $scope.$parent.update_students();
-                    });                                        
+                    });
                 } else {
                     centerFactory.save($scope.center, function (response) {
                         $scope.$parent.newCenterModal = false;
@@ -243,13 +267,13 @@ angular.module('StudentApp.CardController', [])
             } else if ($scope.user.username == "" || $scope.user.username == undefined) {
                 $scope.user_error_message = "Invalid Phone Number";
             } else {
-                if($scope.user._id != undefined && $scope.user._id != ""){
+                if ($scope.user._id != undefined && $scope.user._id != "") {
                     userFactory.update({ id: $scope.user._id }, $scope.user, function (response) {
                         $scope.$parent.newUserModal = false;
                         $scope.$parent.update_students();
                     }, function (response) {
                         $scope.$parent.update_students();
-                    });                                        
+                    });
                 } else {
                     userFactory.save($scope.user, function (response) {
                         $scope.$parent.newUserModal = false;
@@ -265,8 +289,51 @@ angular.module('StudentApp.CardController', [])
             $scope.$parent.newUserModal = false;
         }
 
-        $scope.closeCenterModal = function() {
-            $scope.$parent.newCenterModal = false;            
+        $scope.closeCenterModal = function () {
+            $scope.$parent.newCenterModal = false;
+        }
+
+        $scope.delete_programme = function (program) {
+            for (var i = 0; i < $scope.$parent.student.programmes.length; i++) {
+                if ($scope.$parent.student.programmes[i]._id == program._id)
+                    $scope.$parent.student.programmes.splice(i, 1);
+            }
+        }
+
+        function getUniqueValuesOfKey(array, key) {
+            if (array != undefined) {
+                return array.reduce(function (carry, item) {
+                    if (item[key] && !~carry.indexOf(item[key])) carry.push(item[key]);
+                    return carry;
+                }, []);
+            } else {
+                return [];
+            }
+        }
+
+        $scope.getProgrammeOptions = function () {
+            $scope.programmeoptions = [];
+            var opt = $scope.$parent.center_list.filter(function (item) {
+                return (item.sstatename == $scope.$parent.student.sstatename &&
+                    item.centername == $scope.$parent.student.centername);
+            }, []);
+            return (getUniqueValuesOfKey(opt, 'programmename'));
+        }
+
+        $scope.add_programme = function () {
+            $scope.$parent.student.programmes.push({
+                programmename: '',
+                admissioncardno: "",
+                group: "",
+                category: "",
+                level: "",
+                feesdetails: [],
+                lastyearlevel: {},
+                examdate: undefined,
+                entrytime: "",
+                competitiontime: "",
+                venue: ""
+            });
         }
 
     }]);

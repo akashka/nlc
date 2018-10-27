@@ -370,7 +370,7 @@ angular.module('StudentApp.LoginController', [])
                 if ($scope.$parent.student_list[s].phone == $scope.student.phone)
                     $scope.isPhoneDuplicate = true;
             }
-            if (!$scope.isPhoneDuplicate) {
+            if (!$scope.isPhoneDuplicate && phone > 1000000000 && phone <= 9999999999) {
                 $scope.phoneOtpVerification = true;
                 userFactory.generateOTP({
                     username: phone
@@ -486,14 +486,6 @@ angular.module('StudentApp.LoginController', [])
                     else $scope.imageSrc1 = result;
                 });
         };
-
-        $scope.calculateFee = function(student) {
-            if(student.programmes.length < 2) return 1000;
-            if(student.programmes.length == 2) return 1600;
-            if(student.programmes.length == 3) return 2600;
-            if(student.programmes.length == 4) return 3200;
-            if(student.programmes.length > 4) return 5000;
-        }
 
         $scope.downloadFormCopy = function () {
             var fileurl = "/api/0.1/student/downloadCopy/" + $scope.student.phone;
