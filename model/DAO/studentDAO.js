@@ -294,7 +294,7 @@ function downloadCopy(username, callbacks) {
             stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.birthcertificate) : '');
 
             conversion({ html: stringTemplate }, function (err, pdf) {
-                callbacks.success(stringTemplate);
+                callbacks.success(pdf);
             }); 
         } else {
             sendInfoMail('Student form copy download failed: ' + username, err);
