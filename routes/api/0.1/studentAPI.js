@@ -216,28 +216,15 @@ router.get('/downloadCopy/:username', function (req, res) {
         studentDAO.downloadCopy({
             username: req.params.username,
         }, {
-                success: function (html) {
-                    console.log(html);
-                    htmlToPdf.convertHTMLString(html, './form_copy.pdf',
-                        function (error, success) {
-                            if (error) {
-                                console.log('Oh noes! Errorz!');
-                                console.log(error);
-                            } else {
-                                console.log('Woot! Success!');
-                                console.log(success);
-                            }
-                        }
-                    );
-    
-                    // var output = fs.createWriteStream('./form_copy.pdf');
-                    // pdf.stream.pipe(output);
-                    // let filename = "form_copy";
-                    // filename = encodeURIComponent(filename) + '.pdf';
-                    // var file = fs.readFileSync('./form_copy.pdf');
-                    // res.setHeader('Content-Type', 'application/pdf');
-                    // res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
-                    // pdf.stream.pipe(res);
+                success: function (pdf) {
+                    var output = fs.createWriteStream('./form_copy.pdf');
+                    pdf.stream.pipe(output);
+                    let filename = "form_copy";
+                    filename = encodeURIComponent(filename) + '.pdf';
+                    var file = fs.readFileSync('./form_copy.pdf');
+                    res.setHeader('Content-Type', 'application/pdf');
+                    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+                    pdf.stream.pipe(res);
                 },
                 error: function (err) {
                     res.status(403).send(err);

@@ -293,9 +293,9 @@ function downloadCopy(username, callbacks) {
             stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.photo) : '');
             stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.birthcertificate) : '');
 
-            // conversion({ html: stringTemplate }, function (err, pdf) {
+            conversion({ html: stringTemplate }, function (err, pdf) {
                 callbacks.success(stringTemplate);
-            // }); 
+            }); 
         } else {
             sendInfoMail('Student form copy download failed: ' + username, err);
             callbacks.error(err);
