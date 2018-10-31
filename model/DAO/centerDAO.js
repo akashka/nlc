@@ -27,7 +27,7 @@ var CenterSchema = new Schema({
     centername: { type: String, required: true },
     centercode: { type: String, required: true },
     programmename: { type: String, required: true },
-    dateCreated: { type: Date, required: true },
+    dateCreated: { type: Date },
     dateModified: { type: Date },
 });
 
