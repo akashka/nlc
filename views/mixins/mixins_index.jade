@@ -81,6 +81,10 @@ mixin navbar(_t, exit)
         a(href="#",csv-header="getUsersHeader()",ng-csv="downloadUsers()",filename="users.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && !isStudent')
             i.fa.fa-caret-right
             | Users List
+
+        br
+        br
+        br
         
 //- login
 mixin login_form
@@ -324,7 +328,7 @@ mixin login_form
                                                 | Dear <b> {{student.name}} </b> <br> <br>
                                                 | Please make a payment of <b> Rs. {{calculateFee(student)}} towards Registration </b> to the respective centers. <br> <br>
                                                 | Incase of any doubts, pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> . <br> <br>
-                                                | Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket.  <br> <br>
+                                                | Do not forget to come back after <b> 10th December 2018 </b> to print the hall ticket.  <br> <br>
                                                 | <a ng-href="{{file}}" target="_blank" style="color:blue;text-align:center;float:left;width:50%;">Download Terms & Conditions</a>
                                                 | <a style="color:blue;text-align:center;float:left;width:50%;cursor:pointer;text-decoration:underline;" ng-click='downloadFormCopy()'>Download Copy of Form</a> 
                                             .swal2-buttonswrapper(style='display: block;')

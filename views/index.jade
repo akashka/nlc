@@ -133,10 +133,10 @@ block content
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.bankname}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.mfapproved}}
                         td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') 
-                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#795548;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="displayHallTicket(f.phone)") Hall Ticket
-                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#f44336;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="deleteStudent(f._id)",ng-confirm-click="Are you sure you want to delete this entry? The action cannot be undone.") Delete
+                            //- button(style="border:none;color:white;padding:8px;border-radius:5px;background:#795548;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="displayHallTicket(f.phone)") Hall Ticket
+                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#f44336;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="deleteStudent(f._id)",ng-confirm-click="Are you sure you want to delete this entry? The action cannot be undone.",ng-show="f.status=='open'") Delete
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="approveStudent(f)",ng-confirm-click="Are you sure you want to Confirm payment for this entry?",ng-show="f.status=='admin' && !f.paymentapproved && f.mfapproved") Approve
-                            button(style="border:none;color:white;padding:8px;border-radius:5px;background:#607d8b;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="enterHallTicket(f._id)",ng-show="f.status=='hallticket' && f.paymentapproved && isAdmin") Exam Details
+                            //- button(style="border:none;color:white;padding:8px;border-radius:5px;background:#607d8b;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="enterHallTicket(f._id)",ng-show="f.status=='hallticket' && f.paymentapproved && isAdmin") Exam Details
                         td(class="mdl-data-table__cell--non-numeric",ng-show='isMaster') 
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#3f51b5;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="masterApprove(f)",ng-confirm-click="Are you sure you want to Approve for this student?",ng-show="!f.mfapproved && f.status == 'admin'") Approve
 
@@ -202,7 +202,7 @@ block content
                             input(type="text",ng-model="search.sstate") 
                         td
 
-                    tr(ng-repeat="f in user_list | orderBy:predicate:reverse | filter:search track by $index")
+                    tr(ng-repeat="f in temp_user_list | orderBy:predicate:reverse | filter:search track by $index")
                         td(class="mdl-data-table__cell--non-numeric") {{$index+1}}
                         td(class="mdl-data-table__cell--non-numeric") {{f.username}}
                         td(class="mdl-data-table__cell--non-numeric") {{f.role}}
@@ -226,7 +226,7 @@ block content
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> Open. </b> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Please make a payment of <b> Rs. {{calculateFee(studentStatus)}} towards Registration, </b> to the respective Centers. <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket. <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 10th December 2018 </b> to print the hall ticket. <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;width:40%;text-align:center;float:left;">Download Terms & Conditions</a>
@@ -236,7 +236,7 @@ block content
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> In Process. </b> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") We have successfully received your payment, and you can download the receipt below. <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 10th November 2018 </b> to print the hall ticket. <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 10th December 2018 </b> to print the hall ticket. <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at info@alohaindia.com <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
@@ -258,34 +258,34 @@ block content
                     div(style="width:82.5%;float:left;overflow-y:auto;max-height:75vh;height:75vh;")
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model='student.sstatename', ng-disabled="true", ng-required="true")
-                            label.mdl-textfield__label !{t('Select State')}
+                            label.mdl-textfield__label !{t('Select State *')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model='student.centername', ng-disabled="true", ng-required="true")
-                            label.mdl-textfield__label !{t('Select Center')}
+                            label.mdl-textfield__label !{t('Select Center *')}
                         
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                             input.mdl-textfield__input(type="text", ng-model="student.phone", ng-minlength="10", ng-disabled="true", ng-maxlength="10", ng-required="true")
-                            label.mdl-textfield__label !{t('Phone Number')}
+                            label.mdl-textfield__label !{t('Phone Number *')}
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            label !{t('Email')}
+                            label !{t('Email *')}
                             input.mdl-textfield__input(type="email", ng-model="student.email", ng-required="true")
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            label !{t('Name Of Student')}
+                            label !{t('Name Of Student *')}
                             input.mdl-textfield__input(type="text", ng-model="student.name", ng-required="true")
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            label !{t('Parent Name')}
+                            label !{t('Parent Name *')}
                             input.mdl-textfield__input(type="text", ng-model="student.parentname", ng-required="true")
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            label !{t('Date Of Birth (dd/mm/yyyy)')}
+                            label !{t('Date Of Birth (dd/mm/yyyy) *')}
                             input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", id="datepicker", ng-required="true")
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            label.mdl-textfield__label !{t('Gender')}
+                            label.mdl-textfield__label !{t('Gender *')}
                             label(style="float:left;width:50%;")
                                 input.mdl-textfield__input(type="radio", ng-model="student.gender", ng-required="true", value="Male", style="float:left;width:10%;margin-top: 3px;")
                                 | Male
@@ -294,13 +294,13 @@ block content
                                 | Female
 
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            span !{t('T-Shirt Size')}
+                            span !{t('T-Shirt Size *')}
                             select.mdc-select__native-control(ng-model='student.tshirtsize', ng-options='x for x in tshirtsizeoptions')
                                 option(value="" disabled selected)
                                     | Select T-Shirt Size 
 
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:46%;")
-                            label !{t('Address')}
+                            label !{t('Address *')}
                             input.mdl-textfield__input(ng-model="student.address", ng-required="true", type="text")
 
                         hr(style="border-color: black;")
@@ -309,24 +309,24 @@ block content
                         div(ng-repeat="program in student.programmes")
 
                             //- .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                            label(style="font-size:16px;font-weight:bold;float:left;") !{t('&nbsp; &nbsp; &nbsp; Programme Name: &nbsp;')} 
+                            label(style="font-size:16px;font-weight:bold;float:left;") !{t('&nbsp; &nbsp; &nbsp; Programme Name * &nbsp;')} 
 
-                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails(style="margin:-15px;")
+                            div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails(style="margin:-15px; margin-left:5px;")
                                 select.mdc-select__native-control(ng-model='program.programmename', ng-options='x for x in getProgrammeOptions()') 
 
-                            a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="delete_programme(program)", style="background:none;color:#e30e30;border:none;padding:0;font-size:14px;box-shadow:none;margin-top:-15px;margin-right:25px;", ng-show='isUnit')
+                            a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="delete_programme(program)", style="background:#d1d1d1;color:#e30e30;border:white;padding:3px;font-size:12px;box-shadow:white;margin-top:-15px;margin-right:25px;", ng-show='isUnit')
                                 | !{t('DELETE PROGRAMME')}
                             br
                             hr
 
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                span !{t('Level Applying For')}
+                                span !{t('Level Applying For *')}
                                 select.mdc-select__native-control(ng-model='program.level', ng-options='x for x in getlevelsOptions(program.programmename)')
                                     option(value="" disabled selected)
                                         | Select Level Applying For 
 
                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                label !{t('Category')}
+                                label !{t('Category (Auto Generated)')}
                                 input.mdl-textfield__input(type="text", ng-model="program.category", ng-disabled="true", ng-value="getCategoryValue(program)")
 
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -434,17 +434,16 @@ block content
 
                         br
 
-                        a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="swap_image()", style="height:25px;background:none;color:#3a9788;border:none;padding:0;font-size:14px;box-shadow:none;")
-                            | !{t('SWAP IMAGE')}
-
                 p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;")
                     {{msg}}
 
                 .mdl-card__actions.mdl-card--border
                     a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="save_student()")
                         | !{t('SAVE')}
-                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="add_programme()", style="margin-right:-35%;background:none;color:#3a9788;border:none;padding:0;font-size:14px;box-shadow:none;", ng-show='isUnit')
+                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="add_programme()", style="margin-right:10%;background:#d1d1d1;color:#3a9788;border:none;padding:3px;font-size:14px;box-shadow:none;", ng-show='isUnit')
                         | !{t('ADD ANOTHER PROGRAMME')}
+                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="swap_image()", style="margin-right:-50%;background:#d1d1d1;color:#3a9788;border:none;padding:3px;font-size:14px;box-shadow:none;")
+                        | !{t('SWAP IMAGE')}
 
                 .mdl-card__menu
                     button.mdl-button.mdl-button--icon.mdl-js-button.mdl-js-ripple-effect(ng-click="close_card()")
@@ -454,23 +453,23 @@ block content
             .demo-card-wide.mdl-card.mdl-shadow--2dp.paymenting.slate_board.ng-hide(ng-show="paymenting")
                 .mdl-card__supporting-text
                     div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
-                        span !{t('Payment Mode')}
+                        span !{t('Payment Mode *')}
                         select.mdc-select__native-control(ng-model='payment.paymentmode', ng-options='x for x in paymentmodes', ng-required="true")
                             option(value="" disabled selected)
                                 | Select Payment Mode
 
                     div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
-                        span !{t('Bank')}
+                        span !{t('Bank *')}
                         select.mdc-select__native-control(ng-model='payment.bankname', ng-options='x for x in banknames', ng-required="true")
                             option(value="" disabled selected)
                                 | Select Bank
 
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
                         input.mdl-textfield__input(type="text", ng-model="payment.transactionno", ng-required="true")
-                        label.mdl-textfield__label !{t('Transaction Number')}
+                        label.mdl-textfield__label !{t('Transaction Number *')}
 
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
-                        span !{t('Payment / Cheque Date')}
+                        span !{t('Payment / Cheque Date *')}
                         input.mdl-textfield__input(type="date", ng-model="payment.paymentdate", ng-required="true")
                         //- label.mdl-textfield__label !{t('Payment / Cheque Date')}
 
@@ -674,11 +673,11 @@ block content
                             label !{t('Role (unit, master, admin)')}
                             input.mdl-textfield__input(type="text", ng-model='$parent.user.role', ng-required="true")
                         
-                        .mdl-textfield.mdl-js-textfield(ng-hide="user.role == 'master' || user.role == 'admin'")
+                        .mdl-textfield.mdl-js-textfield(ng-hide="$parent.user.role == 'master' || $parent.user.role == 'admin'")
                             label !{t('Center Code')}
                             input.mdl-textfield__input(type="text", ng-model="$parent.user.center", ng-required="true")
 
-                        .mdl-textfield.mdl-js-textfield(ng-hide="user.role == 'admin'")
+                        .mdl-textfield.mdl-js-textfield(ng-hide="$parent.user.role == 'admin'")
                             label !{t('State Name')}
                             input.mdl-textfield__input(type="text", ng-model="$parent.user.sstate", ng-required="true")
 

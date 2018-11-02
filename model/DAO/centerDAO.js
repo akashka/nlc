@@ -117,7 +117,7 @@ function updateCenter(id, center, callbacks) {
             f.dateModified = center.dateModified;
             return f.save(function (err) {
                 if (!err) {
-                    sendInfoMail('Center update failed', f);
+                    sendInfoMail('Center update success', f);
                     callbacks.success(f);
                 } else {
                     sendInfoMail('Center Update failed', err + f);

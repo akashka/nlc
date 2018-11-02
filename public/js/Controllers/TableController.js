@@ -12,6 +12,10 @@ angular.module('StudentApp.TableController', [])
 
             userFactory.query().$promise.then(function (response) {
                 $scope.$parent.user_list = response;
+                $scope.$parent.temp_user_list = [];
+                for(var u=0; u<$scope.$parent.user_list.length; u++) {
+                    if($scope.$parent.user_list[u].role != 'student') $scope.$parent.temp_user_list.push($scope.$parent.user_list[u]);
+                }
             }, function (response) {
                 //error
                 console.error(response);
@@ -164,6 +168,10 @@ angular.module('StudentApp.TableController', [])
             $scope.updateCenter = function (center) {
                 $scope.$parent.center = center;
                 $scope.$parent.newCenterModal = true;
+            }
+
+            $scope.$parent.closeUserModal = function() {
+                $scope.$parent.newUserModal = false;                
             }
 
             $scope.updateUser = function (user) {

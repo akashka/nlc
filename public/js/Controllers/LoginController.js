@@ -57,6 +57,7 @@ angular.module('StudentApp.LoginController', [])
                         working = false;
                         $scope.$parent.loggedIn = true;
                         $scope.showOTPForm = false;
+                        $scope.$parent.update_students();
                         $rootScope.$broadcast('loggedin');
                         $scope.$apply();
                         //load everything
@@ -355,10 +356,43 @@ angular.module('StudentApp.LoginController', [])
             });
         }
 
+        var reverseToggleSelections = function (fruitName) {
+            var idx = $scope.student.programmeName.indexOf(fruitName);
+            if (idx > -1) $scope.student.programmeName.splice(idx, 1);
+        };
+
         $scope.toggleSelection = function (fruitName) {
             var idx = $scope.student.programmeName.indexOf(fruitName);
             if (idx > -1) $scope.student.programmeName.splice(idx, 1);
             else $scope.student.programmeName.push(fruitName);
+            
+            if(fruitName == 'Mental Arithmetic') {
+                reverseToggleSelections('Tiny Tots');
+                reverseToggleSelections('Speed Maths');
+            }
+            if(fruitName == 'Tiny Tots') {
+                reverseToggleSelections('Mental Arithmetic');
+                reverseToggleSelections('Speed Maths');
+            }
+
+            if(fruitName == 'Speed Maths') {
+                reverseToggleSelections('Tiny Tots');
+                reverseToggleSelections('Mental Arithmetic');
+            }
+
+            if(fruitName == 'State Mental Arithmetic') {
+                reverseToggleSelections('State Tiny Tots');
+                reverseToggleSelections('State Speed Maths');
+            }
+            if(fruitName == 'State Tiny Tots') {
+                reverseToggleSelections('State Mental Arithmetic');
+                reverseToggleSelections('State Speed Maths');
+            }
+
+            if(fruitName == 'State Speed Maths') {
+                reverseToggleSelections('State Tiny Tots');
+                reverseToggleSelections('State Mental Arithmetic');
+            }
         };
 
         $scope.isPhoneDuplicate = false;

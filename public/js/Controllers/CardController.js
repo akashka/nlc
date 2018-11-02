@@ -1,5 +1,5 @@
 angular.module('StudentApp.CardController', [])
-    .controller('CardController', ['$scope', 'studentFactory', '$http', '$window', 'centerFactory', 'userFactory', function ($scope, studentFactory, $http, $window, centerFactory, userFactory) {
+    .controller('CardController', ['$scope', 'studentFactory', '$http', '$window', 'centerFactory', 'userFactory', 'fileReader', function ($scope, studentFactory, $http, $window, centerFactory, userFactory, fileReader) {
         //Close card handler
         $scope.close_card = function () {
             $scope.$parent.editing = false;
@@ -28,28 +28,53 @@ angular.module('StudentApp.CardController', [])
                 $scope.msg = "No Programme selected. Please make sure you have filled all the details correctly";                
             } else {
                 var isError = false;
+                var count = 0;
+                var scount = 0;
                 for(var s=0; s<$scope.$parent.student.programmes.length; s++) {
+                    if($scope.$parent.student.programmes[s].programmename == 'Speed Maths' || 
+                        $scope.$parent.student.programmes[s].programmename == 'Tiny Tots' ||
+                        $scope.$parent.student.programmes[s].programmename == 'Mental Arithmetic') {
+                            count++;
+                    }
+                    if($scope.$parent.student.programmes[s].programmename == 'State Speed Maths' || 
+                        $scope.$parent.student.programmes[s].programmename == 'State Tiny Tots' ||
+                        $scope.$parent.student.programmes[s].programmename == 'State Mental Arithmetic') {
+                            scount++;
+                    }
+
                     if($scope.$parent.student.programmes[s].programmename == "" || $scope.$parent.student.programmes[s].programmename == undefined
                         || $scope.$parent.student.programmes[s].category == "" || $scope.$parent.student.programmes[s].category == undefined
                         || $scope.$parent.student.programmes[s].level == "" || $scope.$parent.student.programmes[s].level == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[0].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[0].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[0].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[1].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[1].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[1].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[2].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[2].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
-                        || $scope.$parent.student.programmes[s].feesdetails[2].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
-                        || $scope.$parent.student.programmes[s].lastyearlevel.one == "" || $scope.$parent.student.programmes[s].lastyearlevel.one == undefined
-                        || $scope.$parent.student.programmes[s].lastyearlevel.two == "" || $scope.$parent.student.programmes[s].lastyearlevel.two == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[0].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[0].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[0].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[1].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[1].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[1].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[2].month == "" || $scope.$parent.student.programmes[s].feesdetails[0].month == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[2].date == "" || $scope.$parent.student.programmes[s].feesdetails[0].date == undefined
+                        // || $scope.$parent.student.programmes[s].feesdetails[2].amount == "" || $scope.$parent.student.programmes[s].feesdetails[0].amount == undefined
+                        // || $scope.$parent.student.programmes[s].lastyearlevel.one == "" || $scope.$parent.student.programmes[s].lastyearlevel.one == undefined
+                        // || $scope.$parent.student.programmes[s].lastyearlevel.two == "" || $scope.$parent.student.programmes[s].lastyearlevel.two == undefined
                     ) {isError = true;}
-                }  
-                if(isError)
+                }
+                if(count > 1)  
+                        $scope.msg = "You can only select any one course out of Tiny Tots, Mental Arithmetic, Speed Maths.";
+                else if(scount > 1)
+                        $scope.msg = "You can only select any one course out of State Tiny Tots, State Mental Arithmetic, State Speed Maths.";
+                else if(isError)
                         $scope.msg = "Invalid or Missing Programme Details. Please make sure you have filled all the details correctly";
                 else
                     $scope.uploadFile($scope.myFile);
             }
+        };
+
+        $scope.getFile = function (mod) {
+            fileReader.readAsDataUrl($scope.file, $scope)
+                .then(function (result) {
+                    if(mod == 'myFile') $scope.imageSrc = result;
+                    else $scope.imageSrc1 = result;
+                });
         };
 
         $scope.save = function () {
@@ -88,10 +113,10 @@ angular.module('StudentApp.CardController', [])
             if ($scope.$parent.student != undefined && $scope.$parent.student.dateofbirth != undefined) {
                 var dt = $scope.$parent.student.dateofbirth;
                 program.category = "";
-                if (program.programmename == 'TT') {
+                if (program.programmename == 'Tiny Tots') {
                     if (dt > new Date('10/01/2011')) program.category = 'A';
                     else program.category = 'B';
-                } else if (program.programmename == 'MA') {
+                } else if (program.programmename == 'Mental Arithmetic') {
                     if (dt > new Date('10/01/2010')) program.category = 'A';
                     else if (dt > new Date('10/01/2008')) program.category = 'B';
                     else if (dt > new Date('10/01/2006')) program.category = 'C';
@@ -106,16 +131,14 @@ angular.module('StudentApp.CardController', [])
 
         $scope.getlevelsOptions = function (programmename) {
             if (programmename != undefined) {
-                if (programmename == 'TT')
+                if (programmename == 'Tiny Tots')
                     return $scope.ttlevels;
-                else if (programmename == 'MA')
+                else if (programmename == 'Mental Arithmetic')
                     return $scope.malevels;
-                else if (programmename == 'ES')
+                else if (programmename == 'English Smart')
                     return $scope.eslevels;
-                else if (programmename == 'SM')
+                else if (programmename == 'Smart Maths')
                     return $scope.smlevels;
-                else if (programmename == 'HW')
-                    return $scope.hwlevels;
                 else
                     return [];
             }
@@ -239,14 +262,14 @@ angular.module('StudentApp.CardController', [])
             } else {
                 if ($scope.center._id != undefined && $scope.center._id != "") {
                     centerFactory.update({ id: $scope.center._id }, $scope.center, function (response) {
-                        $scope.$parent.newCenterModal = false;
+                        $scope.$parent.closeCenterModal();
                         $scope.$parent.update_students();
                     }, function (response) {
                         $scope.$parent.update_students();
                     });
                 } else {
                     centerFactory.save($scope.center, function (response) {
-                        $scope.$parent.newCenterModal = false;
+                        $scope.$parent.closeCenterModal();
                         $scope.$parent.update_students();
                     }, function (response) {
                         $scope.$parent.update_students();
@@ -269,14 +292,14 @@ angular.module('StudentApp.CardController', [])
             } else {
                 if ($scope.user._id != undefined && $scope.user._id != "") {
                     userFactory.update({ id: $scope.user._id }, $scope.user, function (response) {
-                        $scope.$parent.newUserModal = false;
+                        $scope.$parent.closeUserModal();
                         $scope.$parent.update_students();
                     }, function (response) {
                         $scope.$parent.update_students();
                     });
                 } else {
                     userFactory.save($scope.user, function (response) {
-                        $scope.$parent.newUserModal = false;
+                        $scope.$parent.closeUserModal();
                         $scope.$parent.update_students();
                     }, function (response) {
                         $scope.$parent.update_students();
@@ -286,11 +309,11 @@ angular.module('StudentApp.CardController', [])
         }
 
         $scope.closeUserModal = function () {
-            $scope.$parent.newUserModal = false;
+            $scope.$parent.closeUserModal();
         }
 
         $scope.closeCenterModal = function () {
-            $scope.$parent.newCenterModal = false;
+            $scope.$parent.closeCenterModal();
         }
 
         $scope.delete_programme = function (program) {
