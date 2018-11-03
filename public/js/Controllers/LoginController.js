@@ -368,7 +368,7 @@ angular.module('StudentApp.LoginController', [])
             
             if(fruitName == 'Mental Arithmetic') {
                 reverseToggleSelections('Tiny Tots');
-                reverseToggleSelections('Speed Maths');
+                // reverseToggleSelections('Speed Maths');
             }
             if(fruitName == 'Tiny Tots') {
                 reverseToggleSelections('Mental Arithmetic');
@@ -377,12 +377,12 @@ angular.module('StudentApp.LoginController', [])
 
             if(fruitName == 'Speed Maths') {
                 reverseToggleSelections('Tiny Tots');
-                reverseToggleSelections('Mental Arithmetic');
+                // reverseToggleSelections('Mental Arithmetic');
             }
 
             if(fruitName == 'State Mental Arithmetic') {
                 reverseToggleSelections('State Tiny Tots');
-                reverseToggleSelections('State Speed Maths');
+                // reverseToggleSelections('State Speed Maths');
             }
             if(fruitName == 'State Tiny Tots') {
                 reverseToggleSelections('State Mental Arithmetic');
@@ -391,7 +391,7 @@ angular.module('StudentApp.LoginController', [])
 
             if(fruitName == 'State Speed Maths') {
                 reverseToggleSelections('State Tiny Tots');
-                reverseToggleSelections('State Mental Arithmetic');
+                // reverseToggleSelections('State Mental Arithmetic');
             }
         };
 
