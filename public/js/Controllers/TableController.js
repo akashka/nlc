@@ -13,8 +13,8 @@ angular.module('StudentApp.TableController', [])
             userFactory.query().$promise.then(function (response) {
                 $scope.$parent.user_list = response;
                 $scope.$parent.temp_user_list = [];
-                for(var u=0; u<$scope.$parent.user_list.length; u++) {
-                    if($scope.$parent.user_list[u].role != 'student') $scope.$parent.temp_user_list.push($scope.$parent.user_list[u]);
+                for (var u = 0; u < $scope.$parent.user_list.length; u++) {
+                    if ($scope.$parent.user_list[u].role != 'student') $scope.$parent.temp_user_list.push($scope.$parent.user_list[u]);
                 }
             }, function (response) {
                 //error
@@ -23,10 +23,22 @@ angular.module('StudentApp.TableController', [])
 
             centerFactory.query().$promise.then(function (response) {
                 $scope.$parent.center_list = response;
+                $scope.directArr = [];
+                for(var r=0; r<response.length; r++) {
+                    if(response[r].is_direct) $scope.directArr.push(response[r].centercode);
+                }
             }, function (response) {
                 //error
                 console.error(response);
             });
+
+            var isReportingHO = function (centercode, center_list) {
+                for (var c = 0; c < center_list.length; c++) {
+                    if (center_list[c].centercode == centercode)
+                        return center_list[c].is_direct;
+                }
+                return false;
+            }
 
             studentFactory.query().$promise.then(function (response) {
                 //$('tbody').html('');
@@ -44,13 +56,18 @@ angular.module('StudentApp.TableController', [])
                 }
 
                 if ($scope.$parent.isMaster) {
-                    $scope.$parent.sstate = getCookie('sstate');
-                    for (var s = 0; s < $scope.$parent.student_list.length; s++) {
-                        if ($scope.$parent.student_list[s].sstatename != $scope.$parent.sstate) {
-                            $scope.$parent.student_list.splice(s, 1);
-                            s--;
+                    centerFactory.query().$promise.then(function (response) {
+                        $scope.$parent.sstate = getCookie('sstate');
+                        for (var s = 0; s < $scope.$parent.student_list.length; s++) {
+                            if ($scope.$parent.student_list[s].sstatename != $scope.$parent.sstate || isReportingHO($scope.$parent.student_list[s].centercode, response)) {
+                                $scope.$parent.student_list.splice(s, 1);
+                                s--;
+                            }
                         }
-                    }
+                    }, function (response) {
+                        //error
+                        console.error(response);
+                    });
                 }
 
             }, function (response) {
@@ -94,17 +111,17 @@ angular.module('StudentApp.TableController', [])
                 }
                 if (!isFound) $scope.$parent.selected.push(f);
                 $scope.$parent.total_amount = 0;
-                
-                for(var s=0; s<$scope.$parent.selected.length; s++) {
-                    if($scope.$parent.selected[s].programmes.length <= 1)
+
+                for (var s = 0; s < $scope.$parent.selected.length; s++) {
+                    if ($scope.$parent.selected[s].programmes.length <= 1)
                         $scope.$parent.total_amount += 1000;
-                    if($scope.$parent.selected[s].programmes.length == 2)
+                    if ($scope.$parent.selected[s].programmes.length == 2)
                         $scope.$parent.total_amount += 1600;
-                    if($scope.$parent.selected[s].programmes.length == 3)
+                    if ($scope.$parent.selected[s].programmes.length == 3)
                         $scope.$parent.total_amount += 2600;
-                    if($scope.$parent.selected[s].programmes.length == 4)
+                    if ($scope.$parent.selected[s].programmes.length == 4)
                         $scope.$parent.total_amount += 3200;
-                    if($scope.$parent.selected[s].programmes.length > 4)
+                    if ($scope.$parent.selected[s].programmes.length > 4)
                         $scope.$parent.total_amount += ($scope.$parent.selected[s].programmes.length * 1000);
                 }
             }
@@ -125,6 +142,11 @@ angular.module('StudentApp.TableController', [])
                 }, function (response) {
                     console.error(response);
                 });
+            }
+
+            $scope.directArr = [];
+            $scope.reportingDirect = function (centercode) {
+                return ($scope.directArr.indexOf(centercode) > -1);
             }
 
             $scope.masterApprove = function (stu) {
@@ -170,8 +192,8 @@ angular.module('StudentApp.TableController', [])
                 $scope.$parent.newCenterModal = true;
             }
 
-            $scope.$parent.closeUserModal = function() {
-                $scope.$parent.newUserModal = false;                
+            $scope.$parent.closeUserModal = function () {
+                $scope.$parent.newUserModal = false;
             }
 
             $scope.updateUser = function (user) {

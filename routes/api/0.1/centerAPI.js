@@ -22,7 +22,8 @@ router.post('/', function (req, res) {
             sstatename: req.body.sstatename,
             centername: req.body.centername,
             centercode: req.body.centercode,
-            programmename: req.body.programmename
+            programmename: req.body.programmename,
+            is_direct: req.body.is_direct
         }, {
                 success: function (f) {
                     res.status(201).send({ msg: 'Center created succesfully: ' + req.body.centercode, data: f });
@@ -95,7 +96,8 @@ router.put('/:id', function (req, res) {
             centercode: req.body.centercode,
             programmename: req.body.programmename,
             dateCreated: req.body.dateCreated,
-            dateModified: new Date()
+            dateModified: new Date(),
+            is_direct: req.body.is_direct
         }, {
                 success: function (f) {
                     res.status(200).send({ msg: 'Center updated succesfully: ' + JSON.stringify(f), data: f });

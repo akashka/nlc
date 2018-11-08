@@ -6,6 +6,14 @@ angular.module('StudentApp.LoginController', [])
         $scope.otpSent = false;
         $scope.msg = '';
 
+        var isReportingHO = function (centercode, center_list) {
+            for (var c = 0; c < center_list.length; c++) {
+                if (center_list[c].centercode == centercode)
+                    return center_list[c].is_direct;
+            }
+            return false;
+        }
+
         $scope.send = function (username, password) {
             $("#login img").hide();
             if (working) return;
@@ -43,13 +51,18 @@ angular.module('StudentApp.LoginController', [])
                         }
                     }
                     if ($scope.$parent.isMaster) {
-                        $scope.$parent.sstate = response.sstate;
-                        for (var s = 0; s < $scope.$parent.student_list.length; s++) {
-                            if ($scope.$parent.student_list[s].sstatname != $scope.$parent.sstate) {
-                                $scope.$parent.student_list.splice(s, 1);
-                                s--;
+                        centerFactory.query().$promise.then(function (response) {
+                            $scope.$parent.sstate = getCookie('sstate');
+                            for (var s = 0; s < $scope.$parent.student_list.length; s++) {
+                                if ($scope.$parent.student_list[s].sstatename != $scope.$parent.sstate || isReportingHO($scope.$parent.student_list[s].centercode, response)) {
+                                    $scope.$parent.student_list.splice(s, 1);
+                                    s--;
+                                }
                             }
-                        }
+                        }, function (response) {
+                            //error
+                            console.error(response);
+                        });
                     }
                     setTimeout(function () {
                         $state.html('Log in');
@@ -236,7 +249,7 @@ angular.module('StudentApp.LoginController', [])
             }
             else if ($scope.student.phone == "" || $scope.student.phone == undefined) {
                 $scope.msg = "Invalid or Missing Phone Number. Please make sure you have entered correct Phone Number";
-            } 
+            }
             else if ($scope.student.programmeName.length <= 0) {
                 $scope.msg = "Please select atleast One Programme";
             } else if (!$scope.termsAccepted) {
@@ -365,31 +378,31 @@ angular.module('StudentApp.LoginController', [])
             var idx = $scope.student.programmeName.indexOf(fruitName);
             if (idx > -1) $scope.student.programmeName.splice(idx, 1);
             else $scope.student.programmeName.push(fruitName);
-            
-            if(fruitName == 'Mental Arithmetic') {
+
+            if (fruitName == 'Mental Arithmetic') {
                 reverseToggleSelections('Tiny Tots');
                 // reverseToggleSelections('Speed Maths');
             }
-            if(fruitName == 'Tiny Tots') {
+            if (fruitName == 'Tiny Tots') {
                 reverseToggleSelections('Mental Arithmetic');
                 reverseToggleSelections('Speed Maths');
             }
 
-            if(fruitName == 'Speed Maths') {
+            if (fruitName == 'Speed Maths') {
                 reverseToggleSelections('Tiny Tots');
                 // reverseToggleSelections('Mental Arithmetic');
             }
 
-            if(fruitName == 'State Mental Arithmetic') {
+            if (fruitName == 'State Mental Arithmetic') {
                 reverseToggleSelections('State Tiny Tots');
                 // reverseToggleSelections('State Speed Maths');
             }
-            if(fruitName == 'State Tiny Tots') {
+            if (fruitName == 'State Tiny Tots') {
                 reverseToggleSelections('State Mental Arithmetic');
                 reverseToggleSelections('State Speed Maths');
             }
 
-            if(fruitName == 'State Speed Maths') {
+            if (fruitName == 'State Speed Maths') {
                 reverseToggleSelections('State Tiny Tots');
                 // reverseToggleSelections('State Mental Arithmetic');
             }
@@ -516,7 +529,7 @@ angular.module('StudentApp.LoginController', [])
         $scope.getFile = function (mod) {
             fileReader.readAsDataUrl($scope.file, $scope)
                 .then(function (result) {
-                    if(mod == 'myFile') $scope.imageSrc = result;
+                    if (mod == 'myFile') $scope.imageSrc = result;
                     else $scope.imageSrc1 = result;
                 });
         };

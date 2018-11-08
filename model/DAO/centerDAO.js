@@ -29,6 +29,7 @@ var CenterSchema = new Schema({
     programmename: { type: String, required: true },
     dateCreated: { type: Date },
     dateModified: { type: Date },
+    is_direct: { type: Boolean, default: false }
 });
 
 CenterSchema.pre('save', function (next) {
@@ -62,6 +63,7 @@ function createCenter(center, callbacks) {
         centercode: center.centercode,
         programmename: center.programmename,
         sstatename: center.sstatename,
+        is_direct: center.is_direct,
         dateCreated: new Date()
     });
     f.save(function (err) {
@@ -115,6 +117,7 @@ function updateCenter(id, center, callbacks) {
             f.programmename = center.programmename;
             f.dateCreated = center.dateCreated;
             f.dateModified = center.dateModified;
+            f.is_direct  = center.is_direct;
             return f.save(function (err) {
                 if (!err) {
                     sendInfoMail('Center update success', f);
