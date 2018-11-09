@@ -290,8 +290,8 @@ function downloadCopy(username, callbacks) {
             stringTemplate = stringTemplate.replace('{{address}}', (student.address) ? student.address : "");
             stringTemplate = stringTemplate.replace('{{dateOfBirth}}', (student.dateofbirth) ? formatDate(student.dateofbirth) : "");
             stringTemplate = stringTemplate.replace('{{tShirtSize}}', (student.tshirtsize) ? student.tshirtsize : "");
-            stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.photo) : '');
-            stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.birthcertificate) : '');
+            stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined && student.photo != '') ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.photo) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
+            stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
 
             conversion({ html: stringTemplate }, function (err, pdf) {
                 callbacks.success(pdf);

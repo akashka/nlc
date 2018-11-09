@@ -70,6 +70,10 @@ angular.module('StudentApp.TableController', [])
                     });
                 }
 
+                if($scope.$parent.isStudent) {
+                    delete_cookie('username');
+                }
+
             }, function (response) {
                 //error
                 console.error(response);
