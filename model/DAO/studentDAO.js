@@ -206,11 +206,24 @@ function downloadReceipt(username, callbacks) {
     StudentModel.find({ phone: username.username }, function (err, student) {
         if (!err) {
             student = student[0];
+            var programmes = "";
+            var amount = 0;
+            for(var i=0; i<student.programmes.length; i++) {
+                if(i != 0) programmes += ", ";
+                programmes += student.programmes[i].programmename;
+            }
+            if(student.programmes.length == 1) amount = 1000;
+            if(student.programmes.length == 2) amount = 1600;
+            if(student.programmes.length == 3) amount = 2600;
+            if(student.programmes.length == 4) amount = 3200;
+
             var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/receipt.html', "utf8");
-            stringTemplate = stringTemplate.replace('{{centerOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
-            stringTemplate = stringTemplate.replace('{{parentName}}', (student.parentname) ? student.parentname : "");
-            stringTemplate = stringTemplate.replace('{{tShirtDetails}}', (student.tshirtrequired) ? "and <b> Rs.250/- </b> &nbsp; for T-Shirt, &nbsp; <b>Total of Rs.800/- </b> &nbsp;" : "");
-            stringTemplate = stringTemplate.replace('{{studentName}}', (student.name) ? student.name : "");
+            stringTemplate = stringTemplate.replace('{{stateName}}', ((student.sstatename != undefined) ? student.sstatename : ""));
+            stringTemplate = stringTemplate.replace('{{centerName}}', ((student.centername != undefined) ? student.centername : ""));
+            stringTemplate = stringTemplate.replace('{{parentName}}', ((student.parentname != undefined) ? student.parentname : ""));
+            stringTemplate = stringTemplate.replace('{{amount}}', amount);
+            stringTemplate = stringTemplate.replace('{{studentName}}', ((student.name != undefined) ? student.name : ""));
+            stringTemplate = stringTemplate.replace('{{coursesName}}', programmes);
 
             conversion({ html: stringTemplate }, function (err, pdf) {
                 callbacks.success(pdf);
