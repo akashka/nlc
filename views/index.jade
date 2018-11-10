@@ -431,13 +431,15 @@ block content
                                 | Download Photo (Format not supported to display)
                         <span class="close" ng-click="deleteImage('birthcertificate')" ng-if="student.birthcertificate != undefined && student.birthcertificate != ''" style="cursor:pointer;"><i class="fa fa-trash" aria-hidden="true"></i></span>
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;margin-top: 50px;")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;")
                             span !{t('Upload Student Image')}  
                             input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
-                        
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined || student.birthcertificate == ''", style="width:90%;margin-top: 50px;")
+                            img(ng-src="{{imageSrc}}", style="border:3px solid grey;width: 175px; height: 225px;margin-top:25px;", ng-show="imageSrc != '' && imageSrc != undefined")
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined || student.birthcertificate == ''", style="width:90%;")
                             span !{t('Upload Birth Certificate / Aadhaar Card')}  
                             input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
+                            img(ng-src="{{imageSrc1}}", style="border:3px solid grey;width: 175px; height: 225px;margin-top:25px;", ng-show="imageSrc1 != '' && imageSrc1 != undefined")
 
                         br
 
@@ -618,13 +620,15 @@ block content
                         img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && getFileExtension(student.birthcertificate)")
                         a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
 
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;margin-top: 50px;")
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;")
                             span !{t('Upload Student Image')}  
                             input(type = 'file', file-model = 'myFile', ng-src='{{student.photo}}', accept="image/*")
-                        
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined || student.birthcertificate == ''", style="width:90%;margin-top: 50px;")
+                            img(ng-src="{{imageSrc}}", style="border:3px solid grey;width: 175px; height: 225px;margin-top:25px;", ng-show="imageSrc != '' && imageSrc != undefined")
+
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.birthcertificate == undefined || student.birthcertificate == ''", style="width:90%;")
                             span !{t('Upload Birth Certificate / Aadhaar Card')}  
                             input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
+                            img(ng-src="{{imageSrc1}}", style="border:3px solid grey;width: 175px; height: 225px;margin-top:25px;", ng-show="imageSrc1 != '' && imageSrc1 != undefined")
 
                 p(style="text-align:center;color:red;font-weight:bolder;margin:0;padding:0;")
                     {{msg}}

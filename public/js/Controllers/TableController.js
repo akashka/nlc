@@ -85,6 +85,10 @@ angular.module('StudentApp.TableController', [])
                 else {
                     $scope.$parent.loading = true;
                     $scope.$parent.editing = true;
+                    $scope.$parent.student = {
+                        photo: "",
+                        birthcertificate: ""
+                    };
                     studentFactory.get({ id: id }, function (response) {
                         console.log(response);
                         $scope.$parent.student = response;

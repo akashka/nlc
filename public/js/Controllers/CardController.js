@@ -1,9 +1,11 @@
 angular.module('StudentApp.CardController', [])
-    .controller('CardController', ['$scope', 'studentFactory', '$http', '$window', 'centerFactory', 'userFactory', 'fileReader', function ($scope, studentFactory, $http, $window, centerFactory, userFactory, fileReader) {
+    .controller('CardController', ['$scope', 'studentFactory', '$http', '$window', 'centerFactory', 'userFactory', 'fileReader', '$route', function ($scope, studentFactory, $http, $window, centerFactory, userFactory, fileReader, $route) {
         //Close card handler
         $scope.close_card = function () {
             $scope.$parent.editing = false;
             $scope.$parent.loading = false;
+            $scope.msg = "";            
+            $route.reload();
         };
 
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
@@ -63,8 +65,14 @@ angular.module('StudentApp.CardController', [])
         $scope.getFile = function (mod) {
             fileReader.readAsDataUrl($scope.file, $scope)
                 .then(function (result) {
-                    if (mod == 'myFile') $scope.imageSrc = result;
-                    else $scope.imageSrc1 = result;
+                    if (mod == 'myFile') {
+                        $scope.imageSrc = result;
+                        $scope.$parent.isPhoto = false;
+                    }
+                    else {
+                        $scope.imageSrc1 = result;
+                        $scope.$parent.isBirthcertificate = false;
+                    }
                 });
         };
 
@@ -80,6 +88,7 @@ angular.module('StudentApp.CardController', [])
                     studentFactory.save($scope.$parent.student, function (response) {
                         $scope.$parent.editing = false;
                         $scope.$parent.update_students();
+                        $route.reload();                        
                     }, function (response) {
                         //error
                         console.error(response);
@@ -91,12 +100,14 @@ angular.module('StudentApp.CardController', [])
                         $scope.$parent.editing = false;
                         $scope.count = 0;;
                         $scope.$parent.update_students();
+                        $route.reload();                        
                     }, function (response) {
                         //error
                         console.error(response);
                     });
                 }
                 $scope.count = 0;
+                $scope.msg = "";            
             }
         }
 
@@ -234,8 +245,10 @@ angular.module('StudentApp.CardController', [])
         $scope.deleteImage = function (type) {
             if (type == "photo") {
                 $scope.$parent.student.photo = "";
+                $scope.$parent.isPhoto = false;
             } else {
                 $scope.$parent.student.birthcertificate = "";
+                $scope.$parent.isBirthcertificate = false;
             }
         }
 
