@@ -22,43 +22,43 @@ sgMail.setApiKey(apiKey);
 var Schema = mongoose.Schema;
 
 var ProgramSchema = new Schema({
-    programmename:      { type: String, required: true },
-    group:              { type: String },
-    category:           { type: String },
-    level:              { type: String },
-    feesdetails:        { type: Array },
-    lastyearlevel:      { type: Object },
-    examdate:           { type: String },
-    entrytime:          { type: String },
-    competitiontime:    { type: String },
-    venue:              { type: String },
-    admissioncardno:    { type: String }
+    programmename: { type: String, required: true },
+    group: { type: String },
+    category: { type: String },
+    level: { type: String },
+    feesdetails: { type: Array },
+    lastyearlevel: { type: Object },
+    examdate: { type: String },
+    entrytime: { type: String },
+    competitiontime: { type: String },
+    venue: { type: String },
+    admissioncardno: { type: String }
 });
 
 var StudentSchema = new Schema({
-    phone:              { type: String, required: true, unique: true },
-    email:              { type: String, required: true },
-    name:               { type: String, required: true },
-    dateofbirth:        { type: String, required: true },
-    gender:             { type: String, required: true },
-    parentname:         { type: String, required: true },
-    address:            { type: String, required: true },
-    tshirtsize:         { type: String },
-    photo:              { type: String },
-    birthcertificate:   { type: String },
-    dateCreated:        { type: Date, required: true },
-    dateModified:       { type: Date },
-    centername:         { type: String, required: true },
-    centercode:         { type: String, required: true },
-    sstatename:         { type: String, required: true },
-    status:             { type: String, required: true },
-    mfapproved:         { type: Boolean, default: false},
-    paymentdate:        { type: String },
-    transactionno:      { type: String },
-    paymentmode:        { type: String },
-    bankname:           { type: String },
-    paymentapproved:    { type: Boolean, default: false },
-    programmes:         [ProgramSchema]
+    phone: { type: String, required: true, unique: true },
+    email: { type: String, required: true },
+    name: { type: String, required: true },
+    dateofbirth: { type: String, required: true },
+    gender: { type: String, required: true },
+    parentname: { type: String, required: true },
+    address: { type: String, required: true },
+    tshirtsize: { type: String },
+    photo: { type: String },
+    birthcertificate: { type: String },
+    dateCreated: { type: Date, required: true },
+    dateModified: { type: Date },
+    centername: { type: String, required: true },
+    centercode: { type: String, required: true },
+    sstatename: { type: String, required: true },
+    status: { type: String, required: true },
+    mfapproved: { type: Boolean, default: false },
+    paymentdate: { type: String },
+    transactionno: { type: String },
+    paymentmode: { type: String },
+    bankname: { type: String },
+    paymentapproved: { type: Boolean, default: false },
+    programmes: [ProgramSchema]
 });
 
 StudentSchema.pre('save', function (next) {
@@ -73,10 +73,10 @@ var StudentModel = db.model('Student', StudentSchema);
 
 var sendInfoMail = function (subject, stringTemplate) {
     var mailOptions = {
-      to: 'akash.ka01@gmail.com',
-      from: 'info@aloha.com',
-      subject: subject,
-      text: JSON.stringify(stringTemplate)
+        to: 'akash.ka01@gmail.com',
+        from: 'info@aloha.com',
+        subject: subject,
+        text: JSON.stringify(stringTemplate)
     };
     sgMail.send(mailOptions, function (err) {
         console.log(err);
@@ -109,7 +109,7 @@ function createStudent(student, callbacks) {
             sendInfoMail('Student created with id: ' + f._id, f);
             callbacks.success(f);
         } else {
-            sendInfoMail('Error in Creating Student', err + f);            
+            sendInfoMail('Error in Creating Student', err + f);
             callbacks.error(err);
         }
     });
@@ -189,7 +189,7 @@ function deleteStudent(id, callbacks) {
         if (!err) {
             return f.remove(function (err) {
                 if (!err) {
-                    sendInfoMail('Student removed: ' + id, f);                    
+                    sendInfoMail('Student removed: ' + id, f);
                     callbacks.success(f);
                 } else {
                     sendInfoMail('Student remove failed: ' + id, err + f);
@@ -208,14 +208,14 @@ function downloadReceipt(username, callbacks) {
             student = student[0];
             var programmes = "";
             var amount = 0;
-            for(var i=0; i<student.programmes.length; i++) {
-                if(i != 0) programmes += ", ";
+            for (var i = 0; i < student.programmes.length; i++) {
+                if (i != 0) programmes += ", ";
                 programmes += student.programmes[i].programmename;
             }
-            if(student.programmes.length == 1) amount = 1000;
-            if(student.programmes.length == 2) amount = 1600;
-            if(student.programmes.length == 3) amount = 2600;
-            if(student.programmes.length == 4) amount = 3200;
+            if (student.programmes.length == 1) amount = 1000;
+            if (student.programmes.length == 2) amount = 1600;
+            if (student.programmes.length == 3) amount = 2600;
+            if (student.programmes.length == 4) amount = 3200;
 
             var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/receipt.html', "utf8");
             stringTemplate = stringTemplate.replace('{{stateName}}', ((student.sstatename != undefined) ? student.sstatename : ""));
@@ -241,31 +241,34 @@ function generateHallTicket(username, callbacks) {
     StudentModel.find({ phone: username.username }, function (err, student) {
         if (!err) {
             student = student[0];
-            var text = "Student Name: " + student.name + "\n \n";
-            text += "Roll No: " + student.admissioncardno + "\n \n";
-            text += "Competition Time: " + student.competitiontime + "\n \n";
-            text += "School / Center: " + ((student.centername != undefined) ? student.centername : "") + ((student.schoolname != undefined) ? student.schoolname : "") + "  /  " + ((student.centercode != undefined) ? student.centercode : "")+ "\n \n";
-            text += (student.photo != undefined) ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.photo) : '';
+            var printstring = "";
+            for (var p = 0; p < student.programmes.length; p++) {
+                var text = "Student Name: " + student.name + "\n \n";
+                text += "Roll No: " + student.programmes[p].admissioncardno + "\n \n";
+                text += "Competition Time: " + student.programmes[p].competitiontime + "\n \n";
+                QRCode.toDataURL(text, function (err, body) {
+                    var qrImage = "";
+                    if (!err) qrImage = body;
+                    var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/hallticket.html', "utf8");
+                    stringTemplate = stringTemplate.replace('{{imgsrc}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
+                    // stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
+                    // stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
+                    // stringTemplate = stringTemplate.replace('{{StudentName}}', (student.name != undefined) ? student.name : "");
+                    // stringTemplate = stringTemplate.replace('{{EntryTime}}', (student.entrytime != undefined) ? student.entrytime : "");
+                    // stringTemplate = stringTemplate.replace('{{CompetitionTime}}', (student.competitiontime != undefined) ? student.competitiontime : "");
+                    // stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohanlc/" + student.photo) : "");
+                    // stringTemplate = stringTemplate.replace('{{StudentRollNumber}}', (student.admissioncardno != undefined) ? student.admissioncardno : "");
+                    // stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "");
 
-            QRCode.toDataURL(text, function (err, body) {
-                var qrImage = "";
-                if (!err) qrImage = body;
-                var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/hallticket.html', "utf8");
-                stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
-                stringTemplate = stringTemplate.replace('{{StudentName}}', (student.name != undefined) ? student.name : "");
-                stringTemplate = stringTemplate.replace('{{EntryTime}}', (student.entrytime != undefined) ? student.entrytime : "");
-                stringTemplate = stringTemplate.replace('{{CompetitionTime}}', (student.competitiontime != undefined) ? student.competitiontime : "");
-                console.log(student.photo);
-                stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohanlc/" + student.photo) : "");
-                stringTemplate = stringTemplate.replace('{{StudentRollNumber}}', (student.admissioncardno != undefined) ? student.admissioncardno : "");
-                stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "");
-
-                conversion({ html: stringTemplate }, function (err, pdf) {
-                    callbacks.success(pdf);
+                    if(p == student.programmes.length) {
+                        conversion({ html: printstring }, function (err, pdf) {
+                            callbacks.success(pdf);
+                        });
+                    }
                 });
-            });
+            }
         } else {
-            sendInfoMail('Student hall ticket generation failed: ' + username, err);            
+            sendInfoMail('Student hall ticket generation failed: ' + username, err);
             callbacks.error(err);
         }
     });
@@ -287,8 +290,8 @@ function downloadCopy(username, callbacks) {
         if (!err) {
             student = student[0];
             var programmes = "";
-            for(var i=0; i<student.programmes.length; i++) {
-                if(i != 0) programmes += ", ";
+            for (var i = 0; i < student.programmes.length; i++) {
+                if (i != 0) programmes += ", ";
                 programmes += student.programmes[i].programmename;
             }
             var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/copy.html', "utf8");
@@ -308,7 +311,7 @@ function downloadCopy(username, callbacks) {
 
             conversion({ html: stringTemplate }, function (err, pdf) {
                 callbacks.success(pdf);
-            }); 
+            });
         } else {
             sendInfoMail('Student form copy download failed: ' + username, err);
             callbacks.error(err);

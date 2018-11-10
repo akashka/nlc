@@ -250,6 +250,9 @@ angular.module('StudentApp.LoginController', [])
             else if ($scope.student.phone == "" || $scope.student.phone == undefined) {
                 $scope.msg = "Invalid or Missing Phone Number. Please make sure you have entered correct Phone Number";
             }
+            else if ($scope.student.tshirtsize == "" || $scope.student.tshirtsize == undefined){
+                $scope.msg = "Invalid or Missing T Shirt Size. Please make sure you have selected correct T Shirt Size";
+            }
             else if ($scope.student.programmeName.length <= 0) {
                 $scope.msg = "Please select atleast One Programme";
             } else if (!$scope.termsAccepted) {
