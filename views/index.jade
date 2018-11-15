@@ -329,7 +329,7 @@ block content
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                                 span !{t('Level Applying For *')}
                                 select.mdc-select__native-control(ng-model='program.level', ng-options='x for x in getlevelsOptions(program.programmename)')
-                                    option(value="" disabled selected)
+                                    option(value="" selected)
                                         | Select Level Applying For 
 
                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -339,13 +339,13 @@ block content
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                                 span !{t('Level in 2017')}
                                 select.mdc-select__native-control(ng-model='program.lastyearlevel.one', ng-options='x for x in getlevelsOptions(program.programmename)')
-                                    option(value="" disabled selected)
+                                    option(value="" selected)
                                         | Level in 2017 
 
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                                 span !{t('Level in 2016')}
                                 select.mdc-select__native-control(ng-model='program.lastyearlevel.two', ng-options='x for x in getlevelsOptions(program.programmename)')
-                                    option(value="" disabled selected)
+                                    option(value="" selected)
                                         | Level in 2016
 
                             br
@@ -464,13 +464,13 @@ block content
                     div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
                         span !{t('Payment Mode *')}
                         select.mdc-select__native-control(ng-model='payment.paymentmode', ng-options='x for x in paymentmodes', ng-required="true")
-                            option(value="" disabled selected)
+                            option(value="" selected)
                                 | Select Payment Mode
 
                     div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
                         span !{t('Bank *')}
                         select.mdc-select__native-control(ng-model='payment.bankname', ng-options='x for x in banknames', ng-required="true")
-                            option(value="" disabled selected)
+                            option(value="" selected)
                                 | Select Bank
 
                     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style="width:42%;")
@@ -554,13 +554,13 @@ block content
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'School Programme'")
                             span !{t('Group')}
                             select.mdc-select__native-control(ng-model='student.group', ng-options='x for x in schoolgroups', ng-disabled="true", ng-change="onGroupChange(student.group, 'School')")
-                                option(value="" disabled selected)
+                                option(value="" selected)
                                     | Select Group 
 
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
                             span !{t('Group')}
                             select.mdc-select__native-control(ng-model='student.group', ng-options='x for x in centergroups', ng-disabled="true", ng-change="onGroupChange(student.group, 'Center')")
-                                option(value="" disabled selected)
+                                option(value="" selected)
                                     | Select Group 
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -573,13 +573,13 @@ block content
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'MA' || student.group == 'MAS'")
                             span !{t('Level Applying For')}
                             select.mdc-select__native-control(ng-model='student.level', ng-disabled="true", ng-options='x for x in malevels')
-                                option(value="" disabled selected)
+                                option(value="" selected)
                                     | Select Level Applying For 
 
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'TT' || student.group == 'TTS'")
                             span !{t('Level Applying For')}
                             select.mdc-select__native-control(ng-model='student.level', ng-disabled="true", ng-options='x for x in ttlevels')
-                                option(value="" disabled selected)
+                                option(value="" selected)
                                     | Select Level Applying For 
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.programmename == 'Center Programme'")
