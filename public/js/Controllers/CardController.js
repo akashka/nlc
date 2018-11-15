@@ -6,6 +6,11 @@ angular.module('StudentApp.CardController', [])
             $scope.$parent.loading = false;
             $scope.msg = "";            
             $route.reload();
+            $scope.myFile1 = undefined;
+            $scope.myFile = undefined;
+            $scope.imageSrc = undefined;
+            $scope.imageSrc1 = undefined;
+            $scope.file = null;
         };
 
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
@@ -88,7 +93,12 @@ angular.module('StudentApp.CardController', [])
                     studentFactory.save($scope.$parent.student, function (response) {
                         $scope.$parent.editing = false;
                         $scope.$parent.update_students();
-                        $route.reload();                        
+                        $scope.myFile1 = undefined;
+                        $scope.myFile = undefined;
+                        $scope.imageSrc = undefined;
+                        $scope.imageSrc1 = undefined;
+                        $scope.file = null;                        
+                        $route.reload();     
                     }, function (response) {
                         //error
                         console.error(response);
@@ -100,6 +110,11 @@ angular.module('StudentApp.CardController', [])
                         $scope.$parent.editing = false;
                         $scope.count = 0;;
                         $scope.$parent.update_students();
+                        $scope.myFile1 = undefined;
+                        $scope.myFile = undefined;
+                        $scope.imageSrc = undefined;
+                        $scope.imageSrc1 = undefined;
+                        $scope.file = null;                        
                         $route.reload();                        
                     }, function (response) {
                         //error

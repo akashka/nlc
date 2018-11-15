@@ -203,7 +203,7 @@ mixin login_form
                         .col-md-8.col-md-offset-2
                             form(name='registration', ng-submit='save_student()', ng-show='!dataSaved')
                                 .panel.panel-default
-                                    .panel-body.slate_board(style='height:75vh; overflow-y:auto; background-color:white;border-radius: 10px;padding: 10px 30px; color: black;')
+                                    .panel-body.slate_board(style='height:75vh; overflow-y:auto; background-color:white;border-radius: 10px;padding: 10px 20px; color: black;')
                                         div
 
                                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -280,7 +280,7 @@ mixin login_form
                                                     input(type = 'file', file-model = 'myFile1', ng-src='{{student.birthcertificate}}', accept="image/*")
 
                                                 br
-                                                input(type="checkbox",name="termsAccepted",value="termsAccepted", style="width:5%;zoom:2;margin-left:15px;", ng-click="onTCChange()" ng-show="isOTPVerified")
+                                                input(type="checkbox",name="termsAccepted",value="termsAccepted", style="zoom:2;margin-left:15px;", ng-click="onTCChange()" ng-show="isOTPVerified")
                                                 p(ng-show="isOTPVerified", style="display:inline-block;")
                                                     | I accept to the <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>. <br>
                                             
@@ -329,7 +329,7 @@ mixin login_form
                                             //- button.swal2-confirm.swal2-styled(type='button', style='background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);') OK
                                             button.swal2-cancel.swal2-styled(type='button', style='display: none; background-color: rgb(170, 170, 170);') Cancel
 
-        .demo-card-wide.mdl-card.mdl-shadow--2dp.ng-hide(ng-show="phoneOtpVerification", style="padding:45px;background-color:silver;border-radius:10px;background-color: silver;border-radius: 10px;height: 70vh;margin-top:105px;margin-left:75px;width:85%;text-align:center;")
+        .demo-card-wide.mdl-card.mdl-shadow--2dp.ng-hide(ng-show="phoneOtpVerification", style="padding:45px;background-color:silver;border-radius:10px;background-color: silver;border-radius: 10px;height: 70vh;margin-top:105px;margin-left:75px;width:85%;text-align:center;left: 0;margin-left: 7.5%;overflow-y: auto;")
             h3 {{oTPmessage}}
             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
                 input.mdl-textfield__input(type="number", ng-model="otp", ng-minlength="6", ng-maxlength="6", ng-required="true", ng-change="onPwdChange(otp)", style="margin-left: 175%;")

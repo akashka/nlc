@@ -83,22 +83,42 @@ function readUserById(id, callbacks) {
 
 //CREATE user function
 function createUser(user, callbacks) {
-    var u = new UserModel({
-        username: user.username,
-        password: user.password,
-        role: user.role,
-        center: user.center,
-        sstate: user.sstate
-    });
-
-    u.save(function (err) {
+    UserModel.findById(id, function (err, u) {
         if (!err) {
-            sendInfoMail('Created New User Success', u);
-            callbacks.success(u);
+            u.username = user.username;
+            u.password = user.password;
+            u.role = user.role;
+            u.center = user.center;
+            u.sstate = user.sstate;
+            return u.save(function (err) {
+                if (!err) {
+                    sendInfoMail('Updated New User', u);
+                    callbacks.success(u);
+                } else {
+                    sendInfoMail('Failed to update User', err + u);
+                    if (!isInTest) console.log(err);
+                    callbacks.error(err);
+                }
+            });
         } else {
-            sendInfoMail('Failed to create New User', err + u);
-            if (!isInTest) console.log(err);
-            callbacks.error(err);
+            var u = new UserModel({
+                username: user.username,
+                password: user.password,
+                role: user.role,
+                center: user.center,
+                sstate: user.sstate
+            });
+
+            u.save(function (err) {
+                if (!err) {
+                    sendInfoMail('Created New User Success', u);
+                    callbacks.success(u);
+                } else {
+                    sendInfoMail('Failed to create New User', err + u);
+                    if (!isInTest) console.log(err);
+                    callbacks.error(err);
+                }
+            });
         }
     });
 }

@@ -242,15 +242,18 @@ function generateHallTicket(username, callbacks) {
         if (!err) {
             student = student[0];
             var printstring = "";
+            var counter = -1;
             for (var p = 0; p < student.programmes.length; p++) {
                 var text = "Student Name: " + student.name + "\n \n";
                 text += "Roll No: " + student.programmes[p].admissioncardno + "\n \n";
                 text += "Competition Time: " + student.programmes[p].competitiontime + "\n \n";
                 QRCode.toDataURL(text, function (err, body) {
+                    counter++;
+                    console.log(counter);
                     var qrImage = "";
                     if (!err) qrImage = body;
                     var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/hallticket.html', "utf8");
-                    stringTemplate = stringTemplate.replace('{{imgsrc}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
+                    stringTemplate = stringTemplate.replace('{{imgsrc}}', 'http://alohaonline.in/img/admit.png');
                     // stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
                     // stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
                     // stringTemplate = stringTemplate.replace('{{StudentName}}', (student.name != undefined) ? student.name : "");
@@ -260,7 +263,8 @@ function generateHallTicket(username, callbacks) {
                     // stringTemplate = stringTemplate.replace('{{StudentRollNumber}}', (student.admissioncardno != undefined) ? student.admissioncardno : "");
                     // stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "");
 
-                    if(p == student.programmes.length) {
+                    printstring += stringTemplate;
+                    if(counter == (student.programmes.length-1)) {
                         conversion({ html: printstring }, function (err, pdf) {
                             callbacks.success(pdf);
                         });
@@ -275,9 +279,10 @@ function generateHallTicket(username, callbacks) {
 }
 
 function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + (d.getDate() + 1),
+    var d = new Date(date);
+    d.setDate(d.getDate());
+    var month = '' + (d.getMonth() + 1),
+        day = '' + (d.getDate()),
         year = d.getFullYear();
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
