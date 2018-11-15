@@ -254,8 +254,19 @@ mixin login_form
                                                     | Female
 
                                             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
-                                                span !{t('Date Of Birth (dd/mm/yyyy)')}                                                
-                                                input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true", id="datepicker", class="active", min="2003-09-30", max="2013-09-30")
+                                                span !{t('Date Of Birth')}   
+                                                br                                             
+                                                select.mdc-select__native-control(ng-model='dob.day', ng-options='x for x in dayOptions', style="width:100px;padding-right:0;")
+                                                    option(value="" disabled selected)
+                                                        | Select Day 
+                                                select.mdc-select__native-control(ng-model='dob.month', ng-options='x for x in monthOptions', style="width:100px;padding-right:0;")
+                                                    option(value="" disabled selected)
+                                                        | Select Month 
+                                                select.mdc-select__native-control(ng-model='dob.year', ng-options='x for x in yearOptions', style="width:100px;padding-right:0;")
+                                                    option(value="" disabled selected)
+                                                        | Select Year
+    
+                                                //- input.mdl-textfield__input(type="date", ng-model="student.dateofbirth", ng-required="true", id="datepicker", class="active", min="2003-09-30", max="2013-09-30")
 
                                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="isOTPVerified")
                                                 span !{t('T-Shirt Size')}

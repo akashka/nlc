@@ -182,6 +182,16 @@ angular.module('StudentApp.LoginController', [])
         $scope.eslevels = ["1", "2", "3", "4", "5"];
         $scope.smlevels = ["1", "2", "3", "4", "5", "6"];
 
+        $scope.dayOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+        $scope.monthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        $scope.yearOptions = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015];
+
+        $scope.dob = {
+            day: '',
+            month: '',
+            year: ''
+        };
+
         centerFactory.query().$promise.then(function (response) {
             $scope.$parent.center_list = response;
             $scope.sstateoptions = getUniqueValuesOfKey($scope.$parent.center_list, 'sstatename');
@@ -223,17 +233,18 @@ angular.module('StudentApp.LoginController', [])
         //Save student button handler
         $scope.msg = "";
         $scope.save_student = function () {
-            if ($('#datepicker')[0].type != 'date') {
-                var parts = $('#datepicker')[0].value.split('/');
-                var mydate = new Date(parts[2], parts[1] - 1, parts[0]);
-                $scope.student.dateofbirth = mydate;
-            }
+            // if ($('#datepicker')[0].type != 'date') {
+            //     var parts = $('#datepicker')[0].value.split('/');
+            //     var mydate = new Date(parts[2], parts[1] - 1, parts[0]);
+            $scope.student.dateofbirth = new Date($scope.dob.year, $scope.dob.month-1, $scope.dob.day, 0, 0, 0, 0);
+            console.log($scope.student.dateofbirth);
+            // }
             $scope.msg = "";
             if ($scope.student.address == "" || $scope.student.address == undefined) {
                 $scope.msg = "Invalid or Missing Address. Please make sure you have entered correct Address";
             }
             else if ($scope.student.dateofbirth == "" || $scope.student.dateofbirth == undefined || Object.prototype.toString.call($scope.student.dateofbirth) != "[object Date]") {
-                $scope.msg = "Invalid or Missing Date Of Birth. Please make sure you have entered correct Date Of Birth in format dd/mm/yyyy";
+                $scope.msg = "Invalid or Missing Date Of Birth. Please make sure you have entered correct Date Of Birth";
             }
             else if ($scope.student.email == "" || $scope.student.email == undefined) {
                 $scope.msg = "Invalid or Missing Email Id. Please make sure you have entered correct Email Id";
