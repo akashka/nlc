@@ -235,12 +235,12 @@ angular.module('StudentApp.CardController', [])
                 $scope.$parent.student.competitiontime == "" || $scope.$parent.student.competitiontime == undefined) {
                 $scope.msg = "Invalid or Missing Data. Please make sure you have filled all the details correctly";
             } else {
-                $scope.$parent.student.examdate = "28-Oct-2018";
-                $scope.$parent.student.venue = "Vidya Soudha School \n 9/1, 1st Main Road, \n Peenya 1st Stage, \n Bangalore 560058";
-                $scope.$parent.student.status = "closed";
-                $scope.$parent.student.admissioncardno = $scope.$parent.student.centercode + "/" + $scope.$parent.student.group + "/" +
-                    $scope.$parent.student.category + "/" + ($scope.$parent.student.level == 'pre' ? "0" : $scope.$parent.student.level) + "/";
-                $scope.$parent.student.admissioncardno += getNumberOfStudents();
+                // $scope.$parent.student.examdate = "28-Oct-2018";
+                // $scope.$parent.student.venue = "";
+                // $scope.$parent.student.status = "closed";
+                // $scope.$parent.student.admissioncardno = $scope.$parent.student.centercode + "/" + $scope.$parent.student.group + "/" +
+                // $scope.$parent.student.category + "/" + ($scope.$parent.student.level == 'pre' ? "0" : $scope.$parent.student.level) + "/";
+                // $scope.$parent.student.admissioncardno += getNumberOfStudents();
                 studentFactory.update({ id: $scope.$parent.student._id }, $scope.$parent.student, function (response) {
                     $scope.$parent.adminediting = false;
                     $scope.$parent.update_students();

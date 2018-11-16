@@ -134,6 +134,37 @@ var app = angular.module('StudentApp', [
             }
         }
 
+        $scope.getCategoryValue = function (std, program) {
+            if (std != undefined && std.dateofbirth != undefined) {
+                var dt = std.dateofbirth;
+                program.category = "";
+                if (program.programmename == 'Tiny Tots' || program.programmename == 'State Tiny Tots') {
+                    if (dt > new Date('10/01/2011')) program.category = 'A';
+                    else program.category = 'B';
+                } else if (program.programmename == 'Mental Arithmetic' || program.programmename == 'State Mental Arithmetic') {
+                    if (dt > new Date('10/01/2010')) program.category = 'A';
+                    else if (dt > new Date('10/01/2008')) program.category = 'B';
+                    else if (dt > new Date('10/01/2006')) program.category = 'C';
+                    else program.category = 'D';
+                } else {
+                    program.category = 'A';
+                }
+                return program.category;
+            }
+            return '';
+        }
+
+        $scope.formatDate = function(date) {
+            var d = new Date(date);
+            d.setDate(d.getDate());
+            var month = '' + (d.getMonth() + 1),
+                day = '' + (d.getDate()),
+                year = d.getFullYear();
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            return [day, month, year].join('/');
+        }
+
         $scope.getDownloadTable = function () {
             var down = [];
             $scope.$parent.center = getCookie('center');
@@ -141,12 +172,12 @@ var app = angular.module('StudentApp', [
             for (var d = 0; d < $scope.student_list.length; d++) {
                 if ($scope.isAdmin || ($scope.isMaster && $scope.student_list[d].sstatename == $scope.$parent.sstate)
                     || ($scope.isUnit && $scope.student_list[d].centercode == $scope.$parent.center)) {
-                    for(var p=0; p<$scope.student_list[d].programmes.length; p++){ 
+                    for (var p = 0; p < $scope.student_list[d].programmes.length; p++) {
                         down.push({
                             phone: ($scope.student_list[d].phone != undefined) ? $scope.student_list[d].phone : "",
                             email: ($scope.student_list[d].email != undefined) ? $scope.student_list[d].email : "",
                             name: ($scope.student_list[d].name != undefined) ? $scope.student_list[d].name : "",
-                            dateofbirth: ($scope.student_list[d].dateofbirth != undefined) ? $scope.student_list[d].dateofbirth : "",
+                            dateofbirth: ($scope.student_list[d].dateofbirth != undefined) ? $scope.formatDate($scope.student_list[d].dateofbirth) : "",
                             gender: ($scope.student_list[d].gender != undefined) ? $scope.student_list[d].gender : "",
                             parentname: ($scope.student_list[d].parentname != undefined) ? $scope.student_list[d].parentname : "",
                             address: ($scope.student_list[d].address != undefined) ? $scope.student_list[d].address : "",
@@ -159,7 +190,7 @@ var app = angular.module('StudentApp', [
                             sstatename: ($scope.student_list[d].sstatename != undefined) ? $scope.student_list[d].sstatename : "",
                             status: ($scope.student_list[d].status != undefined) ? $scope.student_list[d].status : "",
                             dateCreated: ($scope.student_list[d].dateCreated != undefined) ? $scope.student_list[d].dateCreated : "",
-                            group: ($scope.student_list[d].programmes[p].group != undefined) ? $scope.student_list[d].programmes[p].group : "",
+                            group: $scope.getCategoryValue($scope.student_list[d], $scope.student_list[d].programmes[p]),
                             level: ($scope.student_list[d].programmes[p].level != undefined) ? $scope.student_list[d].programmes[p].level : "",
                             paymentdate: ($scope.student_list[d].paymentdate != undefined) ? $scope.student_list[d].paymentdate : "",
                             transactionno: ($scope.student_list[d].transactionno != undefined) ? $scope.student_list[d].transactionno : "",
@@ -205,7 +236,7 @@ var app = angular.module('StudentApp', [
             for (var d = 0; d < $scope.user_list.length; d++) {
                 if ($scope.isAdmin || ($scope.isMaster && $scope.user_list[d].sstate == $scope.$parent.sstate)
                     || ($scope.isUnit && $scope.user_list[d].center == $scope.$parent.center)) {
-                    if($scope.user_list[d].role != 'student'){
+                    if ($scope.user_list[d].role != 'student') {
                         down.push({
                             username: ($scope.user_list[d].username != undefined) ? $scope.user_list[d].username : "",
                             role: ($scope.user_list[d].role != undefined) ? $scope.user_list[d].role : "",
@@ -277,12 +308,12 @@ var app = angular.module('StudentApp', [
             $scope.$parent.newCenterModal = true;
         }
 
-        $scope.$parent.closeCenterModal = function() {
-            $scope.$parent.newCenterModal = false;            
+        $scope.$parent.closeCenterModal = function () {
+            $scope.$parent.newCenterModal = false;
         }
 
-        $scope.$parent.closeUserModal = function() {
-            $scope.$parent.newUserModal = false;            
+        $scope.$parent.closeUserModal = function () {
+            $scope.$parent.newUserModal = false;
         }
 
         $scope.$parent.newUserModal = false;
