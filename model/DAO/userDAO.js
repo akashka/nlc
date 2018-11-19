@@ -83,8 +83,9 @@ function readUserById(id, callbacks) {
 
 //CREATE user function
 function createUser(user, callbacks) {
-    UserModel.findById(id, function (err, u) {
-        if (!err) {
+    UserModel.find({ 'username': user.username }, function (err, u) {
+        if (u.length > 0) {
+            u = u[0];
             u.username = user.username;
             u.password = user.password;
             u.role = user.role;
