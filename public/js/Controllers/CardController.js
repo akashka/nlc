@@ -48,9 +48,9 @@ angular.module('StudentApp.CardController', [])
                 if(hasDuplicates(selectedCourses)) { courseError = true; } 
                 else {
                     if(hasValue('Mental Arithmetic',selectedCourses) && hasValue('Tiny Tots',selectedCourses)) { courseError = true; }
-                    if(hasValue('Smart Maths',selectedCourses) && hasValue('Tiny Tots',selectedCourses)) { courseError = true; }
+                    if(hasValue('Speed Maths',selectedCourses) && hasValue('Tiny Tots',selectedCourses)) { courseError = true; }
                     if(hasValue('State Mental Arithmetic',selectedCourses) && hasValue('State Tiny Tots',selectedCourses)) { courseError = true; }
-                    if(hasValue('State Smart Maths',selectedCourses) && hasValue('State Tiny Tots',selectedCourses)) { courseError = true; }
+                    if(hasValue('State Speed Maths',selectedCourses) && hasValue('State Tiny Tots',selectedCourses)) { courseError = true; }
                 }
                 for (var s = 0; s < $scope.$parent.student.programmes.length; s++) {
                     if ($scope.$parent.student.programmes[s].programmename == "" || $scope.$parent.student.programmes[s].programmename == undefined
@@ -154,7 +154,7 @@ angular.module('StudentApp.CardController', [])
                     return $scope.malevels;
                 else if (programmename == 'English Smart' || programmename == 'State English Smart')
                     return $scope.eslevels;
-                else if (programmename == 'Smart Maths' || programmename == 'State Smart Maths')
+                else if (programmename == 'Speed Maths' || programmename == 'State Speed Maths')
                     return $scope.smlevels;
                 else
                     return [];
