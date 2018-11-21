@@ -136,7 +136,7 @@ var app = angular.module('StudentApp', [
 
         $scope.getCategoryValue = function (std, program) {
             if (std != undefined && std.dateofbirth != undefined) {
-                var dt = std.dateofbirth;
+                var dt = new Date(std.dateofbirth);
                 program.category = "";
                 if (program.programmename == 'Tiny Tots' || program.programmename == 'State Tiny Tots') {
                     if (dt > new Date('10/01/2011')) program.category = 'A';
