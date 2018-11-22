@@ -208,12 +208,12 @@ function generateOTP(user, callbacks) {
         if (!err) {
             if (u[0]) {
                 var user = u[0];
-                if(user.username != '9845679966' && user.username != '9790944889' && user.username != '7259596963')
+                if(user.username != '9845679966' && user.username != '9790944889' && user.username != '7259596963' && user.username != '9825495517')
                     user.password = otp;
                 console.log(user.password);
                 return user.save(function (err) {
                     if (!err) {
-                        if(user.username != '9845679966' && user.username != '9790944889' && user.username != '7259596963') 
+                        if(user.username != '9845679966' && user.username != '9790944889' && user.username != '7259596963' && user.username != '9825495517') 
                             sendOTPSMS(user.username, user.password);
                         callbacks.success(user);
                     } else {
