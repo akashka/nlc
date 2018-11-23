@@ -1,6 +1,6 @@
 angular.module('StudentApp.LoginController', [])
 
-    .controller('LoginController', ['$scope', 'userFactory', '$rootScope', 'studentFactory', 'centerFactory', 'fileUpload', '$http', 'fileReader', function ($scope, userFactory, $rootScope, studentFactory, centerFactory, fileUpload, $http, fileReader) {
+    .controller('LoginController', ['$scope', 'userFactory', '$rootScope', 'studentFactory', 'centerFactory', 'fileUpload', '$http', 'fileReader', '$window', function ($scope, userFactory, $rootScope, studentFactory, centerFactory, fileUpload, $http, fileReader, $window) {
         //Login form listener
         var working = false;
         $scope.otpSent = false;
@@ -41,6 +41,7 @@ angular.module('StudentApp.LoginController', [])
                     $scope.$parent.isUnit = (response.role == 'unit') ? true : false;
                     $scope.$parent.isMaster = (response.role == 'master') ? true : false;
                     $scope.$parent.isAdmin = (response.role == 'admin') ? true : false;
+                    
                     if ($scope.$parent.isUnit) {
                         $scope.$parent.center = response.center;
                         for (var s = 0; s < $scope.$parent.student_list.length; s++) {
@@ -64,6 +65,16 @@ angular.module('StudentApp.LoginController', [])
                             console.error(response);
                         });
                     }
+
+                    $window.wootricSettings.properties = {
+                        role: response.role,
+                        created_at: response.dateCreated,
+                        email: response.username,
+                        sstate: response.sstate,
+                        center: response.center 
+                    }
+                    $window.wootric('run');
+
                     setTimeout(function () {
                         $state.html('Log in');
                         $this.removeClass('ok loading');
