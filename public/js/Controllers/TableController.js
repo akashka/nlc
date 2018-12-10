@@ -195,6 +195,11 @@ angular.module('StudentApp.TableController', [])
                 window.open(fileurl, '_self', '');
             }
 
+            $scope.downloadHallTicket = function (username, program_id) {
+                var fileurl = "/api/0.1/student/generateHallTicket/" + username + "/" + program_id;
+                window.open(fileurl, '_self', '');
+            }
+
             $scope.updateCenter = function (center) {
                 $scope.$parent.center = center;
                 $scope.$parent.newCenterModal = true;
