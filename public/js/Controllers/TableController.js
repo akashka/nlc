@@ -82,27 +82,28 @@ angular.module('StudentApp.TableController', [])
             $scope.studentClick = function (status, id, mfapproved) {
                 if ((status == "admin" || status == "hallticket" || status == "closed" || $scope.selectMultiple == true) && $scope.isUnit) { }
                 else if ($scope.isMaster && (status != "admin" || mfapproved)) { }
-                else {
-                    $scope.$parent.loading = true;
-                    $scope.$parent.editing = true;
-                    $scope.$parent.student = {
-                        photo: "",
-                        birthcertificate: ""
-                    };
-                    studentFactory.get({ id: id }, function (response) {
-                        console.log(response);
-                        $scope.$parent.student = response;
-                        $scope.$parent.student.dateofbirth = new Date($scope.$parent.student.dateofbirth);
-                        $scope.$parent.loading = false;
-                        $scope.$parent.isPhoto = ($scope.$parent.student.photo == "" || $scope.$parent.student.photo == undefined) ? false : true;
-                        $scope.$parent.isBirthcertificate = ($scope.$parent.student.birthcertificate == "" || $scope.$parent.student.birthcertificate == undefined) ? false : true;
-                        //Floating label layout fix
-                        $('.mdl-textfield').addClass('is-focused');
-                    }, function (response) {
-                        //error
-                        console.error(response);
-                    });
-                }
+                else { }
+                // else {
+                //     $scope.$parent.loading = true;
+                //     $scope.$parent.editing = true;
+                //     $scope.$parent.student = {
+                //         photo: "",
+                //         birthcertificate: ""
+                //     };
+                //     studentFactory.get({ id: id }, function (response) {
+                //         console.log(response);
+                //         $scope.$parent.student = response;
+                //         $scope.$parent.student.dateofbirth = new Date($scope.$parent.student.dateofbirth);
+                //         $scope.$parent.loading = false;
+                //         $scope.$parent.isPhoto = ($scope.$parent.student.photo == "" || $scope.$parent.student.photo == undefined) ? false : true;
+                //         $scope.$parent.isBirthcertificate = ($scope.$parent.student.birthcertificate == "" || $scope.$parent.student.birthcertificate == undefined) ? false : true;
+                //         //Floating label layout fix
+                //         $('.mdl-textfield').addClass('is-focused');
+                //     }, function (response) {
+                //         //error
+                //         console.error(response);
+                //     });
+                // }
             };
 
             $scope.$parent.total_amount = 0;
