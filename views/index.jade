@@ -253,11 +253,15 @@ block content
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha.<br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") You can download the Hall Ticket and Receipt below. Do not forget to carry printed Hall Ticket to the Exam Venue. <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at info@alohaindia.com <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br> <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>
-                                            <a ng-click="downloadHallTicket()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Hall Ticket</a>
                                             <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Receipt</a>
+                                            br
+                                            br
+                                            br
+                                            span(ng-repeat="program in studentStatus.programmes", style="margin:20px;")
+                                                <a ng-click="downloadHallTicket(studentStatus.phone, program._id)" style="color:blue;text-decoration:underline;cursor:pointer;"><b>Download Hall Ticket for {{program.programmename}}</b></a>
 
             //- Card for center to be updated
             .demo-card-wide.mdl-card.mdl-shadow--2dp.slate_board.ng-hide(ng-controller="CardController", ng-show="$parent.editing")

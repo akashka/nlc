@@ -56,9 +56,9 @@ angular.module('StudentApp.FormController', [])
             getStudentStatus();
         });
 
-        $scope.downloadHallTicket = function () {
-            var username = getCookie('username');
-            var fileurl = "/api/0.1/student/generateHallTicket/" + username;
+        $scope.downloadHallTicket = function (username, program_id) {
+            // var username = getCookie('username');
+            var fileurl = "/api/0.1/student/generateHallTicket/" + username + "/" + program_id;
             window.open(fileurl, '_self', '');
         }
 

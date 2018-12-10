@@ -238,38 +238,37 @@ function downloadReceipt(username, callbacks) {
 
 // GENERATING Hall ticket
 function generateHallTicket(username, callbacks) {
+    console.log(username);
     StudentModel.find({ phone: username.username }, function (err, student) {
         if (!err) {
             student = student[0];
-            var printstring = "";
-            var counter = -1;
             for (var p = 0; p < student.programmes.length; p++) {
-                var text = "Student Name: " + student.name + "\n \n";
-                text += "Roll No: " + student.programmes[p].admissioncardno + "\n \n";
-                text += "Competition Time: " + student.programmes[p].competitiontime + "\n \n";
-                QRCode.toDataURL(text, function (err, body) {
-                    counter++;
-                    console.log(counter);
-                    var qrImage = "";
-                    if (!err) qrImage = body;
-                    var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/hallticket.html', "utf8");
-                    stringTemplate = stringTemplate.replace('{{imgsrc}}', 'http://alohaonline.in/img/admit.png');
-                    // stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
-                    // stringTemplate = stringTemplate.replace('{{CenterOrSchoolName}}', ((student.centername != undefined) ? student.centername : "") + (student.schoolname != undefined) ? student.schoolname : "");
-                    // stringTemplate = stringTemplate.replace('{{StudentName}}', (student.name != undefined) ? student.name : "");
-                    // stringTemplate = stringTemplate.replace('{{EntryTime}}', (student.entrytime != undefined) ? student.entrytime : "");
-                    // stringTemplate = stringTemplate.replace('{{CompetitionTime}}', (student.competitiontime != undefined) ? student.competitiontime : "");
-                    // stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohanlc/" + student.photo) : "");
-                    // stringTemplate = stringTemplate.replace('{{StudentRollNumber}}', (student.admissioncardno != undefined) ? student.admissioncardno : "");
-                    // stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "");
+                if(student.programmes[p]._id == username.program) {
+                    var program = student.programmes[p];
+                    var text = "Student Name: " + student.name + "\n \n";
+                    text += "Roll No: " + student.programmes[p].admissioncardno + "\n \n";
+                    text += "Reporting Time: " + student.programmes[p].entrytime + "\n \n";
+                    text += "Center: " + student.centername;
+                    QRCode.toDataURL(text, function (err, body) {
+                        var qrImage = "";
+                        if (!err) qrImage = body;
+                        var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/hallticket.html', "utf8");
 
-                    printstring += stringTemplate;
-                    if(counter == (student.programmes.length-1)) {
-                        conversion({ html: printstring }, function (err, pdf) {
+                        stringTemplate = stringTemplate.replace('{{headingName}}', ((program.programmename.indexOf("State") != -1) ? "15th State Level Competition 2018" : "15th National Level Competition 2018"));
+                        stringTemplate = stringTemplate.replace('{{StudentRollNumber}}', (program.admissioncardno != undefined) ? program.admissioncardno : "");
+                        stringTemplate = stringTemplate.replace('{{StudentName}}', (student.name));
+                        stringTemplate = stringTemplate.replace('{{StateName}}', student.sstatename);
+                        stringTemplate = stringTemplate.replace('{{CenterName}}', student.centername);
+                        stringTemplate = stringTemplate.replace('{{CenterCode}}', student.centercode);
+                        stringTemplate = stringTemplate.replace('{{ReportingTime}}', (program.entrytime != undefined) ? program.entrytime : "");
+                        stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohanlc/" + student.photo) : "https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png");
+                        stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png");
+
+                        conversion({ html: stringTemplate }, function (err, pdf) {
                             callbacks.success(pdf);
                         });
-                    }
-                });
+                    });
+                }
             }
         } else {
             sendInfoMail('Student hall ticket generation failed: ' + username, err);
@@ -323,6 +322,52 @@ function downloadCopy(username, callbacks) {
         }
     });
 }
+
+// function readCsv(username, callbacks) {
+//     StudentModel.find().exec('find', function (err, students) {
+//         var students = students;
+//         var counter = 0;
+//         for(var s = 0; s < students.length; s++) {
+//             for(var p = 0; p < students[s].programmes.length; p++) {
+//                 if(students[s].programmes[p].admissioncardno == "") {
+//                     counter ++;
+//                     console.log(students[s].phone + "   " + students[s].programmes[p].programmename);
+//                 }
+//             }
+//         }
+//         console.log(counter);
+
+//         // var CsvReadableStream = require('csv-reader');
+//         // var inputStream = fs.createReadStream(path.join(__dirname, '../../helpers') + '/admit2.csv', 'utf8');
+//         // inputStream
+//         //     .pipe(CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+//         //     .on('data', function (row) {
+//         //         console.log('A row arrived: ', row);
+//         //         for(var i = 0; i < students.length; i++) {
+//         //             if(row[0] == students[i].phone) {
+//         //                 for(var p = 0; p < students[i].programmes.length; p++) {
+//         //                     var pro = "";
+//         //                     if(row[2] == 'TT') pro = 'Tiny Tots';
+//         //                     if(row[2] == 'STT') pro = 'State Tiny Tots';
+//         //                     if(row[2] == 'SMA') pro = 'State Mental Arithmetic';
+//         //                     if(row[2] == 'MA') pro = 'Mental Arithmetic';
+//         //                     if(row[2] == 'ES') pro = 'English Smart';
+//         //                     if(row[2] == 'SM') pro = 'Speed Maths';
+//         //                     if(students[i].programmes[p].programmename == pro) {
+//         //                         students[i].programmes[p].admissioncardno = row[3];
+//         //                         students[i].programmes[p].entrytime = "10:45 AM";
+//         //                         students[i].save(function (err) { console.log("saved"); });
+//         //                     }
+//         //                 }
+//         //             }
+//         //         }
+//         //     })
+//         //     .on('end', function (data) {
+//         //         console.log('No more rows!');
+//         //     });
+//     });
+// }
+// module.exports.readCsv = readCsv;
 
 module.exports.createStudent = createStudent;
 module.exports.readStudents = readStudents;

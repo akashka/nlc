@@ -7,6 +7,17 @@ var express = require('express'),
     conversion = require("phantom-html-to-pdf")();
 var htmlToPdf = require('html-to-pdf');
 
+
+// router.get('/readCsv', function (req, res) {
+//     var d = domain.create();
+//     d.run(function () {
+//         studentDAO.readCsv({username: 'abc'}, {
+//             success: function () { },
+//             error: function () { }
+//         });
+//     });
+// })
+
 //CREATE a new student
 router.post('/', function (req, res) {
     var d = domain.create();
@@ -186,11 +197,12 @@ router.get('/download/:username', function (req, res) {
 })
 
 // Generate Hall Ticket
-router.get('/generateHallTicket/:username', function (req, res) {
+router.get('/generateHallTicket/:username/:program', function (req, res) {
     var d = domain.create();
     d.run(function () {
         studentDAO.generateHallTicket({
             username: req.params.username,
+            program: req.params.program,
         }, {
                 success: function (pdf) {
                     var output = fs.createWriteStream('./hallticket.pdf');
@@ -209,7 +221,7 @@ router.get('/generateHallTicket/:username', function (req, res) {
     });
 })
 
-// Generate Hall Ticket
+// Generate Copy
 router.get('/downloadCopy/:username', function (req, res) {
     var d = domain.create();
     d.run(function () {
