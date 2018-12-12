@@ -32,7 +32,8 @@ var ProgramSchema = new Schema({
     entrytime: { type: String },
     competitiontime: { type: String },
     venue: { type: String },
-    admissioncardno: { type: String }
+    admissioncardno: { type: String },
+    // marks: {type: Number, default: 0 }
 });
 
 var StudentSchema = new Schema({
@@ -368,6 +369,162 @@ function downloadCopy(username, callbacks) {
 //     });
 // }
 // module.exports.readCsv = readCsv;
+
+// var consolidateStudents = function(stu) {
+//     var temp_stu = [];
+//     for(var s=0; s<stu.length; s++) {
+//         for(var p=0; p<stu[s].programmes.length; p++) {
+//             var details = {
+//                 phone: stu[s].phone,
+//                 email: stu[s].email,
+//                 name: stu[s].name,
+//                 dateofbirth: stu[s].dateofbirth,
+//                 gender: stu[s].gender,
+//                 parentname: stu[s].parentname,
+//                 address: stu[s].address,
+//                 tshirtsize: stu[s].tshirtsize,
+//                 photo: stu[s].photo,
+//                 birthcertificate: stu[s].birthcertificate,
+//                 dateCreated: stu[s].dateCreated,
+//                 dateModified: stu[s].dateModified,
+//                 centername: stu[s].centername,
+//                 centercode: stu[s].centercode,
+//                 sstatename: stu[s].sstatename,
+//                 status: stu[s].status,
+//                 mfapproved: stu[s].mfapproved,
+//                 paymentdate: stu[s].paymentdate,
+//                 transactionno: stu[s].transactionno,
+//                 paymentmode: stu[s].paymentmode,
+//                 bankname: stu[s].bankname,
+//                 paymentapproved: stu[s].paymentapproved,
+//                 programmename: stu[s].programmes[p].programmename,
+//                 group: stu[s].programmes[p].group,
+//                 category: stu[s].programmes[p].category,
+//                 level: stu[s].programmes[p].level,
+//                 feesdetails: stu[s].programmes[p].feesdetails,
+//                 lastyearlevel: stu[s].programmes[p].lastyearlevel,
+//                 examdate: stu[s].programmes[p].examdate,
+//                 entrytime: stu[s].programmes[p].entrytime,
+//                 competitiontime: stu[s].programmes[p].competitiontime,
+//                 venue: stu[s].programmes[p].venue,
+//                 admissioncardno: stu[s].programmes[p].admissioncardno,
+//                 marks: stu[s].programmes[p].marks
+//             };
+//             temp_stu.push(details);
+//         }
+//     }
+//     return temp_stu;
+// }
+
+// var getTTMAResult = function (group, category, level, stu) {
+//     var students = stu.filter(obj => {
+//         return obj.programmename == group && obj.level == level && obj.category == category && obj.marks > 25
+//     });
+//     var res = {
+//         det: {
+//             'group': group,
+//             'category': category,
+//             'level': level,
+//             'count': students.length
+//         }
+//     };
+
+//     // Get highest and second highest marks overall
+//     var marks = students.map(function (a) { return a.marks; });
+//     var max_mark = Math.max.apply(null, marks);
+//     marks.splice(marks.indexOf(max_mark), 1);
+//     var second_max_mark = Math.max.apply(null, marks);
+//     marks.splice(marks.indexOf(second_max_mark), 1);
+//     var third_max_mark = Math.max.apply(null, marks);
+//     marks.splice(marks.indexOf(third_max_mark), 1);
+//     var fourth_max_mark = Math.max.apply(null, marks);
+//     marks.splice(marks.indexOf(fourth_max_mark), 1);
+
+//     // Get Winners
+//     res.first = students.filter(obj => { return obj.marks == max_mark });
+//     res.second = students.filter(obj => { return obj.marks == max_mark });
+//     res.third = students.filter(obj => { return obj.marks == max_mark });
+//     res.fourth = students.filter(obj => { return obj.marks == max_mark });
+
+//     // returning result
+//     return res;
+// }
+
+// var getESSMResult = function (group, stu) {
+//     var students = stu.filter(obj => {
+//         return obj.programmename == group && obj.marks > 25
+//     });
+//     var res = {
+//         det: {
+//             'group': group,
+//             'category': 'NA',
+//             'level': 'NA',
+//             'count': students.length
+//         }
+//     };
+
+//     // Get highest and second highest marks overall
+//     var marks = students.map(function (a) { return a.marks; });
+//     var max_mark = Math.max.apply(null, marks);
+//     marks.splice(marks.indexOf(max_mark), 1);
+//     var second_max_mark = Math.max.apply(null, marks);
+//     marks.splice(marks.indexOf(second_max_mark), 1);
+//     var third_max_mark = Math.max.apply(null, marks);
+//     marks.splice(marks.indexOf(third_max_mark), 1);
+//     var fourth_max_mark = Math.max.apply(null, marks);
+//     marks.splice(marks.indexOf(fourth_max_mark), 1);
+
+//     // Get Winners
+//     res.first = students.filter(obj => { return obj.marks == max_mark });
+//     res.second = students.filter(obj => { return obj.marks == max_mark });
+//     res.third = students.filter(obj => { return obj.marks == max_mark });
+//     res.fourth = students.filter(obj => { return obj.marks == max_mark });
+
+//     // returning result
+//     return res;
+// }
+
+// function generateResult(username, callbacks) {
+//     StudentModel.find().exec('find', function (err, students) {
+//         var groups_list = ['Tiny Tots', 'Mental Arithmetic', 'English Smart', 'Speed Maths', 'State Tiny Tots', 'State Mental Arithmetic'];
+//         var stringnow = [];
+
+//         for (var g = 0; g < groups_list.length; g++) {
+//             if (groups_list[g] == 'Tiny Tots' || groups_list[g] == 'State Tiny Tots') {
+//                 category_list = ['A', 'B'];
+//                 levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+//             }
+//             if (groups_list[g] == 'Mental Arithmetic' || groups_list[g] == 'State Mental Arithmetic') {
+//                 category_list = ['A', 'B', 'C', 'D'];
+//                 levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
+//             }
+//             if (groups_list[g] == 'English Smart' || groups_list[g] == 'Speed Maths') {
+//                 category_list = ['A'];
+//                 levels_list = ["1", "2", "3", "4", "5", "6"];
+//             }   
+            
+//             students = consolidateStudents(students);
+
+//             for (var l = 0; l < levels_list.length; l++) {
+//                 for (var c = 0; c < category_list.length; c++) {
+//                     if(groups_list[g] == 'Mental Arithmetic' || groups_list[g] == 'State Mental Arithmetic' || groups_list[g] == 'Tiny Tots' || groups_list[g] == 'State Tiny Tots') {
+//                         var rslt = getTTMAResult(groups_list[g], category_list[c], levels_list[l], students);
+//                         stringnow.push(rslt);
+//                     } else {
+//                         var rslt = getESSMResult(groups_list[g], students);
+//                         stringnow.push(rslt);
+//                     }
+//                 }
+//                 // var rslt = getTTMAChampions(groups_list[g], levels_list[l], students);
+//                 // stringnow.push(rslt);
+//             }
+//         }
+
+//         stringnow = generateMail(stringnow);
+//         res.status(200).send({ stringnow });
+//     });
+// };
+// module.exports.generateResult = generateResult;
 
 module.exports.createStudent = createStudent;
 module.exports.readStudents = readStudents;

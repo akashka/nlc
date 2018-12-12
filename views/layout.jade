@@ -66,32 +66,25 @@ html
         script(src="https://code.jquery.com/jquery-1.12.4.js")
         script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
 
-        //- script(type="text/javascript")
-        //-     | (function(t,e){var r=function(t){try{var r=e.head||e.getElementsByTagName("head")[0];a=e.createElement("script");a.setAttribute("type","text/javascript");a.setAttribute("src",t);r.appendChild(a);}catch(t){}};t.CollectId = "5b90bd9c17717184f1710e2a";r("https://collectcdn.com/launcher.js");})(window,document);
-
-        //- script
-        //-     | (function(h,o,t,j,a,r){
-        //-     |     h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        //-     |     h._hjSettings={hjid:1004459,hjsv:6};
-        //-     |     a=o.getElementsByTagName('head')[0];
-        //-     |     r=o.createElement('script');r.async=1;
-        //-     |     r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        //-     |     a.appendChild(r);
-        //-     | })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-
     body(ng-app='StudentApp', ng-controller='MainController')
 
         h1(style="display:none;")
 
-        div.navbar-inverse(ng-if="!(isValidBrowser && isValidResolution)")
+        //- div.navbar-inverse(ng-if="!(isValidBrowser && isValidResolution)")
+        //-     div#notification-banner.secondary
+        //-         div#notification-container
+        //-             button.tog#notification-close-btn(type="button",ng-click="toggleNotification()")
+        //-                 i.fa.fa-times.large_icon(aria-hidden="true")
+        //-     span.cta(ng-if="!isValidBrowser")
+        //-         | You are using an unsupported browser. Please use the latest version of Google Chrome. 
+        //-     span.cta(ng-if="!isValidResolution")
+        //-         | You are using an unsupported resolution. Please resize to 1024 x 640 or higher.
+
+        div.navbar-inverse(style="background-color:red;")
             div#notification-banner.secondary
                 div#notification-container
-                    button.tog#notification-close-btn(type="button",ng-click="toggleNotification()")
-                        i.fa.fa-times.large_icon(aria-hidden="true")
-            span.cta(ng-if="!isValidBrowser")
-                | You are using an unsupported browser. Please use the latest version of Google Chrome. 
-            span.cta(ng-if="!isValidResolution")
-                | You are using an unsupported resolution. Please resize to 1024 x 640 or higher.
+            span.cta(style="font-weight:bolder;color: white; font-size: 20px;")
+                | ADMIT CARD / HALL TICKET WILL BE AVAILABLE TO DOWNLOAD AFTER 15th DECEMBER 2018
 
         +custom_header('Aloha NLC', 'exit')
         block content
