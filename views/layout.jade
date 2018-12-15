@@ -70,21 +70,21 @@ html
 
         h1(style="display:none;")
 
-        //- div.navbar-inverse(ng-if="!(isValidBrowser && isValidResolution)")
-        //-     div#notification-banner.secondary
-        //-         div#notification-container
-        //-             button.tog#notification-close-btn(type="button",ng-click="toggleNotification()")
-        //-                 i.fa.fa-times.large_icon(aria-hidden="true")
-        //-     span.cta(ng-if="!isValidBrowser")
-        //-         | You are using an unsupported browser. Please use the latest version of Google Chrome. 
-        //-     span.cta(ng-if="!isValidResolution")
-        //-         | You are using an unsupported resolution. Please resize to 1024 x 640 or higher.
-
-        div.navbar-inverse(style="background-color:red;")
+        div.navbar-inverse(ng-if="!(isValidBrowser && isValidResolution)")
             div#notification-banner.secondary
                 div#notification-container
-            span.cta(style="font-weight:bolder;color: white; font-size: 20px;")
-                | ADMIT CARD / HALL TICKET WILL BE AVAILABLE TO DOWNLOAD AFTER 15th DECEMBER 2018
+                    button.tog#notification-close-btn(type="button",ng-click="toggleNotification()")
+                        i.fa.fa-times.large_icon(aria-hidden="true")
+            span.cta(ng-if="!isValidBrowser")
+                | You are using an unsupported browser. Please use the latest version of Google Chrome. 
+            span.cta(ng-if="!isValidResolution")
+                | You are using an unsupported resolution. Please resize to 1024 x 640 or higher.
+
+        //- div.navbar-inverse(style="background-color:red;")
+        //-     div#notification-banner.secondary
+        //-         div#notification-container
+        //-     span.cta(style="font-weight:bolder;color: white; font-size: 20px;")
+        //-         | ADMIT CARD / HALL TICKET WILL BE AVAILABLE TO DOWNLOAD AFTER 15th DECEMBER 2018
 
         +custom_header('Aloha NLC', 'exit')
         block content

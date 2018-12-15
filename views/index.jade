@@ -136,7 +136,7 @@ block content
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.bankname}}
                         td(class="mdl-data-table__cell--non-numeric",ng-click="studentClick(f.status, f._id, f.mfapproved)") {{f.mfapproved}}
                         td(class="mdl-data-table__cell--non-numeric")
-                            //- button(ng-repeat="p in f.programmes",style="border:none;color:white;padding:8px;border-radius:5px;background:#795548;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="downloadHallTicket(f.phone,p._id)") {{p.programmename}} 
+                            button(ng-repeat="p in f.programmes",style="border:none;color:white;padding:8px;border-radius:5px;background:#795548;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="downloadHallTicket(f.phone,p._id)") {{p.programmename}} 
                         td(class="mdl-data-table__cell--non-numeric",ng-show='isAdmin') 
                             //- button(style="border:none;color:white;padding:8px;border-radius:5px;background:#795548;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",ng-click="displayHallTicket(f.phone)") Hall Ticket
                             button(style="border:none;color:white;padding:8px;border-radius:5px;background:#f44336;cursor:pointer;box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);margin: 0 3px;",confirmed-click="deleteStudent(f._id)",ng-confirm-click="Are you sure you want to delete this entry? The action cannot be undone.",ng-show="f.status == 'open' || f.status =='payment'") Delete
@@ -258,7 +258,7 @@ block content
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha.<br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") You can download the Hall Ticket and Receipt below. Do not forget to carry printed Hall Ticket to the Exam Venue. <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, pls call 9790944889 / 9940299992 / 7299944889 or email us at <a href="mailto:info@alohaindia.com">info@alohaindia.com</a> or <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br> <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>
                                             <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Receipt</a>
