@@ -251,4 +251,17 @@ angular.module('StudentApp.TableController', [])
             }
 
         };
+
+        $scope.enter_marks = function() {
+            for(var s=0; s<$scope.$parent.student_list.length; s++) {
+                for(var p=0; p<$scope.$parent.student_list[s].programmes.length; p++) {
+                    $scope.$parent.student_list[s].programmes[p].marks = Math.floor(Math.random() * 70);
+                }
+                studentFactory.update({ id: $scope.$parent.student_list[s]._id }, $scope.$parent.student_list[s], function (response) {
+                }, function (response) {
+                    console.error(response);
+                });
+            }
+        }
+
     }]);

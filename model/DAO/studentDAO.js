@@ -6,6 +6,8 @@ var db = require('../../config/mongodb').init(),
     conversion = require("phantom-html-to-pdf")(),
     QRCode = require('qrcode');
 var sgMail = require('@sendgrid/mail');
+var PptxGenJS = require("pptxgenjs");
+const createCsvWriter = require('csv-writer').createArrayCsvWriter;
 
 var isInTest = false;
 
@@ -33,7 +35,7 @@ var ProgramSchema = new Schema({
     competitiontime: { type: String },
     venue: { type: String },
     admissioncardno: { type: String },
-    // marks: {type: Number, default: 0 }
+    marks: { type: Number, default: 0 }
 });
 
 var StudentSchema = new Schema({
@@ -171,7 +173,7 @@ function updateStudent(id, student, callbacks) {
 
             return f.save(function (err) {
                 if (!err) {
-                    sendInfoMail('Student updated: ' + id, f);
+                    // sendInfoMail('Student updated: ' + id, f);
                     callbacks.success(f);
                 } else {
                     sendInfoMail('Student update failed: ' + id, err + f);
@@ -244,7 +246,7 @@ function generateHallTicket(username, callbacks) {
         if (!err) {
             student = student[0];
             for (var p = 0; p < student.programmes.length; p++) {
-                if(student.programmes[p]._id == username.program) {
+                if (student.programmes[p]._id == username.program) {
                     var program = student.programmes[p];
                     var text = "Student Name: " + student.name + "\n \n";
                     text += "Roll No: " + student.programmes[p].admissioncardno + "\n \n";
@@ -370,161 +372,434 @@ function downloadCopy(username, callbacks) {
 // }
 // module.exports.readCsv = readCsv;
 
-// var consolidateStudents = function(stu) {
-//     var temp_stu = [];
-//     for(var s=0; s<stu.length; s++) {
-//         for(var p=0; p<stu[s].programmes.length; p++) {
-//             var details = {
-//                 phone: stu[s].phone,
-//                 email: stu[s].email,
-//                 name: stu[s].name,
-//                 dateofbirth: stu[s].dateofbirth,
-//                 gender: stu[s].gender,
-//                 parentname: stu[s].parentname,
-//                 address: stu[s].address,
-//                 tshirtsize: stu[s].tshirtsize,
-//                 photo: stu[s].photo,
-//                 birthcertificate: stu[s].birthcertificate,
-//                 dateCreated: stu[s].dateCreated,
-//                 dateModified: stu[s].dateModified,
-//                 centername: stu[s].centername,
-//                 centercode: stu[s].centercode,
-//                 sstatename: stu[s].sstatename,
-//                 status: stu[s].status,
-//                 mfapproved: stu[s].mfapproved,
-//                 paymentdate: stu[s].paymentdate,
-//                 transactionno: stu[s].transactionno,
-//                 paymentmode: stu[s].paymentmode,
-//                 bankname: stu[s].bankname,
-//                 paymentapproved: stu[s].paymentapproved,
-//                 programmename: stu[s].programmes[p].programmename,
-//                 group: stu[s].programmes[p].group,
-//                 category: stu[s].programmes[p].category,
-//                 level: stu[s].programmes[p].level,
-//                 feesdetails: stu[s].programmes[p].feesdetails,
-//                 lastyearlevel: stu[s].programmes[p].lastyearlevel,
-//                 examdate: stu[s].programmes[p].examdate,
-//                 entrytime: stu[s].programmes[p].entrytime,
-//                 competitiontime: stu[s].programmes[p].competitiontime,
-//                 venue: stu[s].programmes[p].venue,
-//                 admissioncardno: stu[s].programmes[p].admissioncardno,
-//                 marks: stu[s].programmes[p].marks
-//             };
-//             temp_stu.push(details);
-//         }
-//     }
-//     return temp_stu;
-// }
+var consolidateStudents = function (stu) {
+    var temp_stu = [];
+    for (var s = 0; s < stu.length; s++) {
+        for (var p = 0; p < stu[s].programmes.length; p++) {
+            var details = {
+                phone: stu[s].phone,
+                email: stu[s].email,
+                name: stu[s].name,
+                dateofbirth: stu[s].dateofbirth,
+                gender: stu[s].gender,
+                parentname: stu[s].parentname,
+                address: stu[s].address,
+                tshirtsize: stu[s].tshirtsize,
+                photo: stu[s].photo,
+                birthcertificate: stu[s].birthcertificate,
+                dateCreated: stu[s].dateCreated,
+                dateModified: stu[s].dateModified,
+                centername: stu[s].centername,
+                centercode: stu[s].centercode,
+                sstatename: stu[s].sstatename,
+                status: stu[s].status,
+                mfapproved: stu[s].mfapproved,
+                paymentdate: stu[s].paymentdate,
+                transactionno: stu[s].transactionno,
+                paymentmode: stu[s].paymentmode,
+                bankname: stu[s].bankname,
+                paymentapproved: stu[s].paymentapproved,
+                programmename: stu[s].programmes[p].programmename,
+                group: stu[s].programmes[p].group,
+                category: stu[s].programmes[p].category,
+                level: stu[s].programmes[p].level,
+                feesdetails: stu[s].programmes[p].feesdetails,
+                lastyearlevel: stu[s].programmes[p].lastyearlevel,
+                examdate: stu[s].programmes[p].examdate,
+                entrytime: stu[s].programmes[p].entrytime,
+                competitiontime: stu[s].programmes[p].competitiontime,
+                venue: stu[s].programmes[p].venue,
+                admissioncardno: stu[s].programmes[p].admissioncardno,
+                marks: stu[s].programmes[p].marks
+            };
+            temp_stu.push(details);
+        }
+    }
+    return temp_stu;
+}
 
-// var getTTMAResult = function (group, category, level, stu) {
-//     var students = stu.filter(obj => {
-//         return obj.programmename == group && obj.level == level && obj.category == category && obj.marks > 25
-//     });
-//     var res = {
-//         det: {
-//             'group': group,
-//             'category': category,
-//             'level': level,
-//             'count': students.length
-//         }
-//     };
+var getResult = function (group, category, level, stu) {
+    var students = stu.filter(obj => {
+        return obj.programmename == group && obj.level == level && obj.category == category && obj.marks > 25
+    });
+    var res = {
+        det: {
+            'group': group,
+            'category': category,
+            'level': level,
+            'count': students.length
+        }
+    };
 
-//     // Get highest and second highest marks overall
-//     var marks = students.map(function (a) { return a.marks; });
-//     var max_mark = Math.max.apply(null, marks);
-//     marks.splice(marks.indexOf(max_mark), 1);
-//     var second_max_mark = Math.max.apply(null, marks);
-//     marks.splice(marks.indexOf(second_max_mark), 1);
-//     var third_max_mark = Math.max.apply(null, marks);
-//     marks.splice(marks.indexOf(third_max_mark), 1);
-//     var fourth_max_mark = Math.max.apply(null, marks);
-//     marks.splice(marks.indexOf(fourth_max_mark), 1);
+    // Get highest and second highest marks overall
+    var marks = students.map(function (a) { return a.marks; });
+    var max_mark = Math.max.apply(null, marks);
+    marks.splice(marks.indexOf(max_mark), 1);
+    var second_max_mark = Math.max.apply(null, marks);
+    marks.splice(marks.indexOf(second_max_mark), 1);
+    var third_max_mark = Math.max.apply(null, marks);
+    marks.splice(marks.indexOf(third_max_mark), 1);
+    var fourth_max_mark = Math.max.apply(null, marks);
+    marks.splice(marks.indexOf(fourth_max_mark), 1);
 
-//     // Get Winners
-//     res.first = students.filter(obj => { return obj.marks == max_mark });
-//     res.second = students.filter(obj => { return obj.marks == max_mark });
-//     res.third = students.filter(obj => { return obj.marks == max_mark });
-//     res.fourth = students.filter(obj => { return obj.marks == max_mark });
+    // Get Winners
+    res.first = students.filter(obj => { return obj.marks == max_mark });
+    res.second = students.filter(obj => { return obj.marks == second_max_mark });
+    res.third = students.filter(obj => { return obj.marks == third_max_mark });
+    res.fourth = students.filter(obj => { return obj.marks == fourth_max_mark });
 
-//     // returning result
-//     return res;
-// }
+    // returning result
+    return res;
+}
 
-// var getESSMResult = function (group, stu) {
-//     var students = stu.filter(obj => {
-//         return obj.programmename == group && obj.marks > 25
-//     });
-//     var res = {
-//         det: {
-//             'group': group,
-//             'category': 'NA',
-//             'level': 'NA',
-//             'count': students.length
-//         }
-//     };
+var getChampions = function (group, category, stu) {
+    var students = stu.filter(obj => {
+        return obj.programmename == group && obj.category == category && obj.marks > 25
+    });
+    var res = {
+        det: {
+            'group': group,
+            'category': category,
+            'count': students.length
+        }
+    };
 
-//     // Get highest and second highest marks overall
-//     var marks = students.map(function (a) { return a.marks; });
-//     var max_mark = Math.max.apply(null, marks);
-//     marks.splice(marks.indexOf(max_mark), 1);
-//     var second_max_mark = Math.max.apply(null, marks);
-//     marks.splice(marks.indexOf(second_max_mark), 1);
-//     var third_max_mark = Math.max.apply(null, marks);
-//     marks.splice(marks.indexOf(third_max_mark), 1);
-//     var fourth_max_mark = Math.max.apply(null, marks);
-//     marks.splice(marks.indexOf(fourth_max_mark), 1);
+    // Get highest marks overall
+    var marks = students.map(function (a) { return a.marks; });
+    var max_mark = Math.max.apply(null, marks);
 
-//     // Get Winners
-//     res.first = students.filter(obj => { return obj.marks == max_mark });
-//     res.second = students.filter(obj => { return obj.marks == max_mark });
-//     res.third = students.filter(obj => { return obj.marks == max_mark });
-//     res.fourth = students.filter(obj => { return obj.marks == max_mark });
+    // Get Winners
+    res.champion = students.filter(obj => { return obj.marks == max_mark });
 
-//     // returning result
-//     return res;
-// }
+    // returning result
+    return res;
+}
 
-// function generateResult(username, callbacks) {
-//     StudentModel.find().exec('find', function (err, students) {
-//         var groups_list = ['Tiny Tots', 'Mental Arithmetic', 'English Smart', 'Speed Maths', 'State Tiny Tots', 'State Mental Arithmetic'];
-//         var stringnow = [];
+var generatePPT = function (arr) {
+    var pptx = new PptxGenJS();
+    for (var a = 0; a < arr.result.length; a++) {
 
-//         for (var g = 0; g < groups_list.length; g++) {
-//             if (groups_list[g] == 'Tiny Tots' || groups_list[g] == 'State Tiny Tots') {
-//                 category_list = ['A', 'B'];
-//                 levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-//             }
-//             if (groups_list[g] == 'Mental Arithmetic' || groups_list[g] == 'State Mental Arithmetic') {
-//                 category_list = ['A', 'B', 'C', 'D'];
-//                 levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
-//             }
-//             if (groups_list[g] == 'English Smart' || groups_list[g] == 'Speed Maths') {
-//                 category_list = ['A'];
-//                 levels_list = ["1", "2", "3", "4", "5", "6"];
-//             }   
-            
-//             students = consolidateStudents(students);
+        // Print Winner
+        for (var g = 0; g < arr.result[a].first.length; g++) {
+            var slide = pptx.addNewSlide();
+            slide.addText(
+                ("Congratulations " + arr.result[a].first[g].name + " for being Winner in Category " +
+                    arr.result[a].det.category + " and Level " + arr.result[a].det.level + " for Course " +
+                    arr.result[a].det.group + " from Center " + arr.result[a].first[g].centername),
+                { x: 1.5, y: 1.5, fontSize: 18, color: '363636' }
+            );
+        }
 
-//             for (var l = 0; l < levels_list.length; l++) {
-//                 for (var c = 0; c < category_list.length; c++) {
-//                     if(groups_list[g] == 'Mental Arithmetic' || groups_list[g] == 'State Mental Arithmetic' || groups_list[g] == 'Tiny Tots' || groups_list[g] == 'State Tiny Tots') {
-//                         var rslt = getTTMAResult(groups_list[g], category_list[c], levels_list[l], students);
-//                         stringnow.push(rslt);
-//                     } else {
-//                         var rslt = getESSMResult(groups_list[g], students);
-//                         stringnow.push(rslt);
-//                     }
-//                 }
-//                 // var rslt = getTTMAChampions(groups_list[g], levels_list[l], students);
-//                 // stringnow.push(rslt);
-//             }
-//         }
+        // Print 1st runner up
+        for (var g = 0; g < arr.result[a].second.length; g++) {
+            var slide = pptx.addNewSlide();
+            slide.addText(
+                ("Congratulations " + arr.result[a].second[g].name + " for being 1st runner up in Category " +
+                    arr.result[a].det.category + " and Level " + arr.result[a].det.level + " for Course " +
+                    arr.result[a].det.group + " from Center " + arr.result[a].second[g].centername),
+                { x: 1.5, y: 1.5, fontSize: 18, color: '363636' }
+            );
+        }
 
-//         stringnow = generateMail(stringnow);
-//         res.status(200).send({ stringnow });
-//     });
-// };
-// module.exports.generateResult = generateResult;
+        // Print 2nd runner up
+        for (var g = 0; g < arr.result[a].third.length; g++) {
+            var slide = pptx.addNewSlide();
+            slide.addText(
+                ("Congratulations " + arr.result[a].third[g].name + " for being 2nd runner up in Category " +
+                    arr.result[a].det.category + " and Level " + arr.result[a].det.level + " for Course " +
+                    arr.result[a].det.group + " from Center " + arr.result[a].third[g].centername),
+                { x: 1.5, y: 1.5, fontSize: 18, color: '363636' }
+            );
+        }
+
+        // Print 3rd runner up
+        for (var g = 0; g < arr.result[a].fourth.length; g++) {
+            var slide = pptx.addNewSlide();
+            slide.addText(
+                ("Congratulations " + arr.result[a].fourth[g].name + " for being 3rd runner up in Category " +
+                    arr.result[a].det.category + " and Level " + arr.result[a].det.level + " for Course " +
+                    arr.result[a].det.group + " from Center " + arr.result[a].fourth[g].centername),
+                { x: 1.5, y: 1.5, fontSize: 18, color: '363636' }
+            );
+        }
+
+    }
+
+    for (var a = 0; a < arr.champions.length; a++) {
+        for (var g = 0; g < arr.champions[a].champion.length; g++) {
+            var slide = pptx.addNewSlide();
+            slide.addText(
+                ("Congratulations " + arr.champions[a].champion[g].name + " for being Champion in Category " +
+                    arr.champions[a].det.category + " for Course " + arr.champions[a].det.group + " from Center "
+                    + arr.champions[a].champion[g].centername),
+                { x: 1.5, y: 1.5, fontSize: 18, color: '363636' }
+            );
+        }
+    }
+    pptx.save('Sample Presentation');
+}
+
+var generateMail = function (arr) {
+    const csvWriter = createCsvWriter({
+        header: ['POSITION', 'NAME', 'CATEGORY', 'PROGRAMME', 'LEVEL', 'PHONE', 'PHOTO', 
+            'CENTER NAME', 'CENTER CODE', 'STATE', 'ADMISSION CARD NO', 'MARKS'],
+        path: './results.csv'
+    });
+    const records = [];
+
+    for (var a = 0; a < arr.result.length; a++) {
+
+        // Print Winner
+        for (var g = 0; g < arr.result[a].first.length; g++) {
+            records.push([
+                'WINNER',
+                arr.result[a].first[g].name, 
+                arr.result[a].first[g].category, 
+                arr.result[a].first[g].programmename, 
+                arr.result[a].first[g].level,
+                arr.result[a].first[g].phone,
+                ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + arr.result[a].first[g].photo),
+                arr.result[a].first[g].centername,
+                arr.result[a].first[g].centercode,
+                arr.result[a].first[g].sstatename,
+                arr.result[a].first[g].admissioncardno,
+                arr.result[a].first[g].marks
+            ]);
+        }
+
+        // Print 1st runner up
+        for (var g = 0; g < arr.result[a].second.length; g++) {
+            records.push([
+                'FIRST RUNNER',
+                arr.result[a].second[g].name, 
+                arr.result[a].second[g].category, 
+                arr.result[a].second[g].programmename, 
+                arr.result[a].second[g].level,
+                arr.result[a].second[g].phone,
+                ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + arr.result[a].second[g].photo),
+                arr.result[a].second[g].centername,
+                arr.result[a].second[g].centercode,
+                arr.result[a].second[g].sstatename,
+                arr.result[a].second[g].admissioncardno,
+                arr.result[a].second[g].marks
+            ]);
+        }
+
+        // Print 2nd runner up
+        for (var g = 0; g < arr.result[a].third.length; g++) {
+            records.push([
+                'SECOND RUNNER',
+                arr.result[a].third[g].name, 
+                arr.result[a].third[g].category, 
+                arr.result[a].third[g].programmename, 
+                arr.result[a].third[g].level,
+                arr.result[a].third[g].phone,
+                ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + arr.result[a].third[g].photo),
+                arr.result[a].third[g].centername,
+                arr.result[a].third[g].centercode,
+                arr.result[a].third[g].sstatename,
+                arr.result[a].third[g].admissioncardno,
+                arr.result[a].third[g].marks
+            ]);
+        }
+
+        // Print 3rd runner up
+        for (var g = 0; g < arr.result[a].fourth.length; g++) {
+            records.push([
+                'THIRD RUNNER',
+                arr.result[a].fourth[g].name, 
+                arr.result[a].fourth[g].category, 
+                arr.result[a].fourth[g].programmename, 
+                arr.result[a].fourth[g].level,
+                arr.result[a].fourth[g].phone,
+                ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + arr.result[a].fourth[g].photo),
+                arr.result[a].fourth[g].centername,
+                arr.result[a].fourth[g].centercode,
+                arr.result[a].fourth[g].sstatename,
+                arr.result[a].fourth[g].admissioncardno,
+                arr.result[a].fourth[g].marks
+            ]);
+        }
+
+    }
+
+    // Champions
+    for (var a = 0; a < arr.champions.length; a++) {
+        for (var g = 0; g < arr.champions[a].champion.length; g++) {
+            records.push([
+                'CHAMPION',
+                arr.champions[a].champion[g].name, 
+                arr.champions[a].champion[g].category, 
+                arr.champions[a].champion[g].programmename, 
+                arr.champions[a].champion[g].level,
+                arr.champions[a].champion[g].phone,
+                ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + arr.champions[a].champion[g].photo),
+                arr.champions[a].champion[g].centername,
+                arr.champions[a].champion[g].centercode,
+                arr.champions[a].champion[g].sstatename,
+                arr.champions[a].champion[g].admissioncardno,
+                arr.champions[a].champion[g].marks
+            ]);
+        }
+    }
+
+    csvWriter.writeRecords(records).then(() => {
+        console.log('...Done');
+    });
+}
+
+var generateCenterResult = function (arr) {
+    var res = {};
+    for (var a = 0; a < arr.result.length; a++) {
+        for (var g = 0; g < arr.result[a].first.length; g++) {
+            if(res[arr.result[a].first[g].centercode] == undefined)
+                res[arr.result[a].first[g].centercode] = {
+                    centername: arr.result[a].first[g].centername,
+                    centercode: arr.result[a].first[g].centercode,
+                    sstatename: arr.result[a].first[g].sstatename,
+                    winners: 0,
+                    firstrunnerup: 0,
+                    secondrunnerup: 0,
+                    thirdrunnerup: 0,
+                    champion: 0,
+                    scores: 0
+                }
+            res[arr.result[a].first[g].centercode].winners = res[arr.result[a].first[g].centercode].winners + 1;
+        }
+        for (var g = 0; g < arr.result[a].second.length; g++) {
+            if(res[arr.result[a].second[g].centercode] == undefined)
+                res[arr.result[a].second[g].centercode] = {
+                    centername: arr.result[a].second[g].centername,
+                    centercode: arr.result[a].second[g].centercode,
+                    sstatename: arr.result[a].second[g].sstatename,
+                    winners: 0,
+                    firstrunnerup: 0,
+                    secondrunnerup: 0,
+                    thirdrunnerup: 0,
+                    champion: 0,
+                    scores: 0
+                }
+            res[arr.result[a].second[g].centercode].firstrunnerup = res[arr.result[a].second[g].centercode].firstrunnerup + 1;
+        }
+        for (var g = 0; g < arr.result[a].third.length; g++) {
+            if(res[arr.result[a].third[g].centercode] == undefined)
+                res[arr.result[a].third[g].centercode] = {
+                    centername: arr.result[a].third[g].centername,
+                    centercode: arr.result[a].third[g].centercode,
+                    sstatename: arr.result[a].third[g].sstatename,
+                    winners: 0,
+                    firstrunnerup: 0,
+                    secondrunnerup: 0,
+                    thirdrunnerup: 0,
+                    champion: 0,
+                    scores: 0
+                }
+            res[arr.result[a].third[g].centercode].secondrunnerup = res[arr.result[a].third[g].centercode].secondrunnerup + 1;
+        }
+        for (var g = 0; g < arr.result[a].fourth.length; g++) {
+            if(res[arr.result[a].fourth[g].centercode] == undefined)
+                res[arr.result[a].fourth[g].centercode] = {
+                    centername: arr.result[a].fourth[g].centername,
+                    centercode: arr.result[a].fourth[g].centercode,
+                    sstatename: arr.result[a].fourth[g].sstatename,
+                    winners: 0,
+                    firstrunnerup: 0,
+                    secondrunnerup: 0,
+                    thirdrunnerup: 0,
+                    champion: 0,
+                    scores: 0
+                }
+            res[arr.result[a].fourth[g].centercode].thirdrunnerup = res[arr.result[a].fourth[g].centercode].thirdrunnerup + 1;
+        }
+    }
+    for (var a = 0; a < arr.champions.length; a++) {
+        for (var g = 0; g < arr.champions[a].champion.length; g++) {
+            if(res[arr.champions[a].champion[g].centercode] == undefined)
+                res[arr.champions[a].champion[g].centercode] = {
+                    centername: arr.champions[a].champion[g].centername,
+                    centercode: arr.champions[a].champion[g].centercode,
+                    sstatename: arr.champions[a].champion[g].sstatename,
+                    winners: 0,
+                    firstrunnerup: 0,
+                    secondrunnerup: 0,
+                    thirdrunnerup: 0,
+                    champion: 0,
+                    scores: 0
+                }
+            res[arr.champions[a].champion[g].centercode].champion = res[arr.champions[a].champion[g].centercode].champion + 1;
+        }
+    }
+
+    const csvWriter = createCsvWriter({
+        header: ['CENTER NAME', 'CENTER CODE', 'STATE', 'WINNERS', 'FIRST RUNNER UP', 
+            'SECOND RUNNER UP', 'THIRD RUNNER UP', 'CHAMPIONS', 'SCORE'],
+        path: './center_results.csv'
+    });
+    const records = [];
+
+    for (var prop in res) {
+            records.push([
+                res[prop].centername,
+                res[prop].centercode,
+                res[prop].sstatename,
+                res[prop].winners,
+                res[prop].firstrunnerup,
+                res[prop].secondrunnerup,
+                res[prop].thirdrunnerup,
+                res[prop].champion,
+                ((res[prop].winners*4) + (res[prop].champion*5) + (res[prop].firstrunnerup*3) + (res[prop].secondrunnerup*2) + (res[prop].thirdrunnerup*1))
+            ]);
+    }
+
+    csvWriter.writeRecords(records).then(() => {
+        console.log('...CENTER Done');
+    });
+}
+
+function generateResult(username, callbacks) {
+    StudentModel.find().exec('find', function (err, students) {
+        students = consolidateStudents(students);
+        var groups_list = ['Tiny Tots', 'Mental Arithmetic', 'English Smart', 'Speed Maths', 'State Tiny Tots', 'State Mental Arithmetic'];
+        var stringnow = {
+            result: [],
+            champions: [],
+            centers: []
+        };
+
+        for (var g = 0; g < groups_list.length; g++) {
+            if (groups_list[g] == 'Tiny Tots' || groups_list[g] == 'State Tiny Tots') {
+                category_list = ['A', 'B'];
+                levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+            }
+            if (groups_list[g] == 'Mental Arithmetic' || groups_list[g] == 'State Mental Arithmetic') {
+                category_list = ['A', 'B', 'C', 'D'];
+                levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
+            }
+            if (groups_list[g] == 'English Smart' || groups_list[g] == 'Speed Maths') {
+                category_list = ['A'];
+                levels_list = ["1", "2", "3", "4", "5", "6"];
+            }
+
+            for (var l = 0; l < levels_list.length; l++) {
+                for (var c = 0; c < category_list.length; c++) {
+                    var rslt = getResult(groups_list[g], category_list[c], levels_list[l], students);
+                    stringnow.result.push(rslt);
+                }
+            }
+
+            for (var c = 0; c < category_list.length; c++) {
+                var rslts = getChampions(groups_list[g], category_list[c], students);
+                stringnow.champions.push(rslts);
+            }
+        }
+
+        generatePPT(stringnow);
+        generateMail(stringnow);
+        generateCenterResult(stringnow);
+        callbacks.success(stringnow);
+    });
+};
+module.exports.generateResult = generateResult;
 
 module.exports.createStudent = createStudent;
 module.exports.readStudents = readStudents;

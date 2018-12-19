@@ -203,6 +203,7 @@ var app = angular.module('StudentApp', [
                             paymentapproved: ($scope.student_list[d].paymentapproved != undefined) ? $scope.student_list[d].paymentapproved : "",
                             mfapproved: ($scope.student_list[d].mfapproved != undefined) ? $scope.student_list[d].mfapproved : "",
                             venue: ($scope.student_list[d].programmes[p].venue != undefined) ? $scope.student_list[d].programmes[p].venue : "",
+                            marks: ($scope.student_list[d].programmes[p].marks != undefined) ? $scope.student_list[d].programmes[p].marks : "",
                         })
                     }
                 }
@@ -215,7 +216,7 @@ var app = angular.module('StudentApp', [
                 'T-shirt Size', 'Photo URL', 'Birth Certificate URL', 'Programme Name', 'Center Name', 'Center Code',
                 'State Name', 'Status', 'Date Of Entry', 'Group', 'Level', 'Payment Date',
                 'Transaction No', 'Payment Mode', 'Bank Name', 'Exam Date', 'Entry Time', 'Competition Time',
-                'Admission Card No', 'Payment Approved', 'MF Approved', 'Venue'];
+                'Admission Card No', 'Payment Approved', 'MF Approved', 'Venue', 'Marks'];
             return abc;
         }
 

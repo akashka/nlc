@@ -17,15 +17,17 @@ var htmlToPdf = require('html-to-pdf');
 //     });
 // })
 
-// router.get('/generateResult', function (req, res) {
-//     var d = domain.create();
-//     d.run(function () {
-//         studentDAO.readCsv({username: 'abc'}, {
-//             success: function () { },
-//             error: function () { }
-//         });
-//     });
-// })
+router.get('/generateResult', function (req, res) {
+    var d = domain.create();
+    d.run(function () {
+        studentDAO.generateResult({username: 'abc'}, {
+            success: function (stringnow) {
+                res.status(200).send({ stringnow });
+            },
+            error: function () { }
+        });
+    });
+})
 
 //CREATE a new student
 router.post('/', function (req, res) {
