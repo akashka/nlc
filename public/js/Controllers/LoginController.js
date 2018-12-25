@@ -565,6 +565,7 @@ angular.module('StudentApp.LoginController', [])
         }
 
         $scope.$parent.file = "./terms_conditions.pdf";
+        $scope.$parent.info_guide = './info_guide.pdf';
         $scope.$parent.center_file = "http://alohakarnataka.com/center_terms_conditions.pdf";
 
     }])

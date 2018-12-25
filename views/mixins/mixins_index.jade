@@ -63,6 +63,9 @@ mixin navbar(_t, exit)
         a(ng-href="{{file}}",target="_blank")
             i.fa.fa-caret-right
             | Terms & Conditions
+        a(ng-href="{{info_guide}}",target="_blank")
+            i.fa.fa-caret-right
+            | Info Guide
         a(href="#",csv-header="getDownloadHeader()",ng-csv="getDownloadTable()",filename="reports.csv",field-separator=",",decimal-separator=".",ng-show='loggedIn && !isStudent')
             i.fa.fa-caret-right
             | Students List
@@ -146,7 +149,9 @@ mixin login_form
                             li(style="text-align: justify;")
                                 | For any assistance pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> .
                         h5
-                            | To Download this, please click here - <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>
+                            | To Download Terms & Conditions, click here - <a ng-href="{{file}}" target="_blank" style="color:blue;">Terms & Conditions</a>
+                        h5
+                            | To Download Info Guide, click here - <a ng-href="{{info_guide}}" target="_blank" style="color:blue;">Info Guide</a>
                         h6(style="font-weight:bold;")
                             | Date & Time of competition:	 &nbsp; &nbsp; 	29 Dec 2018 (Saturday) 9:00 AM to 1:00 PM
                             br
