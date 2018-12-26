@@ -19,6 +19,9 @@ apiKey += "D4gd4zpY7a5HR7";
 apiKey += "Up9jmE0AENHKO09A";
 sgMail.setApiKey(apiKey);
 
+var curl = require('curlrequest');
+var smsUrl = "https://smsapp.mx9.in/smpp/?username=alohaindia&password=9790944889&from=ALOHAS&to=91";
+
 var Schema = mongoose.Schema;
 
 var ProgramSchema = new Schema({
@@ -244,7 +247,7 @@ function generateHallTicket(username, callbacks) {
         if (!err) {
             student = student[0];
             for (var p = 0; p < student.programmes.length; p++) {
-                if(student.programmes[p]._id == username.program) {
+                if (student.programmes[p]._id == username.program) {
                     var program = student.programmes[p];
                     var text = "Student Name: " + student.name + "\n \n";
                     text += "Roll No: " + student.programmes[p].admissioncardno + "\n \n";
@@ -323,6 +326,36 @@ function downloadCopy(username, callbacks) {
         }
     });
 }
+
+// function sendsms(username, callbacks) {
+//     console.log('abc');
+//     StudentModel.find().exec('find', function (err, students) {
+//         if (!err) {
+//             for (var s = 0; s < students.length; s++) {
+//                 if(s == 0) {
+//                 // for (var p = 0; p < students[s].programmes.length; p++) {
+//                     // var url = 'http://alohaonline.in/api/0.1/student/generateHallTicket/' + 
+//                     //     students[s].phone + '/' + students[s].programmes[p]._id;
+//                     var messageData = "Team Aloha India. Dear Parents, If you have any issue related to Aloha NLC 2018, kindly contact Mrs. Jaya on Whatsapp number 9790944889. Kindly click on the link below to download Info Guide of NLC 2018: " +
+//                                 "https://www.alohaonline.in/info_guide.pdf";
+//                     var phonenumber = '8884012849'; //students[s].phone;
+//                     var formData = smsUrl + phonenumber + "&text=" + encodeURIComponent(messageData);
+//                     console.log(formData);
+//                     curl.request(formData, function optionalCallback(err, body) {
+//                         if (err) {
+//                             return console.error('Sending SMS to parent failed: ', err);
+//                         }
+//                     });
+//                 }
+//             }
+//             var stringnow = '';
+//             res.status(200).send({ stringnow });
+//         } else {
+//             sendInfoMail('Student form copy download failed: ' + username, err);
+//             callbacks.error(err);
+//         }
+//     });
+// }
 
 // function readCsv(username, callbacks) {
 //     StudentModel.find().exec('find', function (err, students) {
@@ -502,7 +535,7 @@ function downloadCopy(username, callbacks) {
 //                 category_list = ['A'];
 //                 levels_list = ["1", "2", "3", "4", "5", "6"];
 //             }   
-            
+
 //             students = consolidateStudents(students);
 
 //             for (var l = 0; l < levels_list.length; l++) {
@@ -534,3 +567,4 @@ module.exports.deleteStudent = deleteStudent;
 module.exports.downloadReceipt = downloadReceipt;
 module.exports.generateHallTicket = generateHallTicket;
 module.exports.downloadCopy = downloadCopy;
+module.exports.sendsms = sendsms;

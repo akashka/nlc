@@ -27,6 +27,29 @@ var htmlToPdf = require('html-to-pdf');
 //     });
 // })
 
+// router.get('/sendsms/', function (req, res) {
+//     var d = domain.create();
+//     d.run(function () {
+//         studentDAO.sendsms({
+//             username: 'abcde',
+//         }, {
+//                 success: function (res) {
+//                     // var output = fs.createWriteStream('./form_copy.pdf');
+//                     // pdf.stream.pipe(output);
+//                     // let filename = "form_copy";
+//                     // filename = encodeURIComponent(filename) + '.pdf';
+//                     // var file = fs.readFileSync('./form_copy.pdf');
+//                     // res.setHeader('Content-Type', 'application/pdf');
+//                     // res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+//                     // pdf.stream.pipe(res);
+//                 },
+//                 error: function (err) {
+//                     res.status(403).send(err);
+//                 }
+//             });
+//     });
+// })
+
 //CREATE a new student
 router.post('/', function (req, res) {
     var d = domain.create();
@@ -253,5 +276,6 @@ router.get('/downloadCopy/:username', function (req, res) {
             });
     });
 })
+
 
 module.exports = router;
