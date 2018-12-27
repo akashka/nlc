@@ -5,6 +5,29 @@ var express = require('express'),
 
 var isInTest = typeof global.it === 'function';
 
+// router.get('/unitmastersms/', function (req, res) {
+//     var d = domain.create();
+//     d.run(function () {
+//         userDAO.unitmastersms({
+//             username: 'abcde',
+//         }, {
+//                 success: function (res) {
+//                     // var output = fs.createWriteStream('./form_copy.pdf');
+//                     // pdf.stream.pipe(output);
+//                     // let filename = "form_copy";
+//                     // filename = encodeURIComponent(filename) + '.pdf';
+//                     // var file = fs.readFileSync('./form_copy.pdf');
+//                     // res.setHeader('Content-Type', 'application/pdf');
+//                     // res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+//                     // pdf.stream.pipe(res);
+//                 },
+//                 error: function (err) {
+//                     res.status(403).send(err);
+//                 }
+//             });
+//     });
+// })
+
 //CREATE a new user
 router.post('/', function (req, res){
     var d = domain.create();

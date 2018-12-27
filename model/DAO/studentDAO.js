@@ -337,8 +337,8 @@ function downloadCopy(username, callbacks) {
 //                     // var url = 'http://alohaonline.in/api/0.1/student/generateHallTicket/' + 
 //                     //     students[s].phone + '/' + students[s].programmes[p]._id;
 //                     var messageData = "Team Aloha India. Dear Parents, If you have any issue related to Aloha NLC 2018, kindly contact Mrs. Jaya on Whatsapp number 9790944889. Kindly click on the link below to download Info Guide of NLC 2018: " +
-//                                 "https://www.alohaonline.in/info_guide.pdf";
-//                     var phonenumber = '8884012849'; //students[s].phone;
+//                                 "https://www.alohaonline.in/info_guide.htm";
+//                     var phonenumber = students[s].phone;
 //                     var formData = smsUrl + phonenumber + "&text=" + encodeURIComponent(messageData);
 //                     console.log(formData);
 //                     curl.request(formData, function optionalCallback(err, body) {
@@ -567,4 +567,4 @@ module.exports.deleteStudent = deleteStudent;
 module.exports.downloadReceipt = downloadReceipt;
 module.exports.generateHallTicket = generateHallTicket;
 module.exports.downloadCopy = downloadCopy;
-module.exports.sendsms = sendsms;
+// module.exports.sendsms = sendsms;

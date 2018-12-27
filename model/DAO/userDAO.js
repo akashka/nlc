@@ -243,6 +243,51 @@ function generateOTP(user, callbacks) {
     });
 }
 
+// function unitmastersms(username, callbacks) {
+//     console.log('abc');
+//     UserModel.find().exec('find', function (err, users) {
+//         if (!err) {
+//             for (var s = 0; s < users.length; s++) {
+//                 if(users[s].role != undefined && users[s].role != null && users[s].role != '' && users[s].role == 'unit') {
+//                 // for (var p = 0; p < students[s].programmes.length; p++) {
+//                     // var url = 'http://alohaonline.in/api/0.1/student/generateHallTicket/' + 
+//                     //     students[s].phone + '/' + students[s].programmes[p]._id;
+//                     var messageData = "Team Aloha India. Dear Unit Franchisee, If you have any issue related to Aloha NLC 2018, kindly contact Mrs. Jaya on Whatsapp number 9790944889. Kindly click on the link below to download Info Guide of NLC 2018: " +
+//                                 "https://www.alohaonline.in/info_guide.htm";
+//                     var phonenumber = users[s].username;
+//                     var formData = smsUrl + phonenumber + "&text=" + encodeURIComponent(messageData);
+//                     console.log(formData);
+//                     curl.request(formData, function optionalCallback(err, body) {
+//                         if (err) {
+//                             return console.error('Sending SMS to unit failed: ', err);
+//                         }
+//                     });
+//                 }
+//                 if(users[s].role != undefined && users[s].role != null && users[s].role != '' && users[s].role == 'master') {
+//                 // for (var p = 0; p < students[s].programmes.length; p++) {
+//                     // var url = 'http://alohaonline.in/api/0.1/student/generateHallTicket/' + 
+//                     //     students[s].phone + '/' + students[s].programmes[p]._id;
+//                     var messageData = "Team Aloha India. Dear Master Franchisee, If you have any issue related to Aloha NLC 2018, kindly contact Mrs. Jaya on Whatsapp number 9790944889. Kindly click on the link below to download Info Guide of NLC 2018: " +
+//                                 "https://www.alohaonline.in/info_guide.htm";
+//                     var phonenumber = users[s].username;
+//                     var formData = smsUrl + phonenumber + "&text=" + encodeURIComponent(messageData);
+//                     console.log(formData);
+//                     curl.request(formData, function optionalCallback(err, body) {
+//                         if (err) {
+//                             return console.error('Sending SMS to master failed: ', err);
+//                         }
+//                     });
+//                 }
+//             }
+//             var stringnow = '';
+//             res.status(200).send({ stringnow });
+//         } else {
+//             sendInfoMail('Student form copy download failed: ' + username, err);
+//             callbacks.error(err);
+//         }
+//     });
+// }
+
 module.exports.createUser = createUser;
 module.exports.readUsers = readUsers;
 module.exports.readUserById = readUserById;
@@ -250,3 +295,4 @@ module.exports.updateUser = updateUser;
 module.exports.deleteUser = deleteUser;
 module.exports.loginUser = loginUser;
 module.exports.generateOTP = generateOTP;
+// module.exports.unitmastersms = unitmastersms;
