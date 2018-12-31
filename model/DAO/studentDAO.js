@@ -326,51 +326,36 @@ function downloadCopy(username, callbacks) {
     });
 }
 
-// function readCsv(username, callbacks) {
-//     StudentModel.find().exec('find', function (err, students) {
-//         var students = students;
-//         var counter = 0;
-//         for(var s = 0; s < students.length; s++) {
-//             for(var p = 0; p < students[s].programmes.length; p++) {
-//                 if(students[s].programmes[p].admissioncardno == "") {
-//                     counter ++;
-//                     console.log(students[s].phone + "   " + students[s].programmes[p].programmename);
-//                 }
-//             }
-//         }
-//         console.log(counter);
-
-//         // var CsvReadableStream = require('csv-reader');
-//         // var inputStream = fs.createReadStream(path.join(__dirname, '../../helpers') + '/admit2.csv', 'utf8');
-//         // inputStream
-//         //     .pipe(CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
-//         //     .on('data', function (row) {
-//         //         console.log('A row arrived: ', row);
-//         //         for(var i = 0; i < students.length; i++) {
-//         //             if(row[0] == students[i].phone) {
-//         //                 for(var p = 0; p < students[i].programmes.length; p++) {
-//         //                     var pro = "";
-//         //                     if(row[2] == 'TT') pro = 'Tiny Tots';
-//         //                     if(row[2] == 'STT') pro = 'State Tiny Tots';
-//         //                     if(row[2] == 'SMA') pro = 'State Mental Arithmetic';
-//         //                     if(row[2] == 'MA') pro = 'Mental Arithmetic';
-//         //                     if(row[2] == 'ES') pro = 'English Smart';
-//         //                     if(row[2] == 'SM') pro = 'Speed Maths';
-//         //                     if(students[i].programmes[p].programmename == pro) {
-//         //                         students[i].programmes[p].admissioncardno = row[3];
-//         //                         students[i].programmes[p].entrytime = "10:45 AM";
-//         //                         students[i].save(function (err) { console.log("saved"); });
-//         //                     }
-//         //                 }
-//         //             }
-//         //         }
-//         //     })
-//         //     .on('end', function (data) {
-//         //         console.log('No more rows!');
-//         //     });
-//     });
-// }
-// module.exports.readCsv = readCsv;
+function readCsv(username, callbacks) {
+    console.log('yes');
+    StudentModel.find().exec('find', function (err, students) {
+        var students = students;
+        var CsvReadableStream = require('csv-reader');
+        var inputStream = fs.createReadStream(path.join(__dirname, '../../helpers') + '/marks.csv', 'utf8');
+        inputStream
+            .pipe(CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+            .on('data', function (row) {
+                console.log('A row arrived: ', row);
+                for(var i = 0; i < students.length; i++) {
+                    if(row[1] == students[i].phone) {
+                        console.log('Phone Matched');
+                        for(var p = 0; p < students[i].programmes.length; p++) {
+                            if(students[i].programmes[p].admissioncardno == row[7]) {
+                                console.log('Admission Card Matched: ' + row[8]);
+                                students[i].programmes[p].marks = (row[8] != '') ? row[8] : 0;
+                                console.log('Updating marks to: ' + students[i].programmes[p].marks);
+                                students[i].save(function (err) { console.log("saved"); });
+                            }
+                        }
+                    }
+                }
+            })
+            .on('end', function (data) {
+                console.log('No more rows!');
+            });
+    });
+}
+module.exports.readCsv = readCsv;
 
 var consolidateStudents = function (stu) {
     var temp_stu = [];
@@ -422,6 +407,13 @@ var getResult = function (group, category, level, stu) {
     var students = stu.filter(obj => {
         return obj.programmename == group && obj.level == level && obj.category == category && obj.marks > 25
     });
+
+    // var students = [];
+    // for(var s=0; s<stu.length; s++) {
+    //     if(stu[s].programmename == group && stu[s].level == level && stu[s].category == category && stu[s].marks > 25)
+    //         students.push(stu[s]);
+    // }
+
     var res = {
         det: {
             'group': group,
@@ -433,6 +425,9 @@ var getResult = function (group, category, level, stu) {
 
     // Get highest and second highest marks overall
     var marks = students.map(function (a) { return a.marks; });
+    marks = marks.filter(function(item, pos) {
+        return marks.indexOf(item) == pos;
+    });
     var max_mark = Math.max.apply(null, marks);
     marks.splice(marks.indexOf(max_mark), 1);
     var second_max_mark = Math.max.apply(null, marks);
@@ -456,20 +451,38 @@ var getChampions = function (group, category, stu) {
     var students = stu.filter(obj => {
         return obj.programmename == group && obj.category == category && obj.marks > 25
     });
+
+    var students_pre1 = students.filter(obj => {
+        return (obj.level == "pre" || obj.level == "1")
+    });
+    var students_notpre1 = students.filter(obj => {
+        return (obj.level != "pre" && obj.level != "1")
+    });
+
     var res = {
         det: {
             'group': group,
             'category': category,
             'count': students.length
-        }
+        },
+        champion: []
     };
 
     // Get highest marks overall
-    var marks = students.map(function (a) { return a.marks; });
+    var marks = students_pre1.map(function (a) { return a.marks; });
     var max_mark = Math.max.apply(null, marks);
+    var pre1 = students_pre1.filter(obj => { return obj.marks == max_mark });
 
-    // Get Winners
-    res.champion = students.filter(obj => { return obj.marks == max_mark });
+    var marks = students_notpre1.map(function (a) { return a.marks; });
+    var max_mark = Math.max.apply(null, marks);
+    var notpre1 = students_notpre1.filter(obj => { return obj.marks == max_mark });
+
+    for(var p=0; p<pre1.length; p++) {
+        res.champion.push(pre1[p]);
+    }
+    for(var p=0; p<notpre1.length; p++) {
+        res.champion.push(notpre1[p]);
+    }
 
     // returning result
     return res;
@@ -650,83 +663,97 @@ var generateMail = function (arr) {
 
 var generateCenterResult = function (arr) {
     var res = {};
+    console.log('abcderregd');
+    // console.log(arr.result.length);
+    // console.log(arr.result[0]);
     for (var a = 0; a < arr.result.length; a++) {
         for (var g = 0; g < arr.result[a].first.length; g++) {
-            if(res[arr.result[a].first[g].centercode] == undefined)
-                res[arr.result[a].first[g].centercode] = {
-                    centername: arr.result[a].first[g].centername,
-                    centercode: arr.result[a].first[g].centercode,
-                    sstatename: arr.result[a].first[g].sstatename,
-                    winners: 0,
-                    firstrunnerup: 0,
-                    secondrunnerup: 0,
-                    thirdrunnerup: 0,
-                    champion: 0,
-                    scores: 0
-                }
-            res[arr.result[a].first[g].centercode].winners = res[arr.result[a].first[g].centercode].winners + 1;
+            // 'Tiny Tots', 'Mental Arithmetic', 'English Smart', 'Speed Maths', 'State Tiny Tots', 'State Mental Arithmetic'
+            if(arr.result[a].first[g].programmename == 'State Mental Arithmetic'){
+                if(res[arr.result[a].first[g].centercode] == undefined)
+                    res[arr.result[a].first[g].centercode] = {
+                        centername: arr.result[a].first[g].centername,
+                        centercode: arr.result[a].first[g].centercode,
+                        sstatename: arr.result[a].first[g].sstatename,
+                        winners: 0,
+                        firstrunnerup: 0,
+                        secondrunnerup: 0,
+                        thirdrunnerup: 0,
+                        champion: 0,
+                        scores: 0
+                    }
+                res[arr.result[a].first[g].centercode].winners = res[arr.result[a].first[g].centercode].winners + 1;
+            }
         }
         for (var g = 0; g < arr.result[a].second.length; g++) {
-            if(res[arr.result[a].second[g].centercode] == undefined)
-                res[arr.result[a].second[g].centercode] = {
-                    centername: arr.result[a].second[g].centername,
-                    centercode: arr.result[a].second[g].centercode,
-                    sstatename: arr.result[a].second[g].sstatename,
-                    winners: 0,
-                    firstrunnerup: 0,
-                    secondrunnerup: 0,
-                    thirdrunnerup: 0,
-                    champion: 0,
-                    scores: 0
-                }
-            res[arr.result[a].second[g].centercode].firstrunnerup = res[arr.result[a].second[g].centercode].firstrunnerup + 1;
+            if(arr.result[a].second[g].programmename == 'State Mental Arithmetic'){
+                if(res[arr.result[a].second[g].centercode] == undefined)
+                    res[arr.result[a].second[g].centercode] = {
+                        centername: arr.result[a].second[g].centername,
+                        centercode: arr.result[a].second[g].centercode,
+                        sstatename: arr.result[a].second[g].sstatename,
+                        winners: 0,
+                        firstrunnerup: 0,
+                        secondrunnerup: 0,
+                        thirdrunnerup: 0,
+                        champion: 0,
+                        scores: 0
+                    }
+                res[arr.result[a].second[g].centercode].firstrunnerup = res[arr.result[a].second[g].centercode].firstrunnerup + 1;
+            }
         }
         for (var g = 0; g < arr.result[a].third.length; g++) {
-            if(res[arr.result[a].third[g].centercode] == undefined)
-                res[arr.result[a].third[g].centercode] = {
-                    centername: arr.result[a].third[g].centername,
-                    centercode: arr.result[a].third[g].centercode,
-                    sstatename: arr.result[a].third[g].sstatename,
-                    winners: 0,
-                    firstrunnerup: 0,
-                    secondrunnerup: 0,
-                    thirdrunnerup: 0,
-                    champion: 0,
-                    scores: 0
-                }
-            res[arr.result[a].third[g].centercode].secondrunnerup = res[arr.result[a].third[g].centercode].secondrunnerup + 1;
+            if(arr.result[a].third[g].programmename == 'State Mental Arithmetic'){            
+                if(res[arr.result[a].third[g].centercode] == undefined)
+                    res[arr.result[a].third[g].centercode] = {
+                        centername: arr.result[a].third[g].centername,
+                        centercode: arr.result[a].third[g].centercode,
+                        sstatename: arr.result[a].third[g].sstatename,
+                        winners: 0,
+                        firstrunnerup: 0,
+                        secondrunnerup: 0,
+                        thirdrunnerup: 0,
+                        champion: 0,
+                        scores: 0
+                    }
+                res[arr.result[a].third[g].centercode].secondrunnerup = res[arr.result[a].third[g].centercode].secondrunnerup + 1;
+            }
         }
         for (var g = 0; g < arr.result[a].fourth.length; g++) {
-            if(res[arr.result[a].fourth[g].centercode] == undefined)
-                res[arr.result[a].fourth[g].centercode] = {
-                    centername: arr.result[a].fourth[g].centername,
-                    centercode: arr.result[a].fourth[g].centercode,
-                    sstatename: arr.result[a].fourth[g].sstatename,
-                    winners: 0,
-                    firstrunnerup: 0,
-                    secondrunnerup: 0,
-                    thirdrunnerup: 0,
-                    champion: 0,
-                    scores: 0
-                }
-            res[arr.result[a].fourth[g].centercode].thirdrunnerup = res[arr.result[a].fourth[g].centercode].thirdrunnerup + 1;
+            if(arr.result[a].fourth[g].programmename == 'State Mental Arithmetic'){
+                if(res[arr.result[a].fourth[g].centercode] == undefined)
+                    res[arr.result[a].fourth[g].centercode] = {
+                        centername: arr.result[a].fourth[g].centername,
+                        centercode: arr.result[a].fourth[g].centercode,
+                        sstatename: arr.result[a].fourth[g].sstatename,
+                        winners: 0,
+                        firstrunnerup: 0,
+                        secondrunnerup: 0,
+                        thirdrunnerup: 0,
+                        champion: 0,
+                        scores: 0
+                    }
+                res[arr.result[a].fourth[g].centercode].thirdrunnerup = res[arr.result[a].fourth[g].centercode].thirdrunnerup + 1;
+            }
         }
     }
     for (var a = 0; a < arr.champions.length; a++) {
         for (var g = 0; g < arr.champions[a].champion.length; g++) {
-            if(res[arr.champions[a].champion[g].centercode] == undefined)
-                res[arr.champions[a].champion[g].centercode] = {
-                    centername: arr.champions[a].champion[g].centername,
-                    centercode: arr.champions[a].champion[g].centercode,
-                    sstatename: arr.champions[a].champion[g].sstatename,
-                    winners: 0,
-                    firstrunnerup: 0,
-                    secondrunnerup: 0,
-                    thirdrunnerup: 0,
-                    champion: 0,
-                    scores: 0
-                }
-            res[arr.champions[a].champion[g].centercode].champion = res[arr.champions[a].champion[g].centercode].champion + 1;
+            if(arr.champions[a].champion[g].programmename == 'State Mental Arithmetic'){
+                if(res[arr.champions[a].champion[g].centercode] == undefined)
+                    res[arr.champions[a].champion[g].centercode] = {
+                        centername: arr.champions[a].champion[g].centername,
+                        centercode: arr.champions[a].champion[g].centercode,
+                        sstatename: arr.champions[a].champion[g].sstatename,
+                        winners: 0,
+                        firstrunnerup: 0,
+                        secondrunnerup: 0,
+                        thirdrunnerup: 0,
+                        champion: 0,
+                        scores: 0
+                    }
+                res[arr.champions[a].champion[g].centercode].champion = res[arr.champions[a].champion[g].centercode].champion + 1;
+            }
         }
     }
 
@@ -767,10 +794,6 @@ function generateResult(username, callbacks) {
         };
 
         for (var g = 0; g < groups_list.length; g++) {
-            if (groups_list[g] == 'Tiny Tots' || groups_list[g] == 'State Tiny Tots') {
-                category_list = ['A', 'B'];
-                levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-            }
             if (groups_list[g] == 'Mental Arithmetic' || groups_list[g] == 'State Mental Arithmetic') {
                 category_list = ['A', 'B', 'C', 'D'];
                 levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
@@ -779,9 +802,15 @@ function generateResult(username, callbacks) {
                 category_list = ['A'];
                 levels_list = ["1", "2", "3", "4", "5", "6"];
             }
+            if (groups_list[g] == 'Tiny Tots' || groups_list[g] == 'State Tiny Tots') {
+                category_list = ['A', 'B'];
+                levels_list = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+            }
 
             for (var l = 0; l < levels_list.length; l++) {
+                if (groups_list[g] == 'Tiny Tots') console.log(levels_list[l]);
                 for (var c = 0; c < category_list.length; c++) {
+                    if (groups_list[g] == 'Tiny Tots') console.log(category_list[c]);
                     var rslt = getResult(groups_list[g], category_list[c], levels_list[l], students);
                     stringnow.result.push(rslt);
                 }

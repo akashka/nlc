@@ -7,15 +7,16 @@ var express = require('express'),
     conversion = require("phantom-html-to-pdf")();
 var htmlToPdf = require('html-to-pdf');
 
-// router.get('/readCsv', function (req, res) {
-//     var d = domain.create();
-//     d.run(function () {
-//         studentDAO.readCsv({username: 'abc'}, {
-//             success: function () { },
-//             error: function () { }
-//         });
-//     });
-// })
+router.get('/readCsv', function (req, res) {
+    console.log('abcde');
+    var d = domain.create();
+    d.run(function () {
+        studentDAO.readCsv({username: 'abc'}, {
+            success: function () { },
+            error: function () { }
+        });
+    });
+})
 
 router.get('/generateResult', function (req, res) {
     var d = domain.create();
