@@ -238,7 +238,7 @@ block content
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> Open. </b> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Please make a payment of <b> Rs. {{calculateFee(studentStatus)}} towards Registration, </b> to the respective Centers. <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 15th December 2018 </b> to print the hall ticket. <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 15th December 2019 </b> to print the hall ticket. <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, pls call 97909 44889 / 99402 99992 / 72999 44889 or email us @ <a href="mailto:info@alohaindia.com">info@alohaindia.com</a>, <a href="mailto:enquiry@ufalohaindia.com">enquiry@ufalohaindia.com</a> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;width:40%;text-align:center;float:left;">Download Terms & Conditions</a>
@@ -248,8 +248,8 @@ block content
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Thankyou for the registration at Aloha. Your current status is <b> In Process. </b> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") We have successfully received your payment, and you can download the receipt below. <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 15th December 2018 </b> to print the hall ticket. <br>
-                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at info@alohaindia.com <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Do not forget to come back after <b> 15th December 2019 </b> to print the hall ticket. <br>
+                                            h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Incase of any doubts, please mail us at <a href="mailto:info@alohaindia.com">info@alohaindia.com</a> <br>
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
                                             <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Receipt</a>
@@ -423,8 +423,8 @@ block content
                             hr(style="border-color: black;")
         
                     div(style="width:17.5%;float:left;overflow-y:auto;max-height:75vh;height:75vh;", class="show-image")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")
-                            img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:10px;margin-left:15px;", ng-if="getFileExtension(student.photo)")
+                        a(ng-href="{{student.photo}}",target="_blank",ng-if="student.photo != undefined && student.photo != ''")
+                            img(ng-src='{{student.photo}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:10px;margin-left:15px;", ng-if="getFileExtension(student.photo)")
                             span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.photo)") 
                                 br
                                 br
@@ -433,8 +433,8 @@ block content
                         
                         br
 
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}",target="_blank",ng-if="student.birthcertificate != undefined && student.birthcertificate != ''")
-                            img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:10px;margin-left:15px;", ng-if="getFileExtension(student.birthcertificate)")
+                        a(ng-href="{{student.birthcertificate}}",target="_blank",ng-if="student.birthcertificate != undefined && student.birthcertificate != ''")
+                            img(ng-src='{{student.birthcertificate}}', style="border:3px solid grey;width: 175px; height: 225px;margin-top:10px;margin-left:15px;", ng-if="getFileExtension(student.birthcertificate)")
                             span(style="color:blue;padding-top:30px;font-size:20px;",ng-if="!getFileExtension(student.birthcertificate)") 
                                 br
                                 br
@@ -578,7 +578,7 @@ block content
                             label.mdl-textfield__label !{t('Category')}
         
                         p(ng-show="age.years != -1 && age.months != -1", style="display:-webkit-inline-box;margin-left:-27%;")
-                            | Age as on 31/Sept/2018 - {{age.years}} Yrs, {{age.months}} Month
+                            | Age as on 31/Sept/2019 - {{age.years}} Yrs, {{age.months}} Month
 
                         div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.group == 'MA' || student.group == 'MAS'")
                             span !{t('Level Applying For')}
@@ -622,13 +622,13 @@ block content
 
                     div(style="width:20%;float:left;overflow-y:scroll;max-height:80vh;")
                         br
-                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && student.photo != '' && getFileExtension(student.photo)")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && student.photo != '' && !getFileExtension(student.photo)") Download Photo (Format not supported to display)
+                        img(ng-src='{{student.photo}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:50px;", ng-if="student.photo != undefined && student.photo != '' && getFileExtension(student.photo)")
+                        a(ng-href="{{student.photo}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.photo != undefined && student.photo != '' && !getFileExtension(student.photo)") Download Photo (Format not supported to display)
                         br
                         br
                         br
-                        img(ng-src='https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && getFileExtension(student.birthcertificate)")
-                        a(ng-href="https://s3.ap-south-1.amazonaws.com/alohanlc/{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
+                        img(ng-src='{{student.birthcertificate}}', style="border:3px solid grey;width: 100%; height: auto;margin-top:10px;", ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && getFileExtension(student.birthcertificate)")
+                        a(ng-href="{{student.birthcertificate}}",target="_blank",style="color:blue;padding-top:30px;font-size:20px;",ng-if="student.birthcertificate != undefined && student.birthcertificate != '' && !getFileExtension(student.birthcertificate)") Download Birth Certificate (Format not supported to display)
 
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-show="student.photo == undefined || student.photo == ''", style="width:90%;")
                             span !{t('Upload Student Image')}  

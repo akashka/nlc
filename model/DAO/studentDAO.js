@@ -258,14 +258,14 @@ function generateHallTicket(username, callbacks) {
                         if (!err) qrImage = body;
                         var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/hallticket.html', "utf8");
 
-                        stringTemplate = stringTemplate.replace('{{headingName}}', ((program.programmename.indexOf("State") != -1) ? "15th State Level Competition 2018" : "15th National Level Competition 2018"));
+                        stringTemplate = stringTemplate.replace('{{headingName}}', ((program.programmename.indexOf("State") != -1) ? "16th State Level Competition 2019" : "16th National Level Competition 2019"));
                         stringTemplate = stringTemplate.replace('{{StudentRollNumber}}', (program.admissioncardno != undefined) ? program.admissioncardno : "");
                         stringTemplate = stringTemplate.replace('{{StudentName}}', (student.name));
                         stringTemplate = stringTemplate.replace('{{StateName}}', student.sstatename);
                         stringTemplate = stringTemplate.replace('{{CenterName}}', student.centername);
                         stringTemplate = stringTemplate.replace('{{CenterCode}}', student.centercode);
                         stringTemplate = stringTemplate.replace('{{ReportingTime}}', (program.entrytime != undefined) ? program.entrytime : "");
-                        stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? ("https://s3.ap-south-1.amazonaws.com/alohanlc/" + student.photo) : "https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png");
+                        stringTemplate = stringTemplate.replace('{{StudentImage}}', (student.photo != undefined) ? (student.photo) : "https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png");
                         stringTemplate = stringTemplate.replace('{{StudentQRCode}}', (qrImage != undefined) ? qrImage : "https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png");
 
                         conversion({ html: stringTemplate }, function (err, pdf) {
@@ -314,8 +314,8 @@ function downloadCopy(username, callbacks) {
             stringTemplate = stringTemplate.replace('{{address}}', (student.address) ? student.address : "");
             stringTemplate = stringTemplate.replace('{{dateOfBirth}}', (student.dateofbirth) ? formatDate(student.dateofbirth) : "");
             stringTemplate = stringTemplate.replace('{{tShirtSize}}', (student.tshirtsize) ? student.tshirtsize : "");
-            stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined && student.photo != '') ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.photo) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
-            stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? ('https://s3.ap-south-1.amazonaws.com/alohanlc/' + student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
+            stringTemplate = stringTemplate.replace('{{photo}}', (student.photo != undefined && student.photo != '') ? (student.photo) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
+            stringTemplate = stringTemplate.replace('{{birthCertificate}}', (student.birthcertificate != undefined && student.birthcertificate != '') ? (student.birthcertificate) : 'https://consumercomplaintscourt.com/wp-content/uploads/2015/12/no_uploaded.png');
 
             conversion({ html: stringTemplate }, function (err, pdf) {
                 callbacks.success(pdf);

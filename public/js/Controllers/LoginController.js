@@ -287,6 +287,15 @@ angular.module('StudentApp.LoginController', [])
             }
         };
 
+        $scope.calculateFee = function(student) {
+            if(student.programmes.length < 2) return 1000;
+            if(student.programmes.length == 2) return 1600;
+            if(student.programmes.length == 3) return 2600;
+            if(student.programmes.length == 4) return 3200;
+            if(student.programmes.length > 4) return 5000;
+        }
+
+
         $scope.calculateAge = function () {
             var now = new Date();
             var today = new Date(now.getYear(), now.getMonth(), now.getDate());
@@ -475,7 +484,7 @@ angular.module('StudentApp.LoginController', [])
         $scope.uploadFile = function (myFile) {
             if (myFile != undefined && myFile.name != undefined) {
                 var file = myFile;
-                var uploadUrl = "/savedata";
+                var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
                 fd.append('file', file);
                 $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
@@ -483,6 +492,7 @@ angular.module('StudentApp.LoginController', [])
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
+                    $scope.student.photo = response;
                     $scope.uploadFile1($scope.myFile1);
                 }).error(function (error) {
                     console.log(error);
@@ -495,7 +505,7 @@ angular.module('StudentApp.LoginController', [])
         $scope.uploadFile1 = function (myFile) {
             if (myFile != undefined && myFile.name != undefined) {
                 var file = myFile;
-                var uploadUrl = "/savedata";
+                var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
                 fd.append('file', file);
                 $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
@@ -503,6 +513,7 @@ angular.module('StudentApp.LoginController', [])
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
+                    $scope.student.birthcertificate = response;
                     $scope.save();
                 }).error(function (error) {
                     console.log(error);

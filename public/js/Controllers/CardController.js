@@ -169,7 +169,7 @@ angular.module('StudentApp.CardController', [])
                 $scope.uploadFile1($scope.myFile1);
             } else {
                 var file = myFile;
-                var uploadUrl = "/savedata";
+                var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
                 $scope.student.photo = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
                 fd.append('file', file);
@@ -177,6 +177,7 @@ angular.module('StudentApp.CardController', [])
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
+                    $scope.student.photo = response;
                     $scope.uploadFile1($scope.myFile1);
                 }).error(function (error) {
                     console.log(error);
@@ -191,7 +192,7 @@ angular.module('StudentApp.CardController', [])
                 $scope.save();
             } else {
                 var file = myFile;
-                var uploadUrl = "/savedata";
+                var uploadUrl = "/savedata/" + $scope.student.phone;
                 var fd = new FormData();
                 fd.append('file', file);
                 $scope.student.birthcertificate = (myFile != undefined && myFile.name != undefined) ? myFile.name : "";
@@ -199,6 +200,7 @@ angular.module('StudentApp.CardController', [])
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function (response) {
+                    $scope.student.birthcertificate = response;
                     $scope.save();
                 }).error(function (error) {
                     console.log(error);
@@ -207,8 +209,8 @@ angular.module('StudentApp.CardController', [])
         };
 
         $scope.getFileExtension = function (fileName) {
-            var ext = fileName.split('.').pop();
-            if (ext == 'jpg' || ext == 'png' || ext == 'jpeg') return true;
+            var ext = fileName.split('.').pop().toLowerCase();
+            if (ext == 'jpg' || ext == 'png' || ext == 'jpeg' || ext =='svg' || ext == 'gif') return true;
             return false;
         }
 
