@@ -5,6 +5,7 @@ var curl = require('curlrequest');
 var sgMail = require('@sendgrid/mail');
 
 var smsUrl = "https://smsapp.mx9.in/smpp/?username=alohaindia&password=9790944889&from=ALOHAS&to=91";
+
 var senderID = "LILWON";
 
 var apiKey = "SG";
