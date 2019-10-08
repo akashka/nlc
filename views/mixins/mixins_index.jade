@@ -11,6 +11,13 @@ mixin navbar(_t, exit)
             span(ng-click="openNav()")
                 i.fa.fa-bars(style="font-size:40px;color:white;vertical-align:bottom;margin:35px;cursor:pointer;")
 
+            #google_translate_element
+                script(type='text/javascript').
+                    function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                    }
+                script(type='text/javascript', src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit')
+
     div#mySidenav.sidenav
         a.closebtn(href="javascript:void(0)",ng-click="closeNav()",style="font-size:40px;")
             | &times;
@@ -101,11 +108,11 @@ mixin login_form
                             li(style="text-align: justify;")
                                 | Without Admit Card &amp; Aloha T Shirt, the students will not be permitted to enter the Competition Hall.
                             li(style="text-align: justify;")
-                                | The same Admit Card No. will be written on the Question paper to identify.
+                                | The Admit Card No. will be written on the Question paper to identify.
                             li(style="text-align: justify;")
                                 | Parents are requested to collect their child after the Competition at EXIT gate.
                             li(style="text-align: justify;")
-                                | Each &amp; every participant will be given a Certificate of participation. In case of any queries after receiving the Certificate, the student may contact his/her Aloha Learning Center latest by 20<sup>th</sup> January 2019.
+                                | Each &amp; every participant will be given a Certificate of participation. In case of any queries after receiving the Certificate, the student may contact his/her Aloha Learning Center latest by 20<sup>th</sup> January 2020 and do not handover to any volunteer at Competition Hall.
                             li(style="text-align: justify;")
                                 | The child's participation in the Competition is parent's personal responsibility. In case of any dispute, the decision of ALOHA INDIA will be the final &amp; binding all.
                             li(style="text-align: justify;")
@@ -115,7 +122,7 @@ mixin login_form
                             li(style="text-align: justify;")
                                 | The Competition will be for 5 minutes only.
                             li(style="text-align: justify;")
-                                | The competition is consists of 80 sums for level 1 and 70 sums for remaining levels of MA &amp; TT.
+                                | The Competition is consists of 80 sums for level 1 and 70 sums for remaining levels of MA &amp; TT.
                             li(style="text-align: justify;")
                                 | Please maintain silence in the Competition Hall.
                             li(style="text-align: justify;")
@@ -123,7 +130,7 @@ mixin login_form
                             li(style="text-align: justify;")
                                 | The papers will be distributed by the Invigilator who will be monitoring the Competition.
                             li(style="text-align: justify;")
-                                | You must keep all the stationery needed (i.e) Pencils, Abacus, Etc, on the table. The students should have the Admit Card with them to produce any time during the Competition day or prize distribution day, whenever needed.
+                                | You must keep all the stationery needed (i.e.,) Pencils, Abacus, Etc, on the table. The students should have the Admit Card with them to produce any time during the Competition day or prize distribution day, whenever needed.
                             li(style="text-align: justify;")
                                 | The Admit Card number is already written on the question paper. As soon as the question paper is distributed you must verify the Admit Card number on the paper. You should not write your name on the question paper. The question paper with your name written will be disqualified.
                             li(style="text-align: justify;")
@@ -153,9 +160,9 @@ mixin login_form
                         h5
                             | To Download Info Guide, click here - <a ng-href="{{info_guide}}" target="_blank" style="color:blue;">Info Guide</a>
                         h6(style="font-weight:bold;")
-                            | Date & Time of competition:	 &nbsp; &nbsp; 	29 Dec 2019 (Saturday) 9:00 AM to 1:00 PM
+                            | Date & Time of competition:	 &nbsp; &nbsp; 	28 Dec 2019 (Saturday) 9:00 AM to 1:00 PM
                             br
-                            | Prize Distribution: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 30 Dec 2019 (Sunday) 9:00 AM to 1:00 PM
+                            | Prize Distribution: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 29 Dec 2019 (Sunday) 9:00 AM to 1:00 PM
                             br
                             | Ceremony Venue:  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;  Kalaignar Arangam, Anna Salai, Teynampet, Chennai – 600 018
 

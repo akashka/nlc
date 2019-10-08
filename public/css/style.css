@@ -29,7 +29,7 @@ html::before{
 
 body{
     background: url('/img/bg1.jpg') 50% fixed;
-    background-size: contain;
+    background-size: cover;
 }
 
 body header{
@@ -143,6 +143,37 @@ body header{
     margin: 0 auto;
 }
 
+
+.goog-logo-link{
+    display: none !important;
+}
+
+.goog-te-gadget{
+    color: transparent !important;
+ }
+
+ .goog-te-combo{
+    border-radius: 5px;
+    background-color: #00d1d2;
+    color: black;
+    border: 1px solid #00d1d2;
+    font-size: 16px !important;
+    height: 32px !important; 
+    margin: -20px 0px !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+    } 
+body {
+    top: 0px !important; 
+    }
+#google_translate_element {
+    float: left;
+    left: 70%;
+    position: absolute;
+    bottom: -10%;
+}
 
 /*
 *	MAIN SECTION
@@ -603,7 +634,7 @@ tbody tr{
 }
 
 .mdl-spinner .mdl-spinner__circle{
-    border: 4px solid rgb(229, 255, 0);
+    border: 4px solid #00d1d2
 }
 
 .mdl-textfield {
