@@ -243,7 +243,9 @@ angular.module('StudentApp.LoginController', [])
 
         //Save student button handler
         $scope.msg = "";
+        $scope.onDisabled = false;
         $scope.save_student = function () {
+            $scope.onDisabled=true;
             // if ($('#datepicker')[0].type != 'date') {
             //     var parts = $('#datepicker')[0].value.split('/');
             //     var mydate = new Date(parts[2], parts[1] - 1, parts[0]);
