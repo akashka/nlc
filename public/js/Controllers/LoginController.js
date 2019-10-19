@@ -476,7 +476,7 @@ angular.module('StudentApp.LoginController', [])
         }
 
         $scope.isOTPVerified = false;
-        $scope.oTPmessage = "We have send you a OTP on the number you entered just now. Please verify to continue!";
+        $scope.oTPmessage = "We have sent you a OTP on the number you entered just now. Please verify to continue!";
         $scope.onPwdChange = function (otp) {
             $scope.isOTPVerified = ($scope.match.username == $scope.student.phone && $scope.match.password == otp) ? true : false;
             if ($scope.isOTPVerified) $scope.phoneOtpVerification = false;
