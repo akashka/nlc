@@ -347,16 +347,16 @@ block content
                                 input.mdl-textfield__input(type="text", ng-model="program.category", ng-disabled="true", ng-value="getCategoryValue(program)")
 
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                span !{t('Level in 2017')}
+                                span !{t('Level in 2018')}
                                 select.mdc-select__native-control(ng-model='program.lastyearlevel.one', ng-options='x for x in getlevelsOptions(program.programmename)')
                                     option(value="" selected)
-                                        | Level in 2017 
+                                        | Level in 2018
 
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                                span !{t('Level in 2016')}
+                                span !{t('Level in 2017')}
                                 select.mdc-select__native-control(ng-model='program.lastyearlevel.two', ng-options='x for x in getlevelsOptions(program.programmename)')
                                     option(value="" selected)
-                                        | Level in 2016
+                                        | Level in 2017
 
                             br
 
