@@ -131,12 +131,12 @@ angular.module('StudentApp.CardController', [])
                 var dt = $scope.$parent.student.dateofbirth;
                 program.category = "";
                 if (program.programmename == 'Tiny Tots' || program.programmename == 'State Tiny Tots') {
-                    if (dt > new Date('10/01/2011')) program.category = 'A';
+                    if (dt > new Date('10/01/2012')) program.category = 'A';
                     else program.category = 'B';
                 } else if (program.programmename == 'Mental Arithmetic' || program.programmename == 'State Mental Arithmetic') {
-                    if (dt > new Date('10/01/2010')) program.category = 'A';
-                    else if (dt > new Date('10/01/2008')) program.category = 'B';
-                    else if (dt > new Date('10/01/2006')) program.category = 'C';
+                    if (dt > new Date('10/01/2011')) program.category = 'A';
+                    else if (dt > new Date('10/01/2009')) program.category = 'B';
+                    else if (dt > new Date('10/01/2007')) program.category = 'C';
                     else program.category = 'D';
                 } else {
                     program.category = 'A';
