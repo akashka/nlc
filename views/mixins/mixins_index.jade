@@ -365,6 +365,6 @@ mixin login_form
         .demo-card-wide.mdl-card.mdl-shadow--2dp.ng-hide(ng-show="phoneOtpVerification", style="padding:45px;background-color:silver;border-radius:10px;background-color: silver;border-radius: 10px;height: 75vh;margin-top:84px;margin-left:75px;width:79%;text-align:center;left: 0;margin-left: 10.5%;overflow-y: auto;")
             h3 {{oTPmessage}}
             .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                input.mdl-textfield__input(type="number", ng-model="otp", ng-minlength="6", ng-maxlength="6", ng-required="true", ng-change="onPwdChange(otp)", style="margin-left: 385px;")
+                input.mdl-textfield__input(type="number", ng-model="otp", ng-minlength="6", ng-maxlength="6", ng-required="true", ng-change="onPwdChange(otp)",)
             a(ng-click='onPhoneChange(student.phone)', style="color: blue;font-size:16px;cursor:pointer;padding:15px;")= 'Resend OTP?' 
             a(ng-click='changePhoneNumber()', style="color: blue;font-size:16px;cursor:pointer;padding:15px;")= 'Try different Number!' 
