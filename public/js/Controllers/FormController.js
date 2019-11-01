@@ -68,6 +68,27 @@ angular.module('StudentApp.FormController', [])
             window.open(fileurl, '_self', '');
         }
 
+        $scope.getModelPaper = function(program) {
+            if (program.programmename == 'Tiny Tots' || program.programmename == 'State Tiny Tots')
+            {
+                var fileToPrint1 = './files/TT_' + program.level + '_1.pdf';
+                var fileToPrint2 = './files/TT_' + program.level + '_2.pdf';
+                window.open(fileToPrint1, 'print1', '');
+                $timeout(function () {
+                    window.open(fileToPrint2, 'print2', '');
+                }, 1000);
+            }
+            else if (program.programmename == 'Mental Arithmetic' || program.programmename == 'State Mental Arithmetic')
+            {
+                var fileToPrint1 = './files/MA_' + program.level + '_1.pdf';
+                var fileToPrint2 = './files/MA_' + program.level + '_2.pdf';
+                window.open(fileToPrint1, 'print1', '');
+                $timeout(function () {
+                    window.open(fileToPrint2, 'print2', '');
+                }, 1000);
+            }
+        }
+
         $scope.calculateFee = function(student) {
             if(student.programmes.length < 2) return 1000;
             if(student.programmes.length == 2) return 1600;

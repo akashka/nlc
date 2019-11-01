@@ -253,6 +253,11 @@ block content
                                             h6#swal2-title.swal2-title(style="color:black;margin:10px 20px;") Wishing your kid all the very best! <br>
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>                                                                                             
                                             <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Receipt</a>
+                                            br
+                                            br
+                                            br
+                                            span(ng-repeat="program in studentStatus.programmes", style="margin:20px;")
+                                                <a ng-click="getModelPaper(program)" target="_blank" style="color:blue;margin:20px;" ng-show="program.programmename != 'Speed Maths' && program.programmename != 'English Smart' && program.programmename != 'State Speed Maths' && program.programmename != 'State English Smart'">Download Model Questions for {{program.programmename}}</a>
 
                                        div(ng-if="studentStatus.status == 'closed'")
                                             h5#swal2-title.swal2-title(style="color:#0080ff;margin:10px 20px;") Dear {{studentStatus.name}} <br><br>
@@ -263,6 +268,11 @@ block content
                                             <a ng-href="{{file}}" target="_blank" style="color:blue;margin:20px;">Download Terms & Conditions</a>
                                             <a ng-href="{{info_guide}}" target="_blank" style="color:blue;margin:20px;">Download Information Guidelines</a>
                                             <a ng-click="downloadReceipt()" style="color:blue;margin:20px;text-decoration:underline;cursor:pointer;">Download Receipt</a>
+                                            br
+                                            br
+                                            br
+                                            span(ng-repeat="program in studentStatus.programmes", style="margin:20px;")
+                                                <a ng-click="getModelPaper(program)" style="color:blue;margin:20px;" ng-show="program.programmename != 'Speed Maths' && program.programmename != 'English Smart' && program.programmename != 'State Speed Maths' && program.programmename != 'State English Smart'">Download Model Questions for {{program.programmename}}</a>
                                             br
                                             br
                                             br
