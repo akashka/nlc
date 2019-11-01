@@ -331,7 +331,7 @@ block content
                             div.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.feedetails(style="margin:-15px; margin-left:5px;")
                                 select.mdc-select__native-control(ng-model='program.programmename', ng-options='x for x in getProgrammeOptions()') 
 
-                            a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="delete_programme(program)", style="background:#d1d1d1;color:#e30e30;border:white;padding:3px;font-size:12px;box-shadow:white;margin-top:-15px;margin-right:25px;", ng-show='isUnit')
+                            a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="delete_programme(program)", style="background:#d1d1d1;color:#e30e30;border:white;padding:3px;font-size:12px;box-shadow:white;margin-top:-15px;margin-right:25px;")
                                 | !{t('DELETE PROGRAMME')}
                             br
                             hr
@@ -459,7 +459,7 @@ block content
                 .mdl-card__actions.mdl-card--border
                     a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="save_student()")
                         | !{t('SAVE')}
-                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="add_programme()", style="margin-right:10%;background:#d1d1d1;color:#3a9788;border:none;padding:3px;font-size:14px;box-shadow:none;", ng-show='isUnit')
+                    a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="add_programme()", style="margin-right:10%;background:#d1d1d1;color:#3a9788;border:none;padding:3px;font-size:14px;box-shadow:none;")
                         | !{t('ADD ANOTHER PROGRAMME')}
                     a#save-btn.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect(ng-click="swap_image()", style="margin-right:-50%;background:#d1d1d1;color:#3a9788;border:none;padding:3px;font-size:14px;box-shadow:none;")
                         | !{t('SWAP IMAGE')}
