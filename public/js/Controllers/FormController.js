@@ -90,11 +90,21 @@ angular.module('StudentApp.FormController', [])
         }
 
         $scope.calculateFee = function(student) {
-            if(student.programmes.length < 2) return 1000;
-            if(student.programmes.length == 2) return 1600;
-            if(student.programmes.length == 3) return 2600;
-            if(student.programmes.length == 4) return 3200;
-            if(student.programmes.length > 4) return 5000;
+            var amount = 0;
+            var programmes = '';
+            for (var i = 0; i < student.programmes.length; i++) {
+                if (i != 0) programmes += ", ";
+                programmes += student.programmes[i].programmename;
+            }
+            var count = (programmes.match(/State/g) || []).length;
+            if (student.programmes.length == 1) amount = 1000;
+            if (student.programmes.length == 2 && count > 0) amount = 1600;
+            if (student.programmes.length == 2 && count <= 0) amount = 1800;
+            if (student.programmes.length == 3 && count > 0) amount = 2600;
+            if (student.programmes.length == 3 && count < 0) amount = 2800;
+            if (student.programmes.length == 4 && count > 0) amount = 3200;
+            if (student.programmes.length == 4 && count <= 0) amount = 3600;
+            return amount;
         }
 
         $scope.downloadFormCopy = function (student) {

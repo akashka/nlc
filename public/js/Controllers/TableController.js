@@ -121,16 +121,22 @@ angular.module('StudentApp.TableController', [])
                 $scope.$parent.total_amount = 0;
 
                 for (var s = 0; s < $scope.$parent.selected.length; s++) {
-                    if ($scope.$parent.selected[s].programmes.length <= 1)
-                        $scope.$parent.total_amount += 1000;
-                    if ($scope.$parent.selected[s].programmes.length == 2)
-                        $scope.$parent.total_amount += 1600;
-                    if ($scope.$parent.selected[s].programmes.length == 3)
-                        $scope.$parent.total_amount += 2600;
-                    if ($scope.$parent.selected[s].programmes.length == 4)
-                        $scope.$parent.total_amount += 3200;
-                    if ($scope.$parent.selected[s].programmes.length > 4)
-                        $scope.$parent.total_amount += ($scope.$parent.selected[s].programmes.length * 1000);
+
+                    var amount = 0;
+                    var programmes = '';
+                    for (var i = 0; i < $scope.$parent.selected[s].programmes.length; i++) {
+                        if (i != 0) programmes += ", ";
+                        programmes += $scope.$parent.selected[s].programmes[i].programmename;
+                    }
+                    var count = (programmes.match(/State/g) || []).length;
+                    if ($scope.$parent.selected[s].programmes.length == 1) amount = 1000;
+                    if ($scope.$parent.selected[s].programmes.length == 2 && count > 0) amount = 1600;
+                    if ($scope.$parent.selected[s].programmes.length == 2 && count <= 0) amount = 1800;
+                    if ($scope.$parent.selected[s].programmes.length == 3 && count > 0) amount = 2600;
+                    if ($scope.$parent.selected[s].programmes.length == 3 && count < 0) amount = 2800;
+                    if ($scope.$parent.selected[s].programmes.length == 4 && count > 0) amount = 3200;
+                    if ($scope.$parent.selected[s].programmes.length == 4 && count <= 0) amount = 3600;
+                    $scope.$parent.total_amount += amount;                    
                 }
             }
 

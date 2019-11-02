@@ -216,10 +216,15 @@ function downloadReceipt(username, callbacks) {
                 if (i != 0) programmes += ", ";
                 programmes += student.programmes[i].programmename;
             }
+            var count = (programmes.match(/State/g) || []).length;
+
             if (student.programmes.length == 1) amount = 1000;
-            if (student.programmes.length == 2) amount = 1600;
-            if (student.programmes.length == 3) amount = 2600;
-            if (student.programmes.length == 4) amount = 3200;
+            if (student.programmes.length == 2 && count > 0) amount = 1600;
+            if (student.programmes.length == 2 && count <= 0) amount = 1800;
+            if (student.programmes.length == 3 && count > 0) amount = 2600;
+            if (student.programmes.length == 3 && count < 0) amount = 2800;
+            if (student.programmes.length == 4 && count > 0) amount = 3200;
+            if (student.programmes.length == 4 && count <= 0) amount = 3600;
 
             var stringTemplate = fs.readFileSync(path.join(__dirname, '../../helpers') + '/receipt.html', "utf8");
             stringTemplate = stringTemplate.replace('{{stateName}}', ((student.sstatename != undefined) ? student.sstatename : ""));
