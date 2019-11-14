@@ -16,7 +16,7 @@ angular.module('StudentApp.CardController', [])
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
         $scope.ttlevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
         $scope.malevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
-        $scope.eslevels = ["1", "2", "3", "4", "5"];
+        $scope.eslevels = ["pre", "1", "2", "3", "4", "5"];
         $scope.smlevels = ["1", "2", "3", "4", "5", "6"];
         $scope.hwlevels = ["1", "2", "3", "4"];
 

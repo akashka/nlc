@@ -190,7 +190,7 @@ angular.module('StudentApp.LoginController', [])
         $scope.tshirtsizeoptions = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
         $scope.ttlevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
         $scope.malevels = ["pre", "1", "2", "3", "4", "5", "6", "7", "8"];
-        $scope.eslevels = ["1", "2", "3", "4", "5"];
+        $scope.eslevels = ["pre", "1", "2", "3", "4", "5"];
         $scope.smlevels = ["1", "2", "3", "4", "5", "6"];
 
         $scope.dayOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
