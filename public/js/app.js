@@ -27,6 +27,7 @@ var app = angular.module('StudentApp', [
         } else {
             $scope.isValidBrowser = false;
         }
+        $scope.displayAlert = true;
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
         $scope.isValidResolution = (windowWidth < 1024 || windowHeight < 600) ? false : true;

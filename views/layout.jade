@@ -70,15 +70,17 @@ html
 
         h1(style="display:none;")
 
-        div.navbar-inverse(ng-if="!(isValidBrowser && isValidResolution)")
+        div.navbar-inverse(ng-show="displayAlert")
             div#notification-banner.secondary
                 div#notification-container
-                    button.tog#notification-close-btn(type="button",ng-click="toggleNotification()")
+                    button.tog#notification-close-btn(type="button",ng-click="displayAlert=!displayAlert; toggleNotification();",style="z-index:9999999;cursor:pointer;")
                         i.fa.fa-times.large_icon(aria-hidden="true")
-            span.cta(ng-if="!isValidBrowser")
-                | You are using an unsupported browser. Please use the latest version of Google Chrome. 
-            span.cta(ng-if="!isValidResolution")
-                | You are using an unsupported resolution. Please resize to 1024 x 640 or higher.
+            //- span.cta(ng-if="!isValidBrowser")
+            //-     | You are using an unsupported browser. Please use the latest version of Google Chrome. 
+            //- span.cta(ng-if="!isValidResolution")
+            //-     | You are using an unsupported resolution. Please resize to 1024 x 640 or higher.
+            span.cta
+                | Registrations are now open. Last date to Register is <b>30th Nov. 2019</b>. Click on Register to start. 
 
         //- div.navbar-inverse(style="background-color:red;")
         //-     div#notification-banner.secondary
@@ -105,16 +107,16 @@ html
         script(src='js/Controllers/FormController.js')
         script(src='js/Controllers/upload.js')
 
-        script(type="text/javascript")
-            | var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-            | (function(){
-            | var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            | s1.async=true;
-            | s1.src='https://embed.tawk.to/5bb18aea8a438d2b0cdfe016/default';
-            | s1.charset='UTF-8';
-            | s1.setAttribute('crossorigin','*');
-            | s0.parentNode.insertBefore(s1,s0);
-            | })();
+        //- script(type="text/javascript")
+        //-     | var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        //-     | (function(){
+        //-     | var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        //-     | s1.async=true;
+        //-     | s1.src='https://embed.tawk.to/5bb18aea8a438d2b0cdfe016/default';
+        //-     | s1.charset='UTF-8';
+        //-     | s1.setAttribute('crossorigin','*');
+        //-     | s0.parentNode.insertBefore(s1,s0);
+        //-     | })();
 
         //- script
         //-     | (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
