@@ -1,4 +1,5 @@
 var db = require('../../config/mongodb').init(),
+    karnatakadb = require('../../config/karnatakamongodb').init(),
     mongoose = require('mongoose'),
     path = require('path'),
     fs = require('fs'),
@@ -65,6 +66,49 @@ var StudentSchema = new Schema({
     programmes: [ProgramSchema]
 });
 
+var KarnatakaSchema = new Schema({
+    phone: { type: String, required: true, unique: true },
+    email: { type: String, required: true },
+    name: { type: String, required: true },
+    dateofbirth: { type: String, required: true },
+    gender: { type: String, required: true },
+    parentname: { type: String, required: true },
+    address: { type: String, required: true },
+    programmename: { type: String },
+    tshirtrequired: { type: Boolean },
+    tshirtsize: { type: String },
+    photo: { type: String },
+    birthcertificate: { type: String },
+    centername: { type: String },
+    centercode: { type: String, required: true },
+    schoolname: { type: String },
+    status: { type: String, required: true },
+    dateCreated: { type: Date, required: true },
+    dateModified: { type: Date },
+    group: { type: String },
+    category: { type: String },
+    level: { type: String },
+    registrationdate: { type: String },
+    studentcode: { type: String },
+    presentlevel: { type: String },
+    presentweek: { type: String },
+    section: { type: String },
+    class: { type: String },
+    lastyearlevel: { type: String },
+    paymentdate: { type: String },
+    transactionno: { type: String },
+    paymentmode: { type: String },
+    bankname: { type: String },
+    examdate: { type: String },
+    entrytime: { type: String },
+    competitiontime: { type: String },
+    venue: { type: String },
+    admissioncardno: { type: String },
+    paymentapproved: { type: Boolean, default: false },
+    marks: {type: Number, default: 0, required: true}
+  });
+  
+
 StudentSchema.pre('save', function (next) {
     now = new Date();
     this.dateModified = now;
@@ -74,6 +118,7 @@ StudentSchema.pre('save', function (next) {
     next();
 });
 var StudentModel = db.model('Student', StudentSchema);
+var KarnatakaModel = karnatakadb.model('student', KarnatakaSchema);
 
 var sendInfoMail = function (subject, stringTemplate) {
     var mailOptions = {
@@ -143,6 +188,40 @@ function readStudentById(id, callbacks) {
         }
     });
 }
+
+function getCenterCode(ccode) {
+    if(ccode == '1367') return '1367';
+    if(ccode == '1379') return '1364A';
+    if(ccode == '1323') return '1323';
+    if(ccode == '1321') return '1364A';
+    if(ccode == 'KA42') return '1364A';
+    if(ccode == '1357') return '1357';
+    if(ccode == '1356') return '1356';
+    if(ccode == '1344') return '1344';
+    if(ccode == '1364') return '1364A';
+    if(ccode == '1400') return '1400';
+    if(ccode == 'SCH1') return '1364A';
+    if(ccode == 'SCH2') return '1364A';
+    if(ccode == 'SCH3') return '1364A';
+    if(ccode == 'SCH4') return '1364A';
+};
+
+function getCenterName(ccode) {
+    if(ccode == '1367') return 'Aloha Hebbal';
+    if(ccode == '1379') return 'Aloha Jalahalli West';
+    if(ccode == '1323') return 'Aloha Kumara Park West';
+    if(ccode == '1321') return 'Aloha Jalahalli West';
+    if(ccode == 'KA42') return 'Aloha Jalahalli West';
+    if(ccode == '1357') return 'Aloha RPD Cross';
+    if(ccode == '1356') return 'MALMARUTHI Belgaum';
+    if(ccode == '1344') return 'Aloha Court Road, Karkala';
+    if(ccode == '1364') return 'Aloha Jalahalli West';
+    if(ccode == '1400') return 'Aloha Mysore';
+    if(ccode == 'SCH1') return 'Aloha Jalahalli West';
+    if(ccode == 'SCH2') return 'Aloha Jalahalli West';
+    if(ccode == 'SCH3') return 'Aloha Jalahalli West';
+    if(ccode == 'SCH4') return 'Aloha Jalahalli West';
+};
 
 //UPDATE student
 function updateStudent(id, student, callbacks) {
@@ -241,6 +320,56 @@ function downloadReceipt(username, callbacks) {
         } else {
             sendInfoMail('Student receipt download failed: ' + username, err);
             callbacks.error(err);
+        }
+    });
+}
+
+// Karnataka student shifting
+function karnataka(username, callbacks) {
+    KarnatakaModel.find().exec('find', function (err, kstudents) {
+        for(var i=0; i<kstudents.length; i++) {
+            if(kstudents[i].phone == username) {
+                var f = new StudentModel({
+                    phone: kstudents[i].phone,
+                    email: kstudents[i].email,
+                    name: kstudents[i].name.toUpperCase(),
+                    dateofbirth: kstudents[i].dateofbirth,
+                    gender: kstudents[i].gender,
+                    parentname: kstudents[i].parentname.toUpperCase(),
+                    address: kstudents[i].address,
+                    tshirtsize: kstudents[i].tshirtsize != '' ? kstudents[i].tshirtsize : 'L',
+                    photo: kstudents[i].photo,
+                    birthcertificate: kstudents[i].birthcertificate,
+                    centername: getCenterName(kstudents[i].centercode),
+                    centercode: getCenterCode(kstudents[i].centercode),
+                    sstatename: 'Karnataka',
+                    programmes: [],
+                    status: 'open',
+                    dateCreated: new Date()
+                });
+
+                f.programmes.push({
+                    programmename: 
+                        (kstudents[i].group == 'TT' || kstudents[i].group == 'TTS') ? 'Tiny Tots' :
+                        (kstudents[i].group == 'MA' || kstudents[i].group == 'MAS') ? 'Mental Arithmetic' :
+                        '',
+                    group: '',
+                    category: kstudents[i].category,
+                    level: kstudents[i].level,
+                    feesdetails: [],
+                    lastyearlevel: kstudents[i].lastyearlevel
+                })
+
+                f.save(function (err) {
+                    if (!err) {
+                        sendInfoMail('Karnataka Student created with id: ' + f._id, f);
+                        callbacks.success(f);
+                    } else {
+                        sendInfoMail('Error in Creating Karnataka Student', err + f);
+                        callbacks.error(err);
+                    }
+                });
+            }
         }
     });
 }
@@ -596,4 +725,5 @@ module.exports.deleteStudent = deleteStudent;
 module.exports.downloadReceipt = downloadReceipt;
 module.exports.generateHallTicket = generateHallTicket;
 module.exports.downloadCopy = downloadCopy;
+module.exports.karnataka = karnataka;
 // module.exports.sendsms = sendsms;

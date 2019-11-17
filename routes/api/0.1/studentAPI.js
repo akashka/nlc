@@ -204,6 +204,22 @@ router.delete('/:id', function (req, res) {
     });
 });
 
+// Karnataka Students move by script
+router.get('/karnataka/:username', function (req, res) {
+    console.log('KARNATAKA');
+    var d = domain.create();
+    d.run(function () {
+        studentDAO.karnataka(req.params.username, {
+            success: function (f) {
+                res.status(200).send({ msg: 'Karnataka Student shifted succesfully: ' + req.params.username, data: f });
+            },
+            error: function (err) {
+                res.status(500).send(err);
+            }
+        });
+    });
+});
+
 // Download Fee Receipt
 router.get('/download/:username', function (req, res) {
     var d = domain.create();
