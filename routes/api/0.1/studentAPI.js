@@ -266,7 +266,7 @@ router.get('/generateHallTicket/:username/:program', function (req, res) {
                     res.status(403).send(err);
                 }
             });
-    });
+    });   
 })
 
 // Generate Copy

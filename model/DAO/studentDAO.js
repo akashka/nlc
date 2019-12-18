@@ -189,6 +189,18 @@ function readStudentById(id, callbacks) {
     });
 }
 
+//READ student by Phone
+function readStudentByPhone(id, callbacks) {
+    return StudentModel.find({ phone: id }, function (err, student) {
+        if (!err) {
+            callbacks.success(student);
+        } else {
+            sendInfoMail('Student read with id failed: ' + id, err);
+            callbacks.error(err);
+        }
+    });
+}
+
 function getCenterCode(ccode) {
     if(ccode == '1367') return '1367';
     if(ccode == '1379') return '1364A';
@@ -381,7 +393,7 @@ function generateHallTicket(username, callbacks) {
         if (!err) {
             student = student[0];
             for (var p = 0; p < student.programmes.length; p++) {
-                if (student.programmes[p]._id == username.program) {
+                if (student.programmes[p]._id == username.program.toString()) {
                     var program = student.programmes[p];
                     var text = "Student Name: " + student.name + "\n \n";
                     text += "Roll No: " + student.programmes[p].admissioncardno + "\n \n";
@@ -515,51 +527,36 @@ function downloadCopy(username, callbacks) {
 //     });
 // }
 
-// function readCsv(username, callbacks) {
+// function readCsv() {
 //     StudentModel.find().exec('find', function (err, students) {
 //         var students = students;
-//         var counter = 0;
-//         for(var s = 0; s < students.length; s++) {
-//             for(var p = 0; p < students[s].programmes.length; p++) {
-//                 if(students[s].programmes[p].admissioncardno == "") {
-//                     counter ++;
-//                     console.log(students[s].phone + "   " + students[s].programmes[p].programmename);
+//         var CsvReadableStream = require('csv-reader');
+//         var inputStream = fs.createReadStream(path.join(__dirname, '../../helpers') + '/batch3.csv', 'utf8');
+//         inputStream
+//             .pipe(CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+//             .on('data', function (row) {
+//                 console.log('A row arrived: ', row);
+//                 for(var i = 0; i < students.length; i++) {
+//                     if(row[0] == students[i].phone) {
+//                         for(var p = 0; p < students[i].programmes.length; p++) {
+//                             if(students[i].programmes[p].programmename == row[2]) {
+//                                 students[i].programmes[p].examdate = '28th Dec. 2019';
+//                                 students[i].programmes[p].entrytime = '11:30 AM';
+//                                 students[i].programmes[p].competitiontime = '12:00 Noon';
+//                                 students[i].programmes[p].venue = 'Kalaignar Arangam, Anna Salai, Teynampet, Chennai – 600 018';
+//                                 students[i].programmes[p].admissioncardno = row[14];
+//                                 students[i].save(function (err) { console.log("saved"); });
+//                             }
+//                         }
+//                     }
 //                 }
-//             }
-//         }
-//         console.log(counter);
-
-//         // var CsvReadableStream = require('csv-reader');
-//         // var inputStream = fs.createReadStream(path.join(__dirname, '../../helpers') + '/admit2.csv', 'utf8');
-//         // inputStream
-//         //     .pipe(CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
-//         //     .on('data', function (row) {
-//         //         console.log('A row arrived: ', row);
-//         //         for(var i = 0; i < students.length; i++) {
-//         //             if(row[0] == students[i].phone) {
-//         //                 for(var p = 0; p < students[i].programmes.length; p++) {
-//         //                     var pro = "";
-//         //                     if(row[2] == 'TT') pro = 'Tiny Tots';
-//         //                     if(row[2] == 'STT') pro = 'State Tiny Tots';
-//         //                     if(row[2] == 'SMA') pro = 'State Mental Arithmetic';
-//         //                     if(row[2] == 'MA') pro = 'Mental Arithmetic';
-//         //                     if(row[2] == 'ES') pro = 'English Smart';
-//         //                     if(row[2] == 'SM') pro = 'Speed Maths';
-//         //                     if(students[i].programmes[p].programmename == pro) {
-//         //                         students[i].programmes[p].admissioncardno = row[3];
-//         //                         students[i].programmes[p].entrytime = "10:45 AM";
-//         //                         students[i].save(function (err) { console.log("saved"); });
-//         //                     }
-//         //                 }
-//         //             }
-//         //         }
-//         //     })
-//         //     .on('end', function (data) {
-//         //         console.log('No more rows!');
-//         //     });
+//             })
+//             .on('end', function (data) {
+//                 console.log('No more rows!');
+//             });
 //     });
 // }
-// module.exports.readCsv = readCsv;
+// readCsv();
 
 // var consolidateStudents = function(stu) {
 //     var temp_stu = [];
@@ -720,6 +717,7 @@ function downloadCopy(username, callbacks) {
 module.exports.createStudent = createStudent;
 module.exports.readStudents = readStudents;
 module.exports.readStudentById = readStudentById;
+module.exports.readStudentByPhone = readStudentByPhone;
 module.exports.updateStudent = updateStudent;
 module.exports.deleteStudent = deleteStudent;
 module.exports.downloadReceipt = downloadReceipt;
